@@ -117,17 +117,17 @@ const HeroSection = () => {
         </motion.div>
       </div>
 
-      {/* Bottom Info Bar - All info combined */}
+      {/* Bottom Info Bar - Berry Nutrients */}
       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/40 to-transparent py-2.5">
         <div className="container mx-auto px-3">
           <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-white/90 text-[10px] sm:text-xs">
-            <span className="font-semibold">25+ Years</span>
+            <span className="font-semibold">🍓 Vitamin C Rich</span>
             <span className="text-white/40">•</span>
-            <span className="font-semibold">4 Berry Types</span>
+            <span className="font-semibold">💪 High Antioxidants</span>
             <span className="text-white/40">•</span>
-            <span>📍 Behind Mapro Garden</span>
+            <span>🫀 Heart Healthy</span>
             <span className="text-white/40">•</span>
-            <span>📞 +91 93562 57779</span>
+            <span>🌿 100% Natural</span>
           </div>
         </div>
       </div>

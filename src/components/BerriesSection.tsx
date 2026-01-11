@@ -1,7 +1,9 @@
 import strawberryImg from '@/assets/strawberry-closeup.jpeg';
-import growingImg from '@/assets/growing-strawberry.jpeg';
-import harvestImg from '@/assets/fresh-harvest.jpeg';
-import singleImg from '@/assets/single-strawberry.jpeg';
+
+// Real berry images from Unsplash
+const MULBERRY_IMG = 'https://images.unsplash.com/photo-1568702846914-96b305d2uj8w?w=600&q=80';
+const RASPBERRY_IMG = 'https://images.unsplash.com/photo-1577069861033-55d04cec4ef5?w=600&q=80';
+const GOLDEN_BERRY_IMG = 'https://images.unsplash.com/photo-1596591868231-05e908752cc7?w=600&q=80';
 
 const berries = [
   {
@@ -13,19 +15,19 @@ const berries = [
   {
     name: 'Mulberry',
     tagline: 'The Wild Dark Pearl',
-    image: growingImg,
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Morus_nigra_fruit.jpg/1280px-Morus_nigra_fruit.jpg',
     color: 'from-purple-500 to-purple-800',
   },
   {
     name: 'Raspberry',
     tagline: 'Exotic Tartness',
-    image: harvestImg,
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Raspberries_%28Rubus_idaeus%29.jpg/1280px-Raspberries_%28Rubus_idaeus%29.jpg',
     color: 'from-pink-400 to-pink-600',
   },
   {
     name: 'Golden Berry',
     tagline: 'Nature\'s Wrapped Candy',
-    image: singleImg,
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Physalis_peruviana_-_berries.jpg/1280px-Physalis_peruviana_-_berries.jpg',
     color: 'from-yellow-400 to-orange-500',
   },
 ];

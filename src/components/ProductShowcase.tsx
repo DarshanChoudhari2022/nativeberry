@@ -1,7 +1,4 @@
 import strawberryImg from '@/assets/strawberry-closeup.jpeg';
-import growingImg from '@/assets/growing-strawberry.jpeg';
-import harvestImg from '@/assets/fresh-harvest.jpeg';
-import singleImg from '@/assets/single-strawberry.jpeg';
 
 const products = [
   {
@@ -16,7 +13,7 @@ const products = [
     name: 'Mulberry',
     tagline: 'The Wild Dark Pearl',
     description: 'Deep purple, intensely sweet with earthy undertones.',
-    image: growingImg,
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Morus_nigra_fruit.jpg/1280px-Morus_nigra_fruit.jpg',
     color: 'bg-mulberry',
     shadowColor: 'shadow-[0_20px_50px_-15px_rgba(139,92,246,0.4)]',
   },
@@ -24,7 +21,7 @@ const products = [
     name: 'Raspberry',
     tagline: 'Exotic Tartness',
     description: 'Perfect balance of sweet and tart.',
-    image: harvestImg,
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Raspberries_%28Rubus_idaeus%29.jpg/1280px-Raspberries_%28Rubus_idaeus%29.jpg',
     color: 'bg-secondary',
     shadowColor: 'shadow-[0_20px_50px_-15px_rgba(244,114,182,0.4)]',
   },
@@ -32,7 +29,7 @@ const products = [
     name: 'Golden Berry',
     tagline: 'Cape Gooseberry',
     description: "Nature's Wrapped Candy with citrus twist.",
-    image: singleImg,
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Physalis_peruviana_-_berries.jpg/1280px-Physalis_peruviana_-_berries.jpg',
     color: 'bg-golden',
     shadowColor: 'shadow-[0_20px_50px_-15px_rgba(251,191,36,0.4)]',
   },
