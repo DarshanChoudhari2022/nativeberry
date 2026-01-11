@@ -91,7 +91,7 @@ const AboutSection = () => {
         </div>
 
         {/* Timeline Section */}
-        <div className="mt-16">
+        <div className="mt-16 relative"> {/* Added relative for containment if needed */}
           <div className="text-center mb-16">
             <p className="text-red-deep font-semibold text-sm tracking-widest uppercase mb-4">
               Our Journey
@@ -101,26 +101,29 @@ const AboutSection = () => {
             </h3>
           </div>
 
-          {/* Timeline */}
+          {/* Timeline Container */}
           <div className="relative max-w-4xl mx-auto">
-            {/* Vertical Line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-green-500 via-red-deep to-golden rounded-full"></div>
+            {/* Vertical Line - Left on mobile, Center on Desktop */}
+            <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 w-1 h-full bg-gradient-to-b from-green-500 via-red-deep to-golden rounded-full"></div>
 
             {timelineData.map((item, index) => (
               <motion.div
                 key={item.year}
-                className={`relative flex items-center mb-16 last:mb-0 ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
+                className={`relative flex items-center mb-16 last:mb-0 md:justify-between ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                  }`}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 viewport={{ once: true }}
               >
-                {/* Content Card */}
-                <div className={`w-5/12 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
-                  <motion.div 
-                    className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100 hover:shadow-2xl transition-shadow duration-300"
+                {/* Content Card - Full width with padding on mobile, 5/12 on desktop */}
+                <div className={`w-full pl-20 md:pl-0 md:w-5/12 ${index % 2 === 0 ? 'md:pr-8 md:text-right' : 'md:pl-8 md:text-left'
+                  }`}>
+                  <motion.div
+                    className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100 hover:shadow-2xl transition-shadow duration-300 relative"
                     whileHover={{ scale: 1.02 }}
                   >
+                    {/* Mobile connector arrow (optional, can be CSS'd but simple card is fine) */}
                     <span className={`inline-block px-4 py-1 rounded-full text-white text-sm font-bold mb-3 ${item.color}`}>
                       {item.year}
                     </span>
@@ -129,9 +132,9 @@ const AboutSection = () => {
                   </motion.div>
                 </div>
 
-                {/* Center Icon */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 z-10">
-                  <motion.div 
+                {/* Center/Left Icon */}
+                <div className="absolute left-8 md:left-1/2 transform -translate-x-1/2 z-10">
+                  <motion.div
                     className={`w-14 h-14 rounded-full ${item.color} flex items-center justify-center shadow-lg border-4 border-white`}
                     whileHover={{ scale: 1.2, rotate: 360 }}
                     transition={{ duration: 0.5 }}
@@ -140,8 +143,8 @@ const AboutSection = () => {
                   </motion.div>
                 </div>
 
-                {/* Empty space for alternating layout */}
-                <div className="w-5/12"></div>
+                {/* Empty space for alternating layout on desktop - hidden on mobile */}
+                <div className="hidden md:block md:w-5/12"></div>
               </motion.div>
             ))}
           </div>
