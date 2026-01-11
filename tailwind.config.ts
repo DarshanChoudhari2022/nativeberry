@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        serif: ["'Playfair Display'", "Georgia", "serif"],
-        sans: ["'Source Sans 3'", "system-ui", "sans-serif"],
+        display: ["'Fredoka'", "'Nunito'", "system-ui", "sans-serif"],
+        sans: ["'Nunito'", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -51,19 +51,16 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Custom Native Berry Farms colors
-        cream: "hsl(var(--cream))",
-        strawberry: {
-          DEFAULT: "hsl(var(--strawberry-red))",
-          dark: "hsl(var(--strawberry-dark))",
-        },
-        gold: {
-          DEFAULT: "hsl(var(--legacy-gold))",
-          dark: "hsl(var(--legacy-gold-dark))",
-        },
-        earth: "hsl(var(--earth-brown))",
+        // Custom playful colors
+        peach: "hsl(var(--peach))",
+        strawberry: "hsl(var(--strawberry))",
+        "pink-soft": "hsl(var(--pink-soft))",
+        "pink-light": "hsl(var(--pink-light))",
         leaf: "hsl(var(--leaf-green))",
-        soil: "hsl(var(--soil-dark))",
+        sunny: "hsl(var(--sunny-yellow))",
+        blueberry: "hsl(var(--blueberry))",
+        mulberry: "hsl(var(--mulberry))",
+        golden: "hsl(var(--golden))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -81,6 +78,7 @@ export default {
         sm: "calc(var(--radius) - 4px)",
         "2xl": "1rem",
         "3xl": "1.5rem",
+        "4xl": "2rem",
       },
       keyframes: {
         "accordion-down": {
@@ -91,40 +89,25 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "fade-in": {
-          "0%": { opacity: "0", transform: "translateY(20px)" },
+        "fade-in-up": {
+          "0%": { opacity: "0", transform: "translateY(30px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
-        "fade-in-left": {
-          "0%": { opacity: "0", transform: "translateX(-30px)" },
-          "100%": { opacity: "1", transform: "translateX(0)" },
-        },
-        "fade-in-right": {
-          "0%": { opacity: "0", transform: "translateX(30px)" },
-          "100%": { opacity: "1", transform: "translateX(0)" },
-        },
-        "scale-in": {
-          "0%": { opacity: "0", transform: "scale(0.9)" },
-          "100%": { opacity: "1", transform: "scale(1)" },
-        },
-        "float": {
+        "bounce-gentle": {
           "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-10px)" },
+          "50%": { transform: "translateY(-8px)" },
         },
-        "pulse-glow": {
-          "0%, 100%": { boxShadow: "0 0 20px -5px hsl(355 74% 45% / 0.3)" },
-          "50%": { boxShadow: "0 0 40px -5px hsl(355 74% 45% / 0.5)" },
+        "wiggle": {
+          "0%, 100%": { transform: "rotate(-3deg)" },
+          "50%": { transform: "rotate(3deg)" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "fade-in": "fade-in 0.6s ease-out forwards",
-        "fade-in-left": "fade-in-left 0.6s ease-out forwards",
-        "fade-in-right": "fade-in-right 0.6s ease-out forwards",
-        "scale-in": "scale-in 0.5s ease-out forwards",
-        "float": "float 3s ease-in-out infinite",
-        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
+        "fade-in-up": "fade-in-up 0.6s ease-out forwards",
+        "bounce-gentle": "bounce-gentle 2s ease-in-out infinite",
+        "wiggle": "wiggle 1s ease-in-out infinite",
       },
     },
   },
