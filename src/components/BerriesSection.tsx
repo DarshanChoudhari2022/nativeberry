@@ -1,9 +1,9 @@
 import strawberryImg from '@/assets/strawberry-closeup.jpeg';
 
 // Real berry images from Unsplash
-const MULBERRY_IMG = 'https://images.unsplash.com/photo-1568702846914-96b305d2uj8w?w=600&q=80';
-const RASPBERRY_IMG = 'https://images.unsplash.com/photo-1577069861033-55d04cec4ef5?w=600&q=80';
-const GOLDEN_BERRY_IMG = 'https://images.unsplash.com/photo-1596591868231-05e908752cc7?w=600&q=80';
+const MULBERRY_IMG = 'https://images.unsplash.com/photo-1621961048738-a29e2c45161c?w=800&q=80';
+const RASPBERRY_IMG = 'https://images.unsplash.com/photo-1577069861033-55d04cec4ef5?w=800&q=80';
+const GOLDEN_BERRY_IMG = 'https://images.unsplash.com/photo-1596591868231-05e908752cc7?w=800&q=80';
 
 const berries = [
   {
@@ -15,19 +15,19 @@ const berries = [
   {
     name: 'Mulberry',
     tagline: 'The Wild Dark Pearl',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Morus_nigra_fruit.jpg/1280px-Morus_nigra_fruit.jpg',
+    image: MULBERRY_IMG,
     color: 'from-purple-500 to-purple-800',
   },
   {
     name: 'Raspberry',
     tagline: 'Exotic Tartness',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Raspberries_%28Rubus_idaeus%29.jpg/1280px-Raspberries_%28Rubus_idaeus%29.jpg',
+    image: RASPBERRY_IMG,
     color: 'from-pink-400 to-pink-600',
   },
   {
     name: 'Golden Berry',
     tagline: 'Nature\'s Wrapped Candy',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Physalis_peruviana_-_berries.jpg/1280px-Physalis_peruviana_-_berries.jpg',
+    image: GOLDEN_BERRY_IMG,
     color: 'from-yellow-400 to-orange-500',
   },
 ];
@@ -49,12 +49,12 @@ const BerriesSection = () => {
           </p>
         </div>
 
-        {/* Berry Cards Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Berry Cards Grid/Carousel */}
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6 -mx-6 px-6 md:grid md:grid-cols-2 lg:grid-cols-4 md:overflow-visible md:pb-0 md:mx-0 md:px-0 scrollbar-hide">
           {berries.map((berry, index) => (
             <div
               key={berry.name}
-              className="group relative bg-white/10 backdrop-blur-sm rounded-3xl overflow-hidden hover:-translate-y-2 transition-all duration-500 cursor-pointer"
+              className="min-w-[85vw] md:min-w-0 snap-center group relative bg-white/10 backdrop-blur-sm rounded-3xl overflow-hidden hover:-translate-y-2 transition-all duration-500 cursor-pointer border border-white/10"
             >
               {/* Image */}
               <div className="relative h-64 overflow-hidden">

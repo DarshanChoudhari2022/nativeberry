@@ -8,8 +8,8 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-6">
       <div className="flex items-center justify-between">
         {/* Back Button */}
-        <a 
-          href="#" 
+        <a
+          href="#"
           className="flex items-center gap-2 text-white hover:opacity-80 transition-opacity"
         >
           <ChevronLeft className="w-5 h-5" />
@@ -37,14 +37,21 @@ const Navbar = () => {
       {isMobileMenuOpen && (
         <div className="fixed inset-0 bg-red-dark/95 z-40 flex items-center justify-center">
           <div className="flex flex-col items-center gap-8 text-white">
-            {['Home', 'About Us', 'Our Berries', 'Wholesale', 'Contact'].map((item) => (
+            {/* Navigation Items */}
+            {[
+              { label: 'Home', href: '#home' },
+              { label: 'About Us', href: '#about' },
+              { label: 'Our Berries', href: '#berries' },
+              { label: 'Wholesale', href: '#wholesale' },
+              { label: 'Contact', href: '#contact' },
+            ].map((item) => (
               <a
-                key={item}
-                href={`#${item.toLowerCase().replace(' ', '-')}`}
+                key={item.label}
+                href={item.href}
                 className="text-3xl font-light hover:opacity-70 transition-opacity"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                {item}
+                {item.label}
               </a>
             ))}
           </div>

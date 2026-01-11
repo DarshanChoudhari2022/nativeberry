@@ -8,7 +8,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="min-h-screen section-red relative overflow-hidden bg-pattern-strawberry">
+    <section id="home" className="min-h-screen section-red relative overflow-hidden bg-pattern-strawberry">
       {/* Decorative strawberry outlines in background */}
       <div className="absolute inset-0 opacity-5">
         <svg className="absolute top-20 right-20 w-64 h-64" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.5">
@@ -120,7 +120,7 @@ const HeroSection = () => {
       {/* Bottom Info Bar - Berry Nutrients */}
       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/40 to-transparent py-2.5">
         <div className="container mx-auto px-3">
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-white/90 text-[10px] sm:text-xs">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-white/90 text-sm sm:text-base md:text-lg">
             <span className="font-semibold">🍓 Vitamin C Rich</span>
             <span className="text-white/40">•</span>
             <span className="font-semibold">💪 High Antioxidants</span>
