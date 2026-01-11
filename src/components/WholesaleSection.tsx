@@ -59,8 +59,8 @@ const WholesaleSection = () => {
               ))}
             </div>
 
-            <a 
-              href="https://wa.me/919356257779?text=Hi!%20I%20am%20interested%20in%20B2B%20partnership"
+            <a
+              href="https://wa.me/918605589062?text=Hi!%20I%20am%20interested%20in%20B2B%20partnership"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-pill btn-red inline-flex items-center gap-2 mt-8"
@@ -77,11 +77,6 @@ const WholesaleSection = () => {
               alt="Fresh strawberries for wholesale"
               className="w-full rounded-3xl shadow-2xl"
             />
-            {/* Stats card */}
-            <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl p-6">
-              <p className="text-4xl font-bold text-red-deep">500kg+</p>
-              <p className="text-muted-foreground text-sm">Daily Capacity</p>
-            </div>
           </div>
         </div>
       </div>

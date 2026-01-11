@@ -5,8 +5,8 @@ const contacts = [
     icon: MessageCircle,
     title: 'WhatsApp Order',
     subtitle: 'Place your order via chat',
-    phone: '+91 9356257779',
-    link: 'https://wa.me/919356257779?text=Hi!%20I%20want%20to%20order%20fresh%20berries',
+    phone: '+91 8605589062',
+    link: 'https://wa.me/918605589062?text=Hi!%20I%20want%20to%20order%20fresh%20berries',
   },
   {
     icon: Phone,

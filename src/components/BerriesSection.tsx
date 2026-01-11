@@ -83,7 +83,7 @@ const BerriesSection = () => {
         {/* CTA */}
         <div className="text-center mt-12">
           <a
-            href="https://wa.me/919356257779?text=Hi!%20I%20want%20to%20order%20fresh%20berries"
+            href="https://wa.me/918605589062?text=Hi!%20I%20want%20to%20order%20fresh%20berries"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-pill btn-white inline-flex items-center gap-2"

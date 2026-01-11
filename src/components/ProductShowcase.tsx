@@ -97,7 +97,7 @@ const ProductShowcase = () => {
         {/* CTA */}
         <div className="text-center mt-12">
           <a
-            href="https://wa.me/919356257779?text=Hi!%20I%20want%20to%20know%20about%20berries%20available"
+            href="https://wa.me/918605589062?text=Hi!%20I%20want%20to%20know%20about%20berries%20available"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-berry inline-flex items-center gap-2"
