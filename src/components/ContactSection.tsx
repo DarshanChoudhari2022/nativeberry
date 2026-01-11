@@ -1,84 +1,74 @@
 import { MessageCircle, Phone, HelpCircle, MapPin } from 'lucide-react';
 
-const contactCards = [
+const contacts = [
   {
-    emoji: '💬',
+    icon: MessageCircle,
     title: 'WhatsApp Order',
     subtitle: 'Place your order via chat',
     phone: '+91 9356257779',
     link: 'https://wa.me/919356257779?text=Hi!%20I%20want%20to%20order%20fresh%20berries',
-    color: 'bg-accent/10',
-    iconColor: 'text-accent',
   },
   {
-    emoji: '📞',
+    icon: Phone,
     title: 'Talk to Farmer',
     subtitle: 'Direct line to the farm',
     phone: '+91 9284639747',
     link: 'tel:+919284639747',
-    color: 'bg-primary/10',
-    iconColor: 'text-primary',
   },
   {
-    emoji: '❓',
+    icon: HelpCircle,
     title: 'Order Support',
     subtitle: 'Any doubts? We help!',
     phone: '+91 9623214755',
     link: 'tel:+919623214755',
-    color: 'bg-secondary/20',
-    iconColor: 'text-secondary',
   },
 ];
 
 const ContactSection = () => {
   return (
-    <section id="contact" className="section-spacing bg-muted/30 relative overflow-hidden">
-      {/* Decorative */}
-      <div className="absolute top-20 right-10 text-6xl opacity-20">🍓</div>
-      <div className="absolute bottom-10 left-10 text-5xl opacity-20">📍</div>
-
+    <section id="contact" className="min-h-screen section-red py-20 px-6 md:px-12 relative overflow-hidden bg-pattern-strawberry">
       <div className="container mx-auto">
-        {/* Section Header */}
+        {/* Header */}
         <div className="text-center mb-16">
-          <p className="text-accent font-bold text-sm tracking-wider uppercase mb-3">
+          <p className="text-white/70 font-semibold text-sm tracking-widest uppercase mb-4">
             Get in Touch
           </p>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4">
-            Ready to <span className="text-primary">Order?</span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
+            Ready to <span className="font-script">Order?</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+          <p className="text-white/70 text-lg max-w-2xl mx-auto">
             Three ways to connect with us. Choose what suits you best!
           </p>
         </div>
 
         {/* Contact Cards */}
         <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-16">
-          {contactCards.map((card) => (
+          {contacts.map((contact) => (
             <a
-              key={card.title}
-              href={card.link}
-              target={card.link.startsWith('http') ? '_blank' : undefined}
-              rel={card.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-              className="card-playful p-8 text-center hover:-translate-y-2 transition-all duration-300 group"
+              key={contact.title}
+              href={contact.link}
+              target={contact.link.startsWith('http') ? '_blank' : undefined}
+              rel={contact.link.startsWith('http') ? 'noopener noreferrer' : undefined}
+              className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 text-center hover:-translate-y-2 hover:bg-white/20 transition-all duration-300 group"
             >
-              <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl ${card.color} flex items-center justify-center text-3xl`}>
-                {card.emoji}
+              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <contact.icon className="w-8 h-8 text-white" />
               </div>
-              <h3 className="font-display text-xl font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
-                {card.title}
+              <h3 className="text-xl font-bold text-white mb-1">
+                {contact.title}
               </h3>
-              <p className="text-muted-foreground text-sm mb-4">
-                {card.subtitle}
+              <p className="text-white/60 text-sm mb-4">
+                {contact.subtitle}
               </p>
-              <p className={`font-bold text-lg ${card.iconColor}`}>
-                {card.phone}
+              <p className="font-bold text-lg text-white">
+                {contact.phone}
               </p>
             </a>
           ))}
         </div>
 
         {/* Map & Location */}
-        <div className="card-playful p-6 md:p-8 max-w-4xl mx-auto">
+        <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 max-w-4xl mx-auto">
           <div className="flex flex-col md:flex-row gap-8 items-center">
             {/* Map */}
             <div className="w-full md:w-2/3 h-64 md:h-80 rounded-2xl overflow-hidden">
@@ -96,13 +86,13 @@ const ContactSection = () => {
 
             {/* Location Info */}
             <div className="w-full md:w-1/3 text-center md:text-left">
-              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-4 mx-auto md:mx-0 text-2xl">
-                📍
+              <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center mb-4 mx-auto md:mx-0">
+                <MapPin className="w-7 h-7 text-white" />
               </div>
-              <h3 className="font-display text-xl font-bold text-foreground mb-2">
+              <h3 className="text-xl font-bold text-white mb-2">
                 Visit Our Farm
               </h3>
-              <p className="text-muted-foreground text-sm mb-6">
+              <p className="text-white/70 text-sm mb-6">
                 Parking No 4, Near Mapro Garden,<br />
                 Gureghar, Mahabaleshwar
               </p>
@@ -110,7 +100,7 @@ const ContactSection = () => {
                 href="https://maps.app.goo.gl/8DwvM2JSx2Q4hyME9"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-berry inline-flex items-center gap-2"
+                className="btn-pill btn-white inline-flex items-center gap-2"
               >
                 Get Directions
                 <span>→</span>
