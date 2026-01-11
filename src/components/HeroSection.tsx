@@ -16,18 +16,6 @@ const HeroSection = () => {
         </svg>
       </div>
 
-      {/* Logo - Top Left */}
-      <div className="absolute top-6 left-6 md:left-12 z-20">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 md:w-14 md:h-14 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center border-2 border-white/30">
-            <span className="text-2xl md:text-3xl">🍓</span>
-          </div>
-          <div>
-            <h1 className="font-script text-2xl md:text-3xl text-white leading-none">Native Berry</h1>
-            <p className="text-white/80 text-xs md:text-sm tracking-widest uppercase">Farms</p>
-          </div>
-        </div>
-      </div>
 
       <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10 min-h-screen flex items-center py-24 lg:py-0">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 w-full">
@@ -82,18 +70,6 @@ const HeroSection = () => {
               </motion.a>
             </div>
 
-            {/* Quick Stats - Only 2 items */}
-            <div className="flex items-center gap-6 sm:gap-8 justify-center lg:justify-start">
-              <div className="text-center">
-                <p className="text-3xl sm:text-4xl font-bold text-white">25+</p>
-                <p className="text-white/60 text-xs sm:text-sm">Years Legacy</p>
-              </div>
-              <div className="w-px h-10 sm:h-12 bg-white/20"></div>
-              <div className="text-center">
-                <p className="text-3xl sm:text-4xl font-bold text-white">4</p>
-                <p className="text-white/60 text-xs sm:text-sm">Berry Types</p>
-              </div>
-            </div>
           </motion.div>
 
           {/* Right: Complete Strawberry Image */}
@@ -141,13 +117,17 @@ const HeroSection = () => {
         </motion.div>
       </div>
 
-      {/* Bottom Info Bar - Clean & Simple */}
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/30 to-transparent py-3 sm:py-4">
-        <div className="container mx-auto px-4 sm:px-6 md:px-12">
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-white/90 text-xs sm:text-sm">
-            <span className="flex items-center gap-1.5">📍 Behind Mapro Garden, Gureghar</span>
+      {/* Bottom Info Bar - All info combined */}
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/40 to-transparent py-2.5">
+        <div className="container mx-auto px-3">
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-white/90 text-[10px] sm:text-xs">
+            <span className="font-semibold">25+ Years</span>
             <span className="text-white/40">•</span>
-            <span className="flex items-center gap-1.5">📞 +91 93562 57779</span>
+            <span className="font-semibold">4 Berry Types</span>
+            <span className="text-white/40">•</span>
+            <span>📍 Behind Mapro Garden</span>
+            <span className="text-white/40">•</span>
+            <span>📞 +91 93562 57779</span>
           </div>
         </div>
       </div>
