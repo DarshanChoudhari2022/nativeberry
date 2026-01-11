@@ -36,7 +36,7 @@ const timelineData = [
 
 const AboutSection = () => {
   return (
-    <section id="about" className="min-h-screen section-light py-20 px-6 md:px-12 relative overflow-hidden">
+    <section id="about" className="min-h-screen section-light py-10 md:py-20 px-6 md:px-12 relative overflow-hidden">
       {/* Decorative strawberry outlines */}
       <div className="absolute top-20 left-10 opacity-10">
         <svg className="w-32 h-32 text-red-deep" viewBox="0 0 100 100" fill="currentColor">
@@ -46,7 +46,7 @@ const AboutSection = () => {
 
       <div className="container mx-auto">
         {/* About Section */}
-        <div className="grid lg:grid-cols-2 gap-16 items-center mb-24">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center mb-16 md:mb-24">
           {/* Images Stack */}
           <div className="relative">
             <div className="relative z-10">
@@ -67,23 +67,23 @@ const AboutSection = () => {
           </div>
 
           {/* Content */}
-          <div className="lg:pl-8">
+          <div className="lg:pl-8 mt-12 lg:mt-0">
             <p className="text-red-deep font-semibold text-sm tracking-widest uppercase mb-4">
               About Us
             </p>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-red-dark leading-tight mb-6">
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-red-dark leading-tight mb-4 md:mb-6">
               It's a Berry's<br />
               <span className="font-script text-red-deep">World!</span>
             </h2>
-            <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+            <p className="text-base md:text-lg text-muted-foreground mb-6 leading-relaxed">
               Discover the essence of Native Berry Farms. What started with a small farm in Gureghar, Mahabaleshwar has grown into a legacy spanning 25+ years.
             </p>
-            <p className="text-muted-foreground mb-8 leading-relaxed">
+            <p className="text-muted-foreground mb-6 md:mb-8 leading-relaxed text-sm md:text-base">
               Native Berry Farms is more than just a brand; it's a passion for quality. The Gade family cultivates our berries with care, ensuring every bite is a delight.
             </p>
 
             <blockquote className="border-l-4 border-red-deep pl-6 mb-8">
-              <p className="text-xl font-medium text-red-dark italic">
+              <p className="text-lg md:text-xl font-medium text-red-dark italic">
                 "It's not just what we grow. It's how we grow it—with care, consistency, and purpose."
               </p>
             </blockquote>
@@ -91,8 +91,8 @@ const AboutSection = () => {
         </div>
 
         {/* Timeline Section */}
-        <div className="mt-16 relative"> {/* Added relative for containment if needed */}
-          <div className="text-center mb-16">
+        <div className="mt-12 md:mt-16 relative"> {/* Added relative for containment if needed */}
+          <div className="text-center mb-10 md:mb-16">
             <p className="text-red-deep font-semibold text-sm tracking-widest uppercase mb-4">
               Our Journey
             </p>
@@ -104,12 +104,12 @@ const AboutSection = () => {
           {/* Timeline Container */}
           <div className="relative max-w-4xl mx-auto">
             {/* Vertical Line - Left on mobile, Center on Desktop */}
-            <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 w-1 h-full bg-gradient-to-b from-green-500 via-red-deep to-golden rounded-full"></div>
+            <div className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 w-1 h-full bg-gradient-to-b from-green-500 via-red-deep to-golden rounded-full"></div>
 
             {timelineData.map((item, index) => (
               <motion.div
                 key={item.year}
-                className={`relative flex items-center mb-16 last:mb-0 md:justify-between ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                className={`relative flex items-center mb-8 md:mb-16 last:mb-0 md:justify-between ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
                   }`}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -117,10 +117,10 @@ const AboutSection = () => {
                 viewport={{ once: true }}
               >
                 {/* Content Card - Full width with padding on mobile, 5/12 on desktop */}
-                <div className={`w-full pl-20 md:pl-0 md:w-5/12 ${index % 2 === 0 ? 'md:pr-8 md:text-right' : 'md:pl-8 md:text-left'
+                <div className={`w-full pl-12 md:pl-0 md:w-5/12 ${index % 2 === 0 ? 'md:pr-8 md:text-right' : 'md:pl-8 md:text-left'
                   }`}>
                   <motion.div
-                    className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100 hover:shadow-2xl transition-shadow duration-300 relative"
+                    className="bg-white rounded-2xl p-4 md:p-6 shadow-xl border border-gray-100 hover:shadow-2xl transition-shadow duration-300 relative"
                     whileHover={{ scale: 1.02 }}
                   >
                     {/* Mobile connector arrow (optional, can be CSS'd but simple card is fine) */}
@@ -133,13 +133,13 @@ const AboutSection = () => {
                 </div>
 
                 {/* Center/Left Icon */}
-                <div className="absolute left-8 md:left-1/2 transform -translate-x-1/2 z-10">
+                <div className="absolute left-4 md:left-1/2 transform -translate-x-1/2 z-10">
                   <motion.div
-                    className={`w-14 h-14 rounded-full ${item.color} flex items-center justify-center shadow-lg border-4 border-white`}
+                    className={`w-8 h-8 md:w-14 md:h-14 rounded-full ${item.color} flex items-center justify-center shadow-lg border-2 md:border-4 border-white`}
                     whileHover={{ scale: 1.2, rotate: 360 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <item.icon className="w-6 h-6 text-white" />
+                    <item.icon className="w-4 h-4 md:w-6 md:h-6 text-white" />
                   </motion.div>
                 </div>
 

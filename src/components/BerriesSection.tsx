@@ -1,5 +1,7 @@
 import strawberryImg from '@/assets/strawberry-closeup.jpeg';
 
+
+
 // Real berry images from Unsplash
 const MULBERRY_IMG = 'https://images.unsplash.com/photo-1621961048738-a29e2c45161c?w=800&q=80';
 const RASPBERRY_IMG = 'https://images.unsplash.com/photo-1577069861033-55d04cec4ef5?w=800&q=80';

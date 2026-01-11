@@ -1,5 +1,10 @@
 import strawberryImg from '@/assets/strawberry-closeup.jpeg';
 
+// Real berry images from Unsplash
+const MULBERRY_IMG = 'https://images.unsplash.com/photo-1621961048738-a29e2c45161c?w=800&q=80';
+const RASPBERRY_IMG = 'https://images.unsplash.com/photo-1577069861033-55d04cec4ef5?w=800&q=80';
+const GOLDEN_BERRY_IMG = 'https://images.unsplash.com/photo-1596591868231-05e908752cc7?w=800&q=80';
+
 const products = [
   {
     name: 'Strawberry',
@@ -13,7 +18,7 @@ const products = [
     name: 'Mulberry',
     tagline: 'The Wild Dark Pearl',
     description: 'Deep purple, intensely sweet with earthy undertones.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Morus_nigra_fruit.jpg/1280px-Morus_nigra_fruit.jpg',
+    image: MULBERRY_IMG,
     color: 'bg-mulberry',
     shadowColor: 'shadow-[0_20px_50px_-15px_rgba(139,92,246,0.4)]',
   },
@@ -21,7 +26,7 @@ const products = [
     name: 'Raspberry',
     tagline: 'Exotic Tartness',
     description: 'Perfect balance of sweet and tart.',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Raspberries_%28Rubus_idaeus%29.jpg/1280px-Raspberries_%28Rubus_idaeus%29.jpg',
+    image: RASPBERRY_IMG,
     color: 'bg-secondary',
     shadowColor: 'shadow-[0_20px_50px_-15px_rgba(244,114,182,0.4)]',
   },
@@ -29,7 +34,7 @@ const products = [
     name: 'Golden Berry',
     tagline: 'Cape Gooseberry',
     description: "Nature's Wrapped Candy with citrus twist.",
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Physalis_peruviana_-_berries.jpg/1280px-Physalis_peruviana_-_berries.jpg',
+    image: GOLDEN_BERRY_IMG,
     color: 'bg-golden',
     shadowColor: 'shadow-[0_20px_50px_-15px_rgba(251,191,36,0.4)]',
   },
