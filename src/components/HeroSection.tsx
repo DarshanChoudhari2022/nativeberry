@@ -1,109 +1,84 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
-import heroImage from '@/assets/hero-farm.jpeg';
+import strawberryImg from '@/assets/strawberry-closeup.jpeg';
+import harvestImg from '@/assets/fresh-harvest.jpeg';
+import singleImg from '@/assets/single-strawberry.jpeg';
+import growingImg from '@/assets/growing-strawberry.jpeg';
+import blueCrateImg from '@/assets/blue-crate.jpeg';
+import heroFarmImg from '@/assets/hero-farm.jpeg';
 
 const HeroSection = () => {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start start', 'end start'],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const floatingBerries = [
+    { img: strawberryImg, top: '15%', left: '8%', delay: '0s', size: 'w-24 h-24 md:w-32 md:h-32' },
+    { img: blueCrateImg, top: '10%', right: '10%', delay: '0.5s', size: 'w-28 h-28 md:w-36 md:h-36' },
+    { img: harvestImg, top: '55%', left: '5%', delay: '1s', size: 'w-20 h-20 md:w-28 md:h-28' },
+    { img: singleImg, top: '60%', right: '8%', delay: '0.3s', size: 'w-24 h-24 md:w-32 md:h-32' },
+    { img: growingImg, bottom: '15%', left: '15%', delay: '0.7s', size: 'w-20 h-20 md:w-24 md:h-24' },
+    { img: heroFarmImg, bottom: '20%', right: '15%', delay: '0.2s', size: 'w-28 h-28 md:w-36 md:h-36' },
+  ];
 
   return (
-    <section ref={ref} className="relative min-h-screen overflow-hidden">
-      {/* Parallax Background Image */}
-      <motion.div style={{ y }} className="absolute inset-0">
-        <img
-          src={heroImage}
-          alt="Native Berry Farms - Fresh strawberries from Mahabaleshwar"
-          className="w-full h-[120%] object-cover"
-        />
-        {/* Dark gradient overlay */}
-        <div className="absolute inset-0 hero-overlay" />
-      </motion.div>
+    <section className="min-h-screen pt-20 relative overflow-hidden bg-pattern">
+      {/* Decorative blobs */}
+      <div className="blob bg-pink-light w-96 h-96 -top-20 -left-20" />
+      <div className="blob bg-accent/20 w-80 h-80 top-40 -right-20" />
+      <div className="blob bg-secondary/30 w-64 h-64 bottom-20 left-1/4" />
 
-      {/* Content */}
-      <motion.div
-        style={{ opacity }}
-        className="relative z-10 min-h-screen flex flex-col justify-end pb-20 md:pb-32 px-4 md:px-8"
-      >
-        <div className="container mx-auto">
-          {/* Legacy Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            className="mb-6"
-          >
-            <span className="legacy-badge inline-flex items-center gap-2 animate-float">
-              <span className="text-lg">🍓</span>
-              Since 1999 | Original Soil
-            </span>
-          </motion.div>
+      {/* Decorative leaves */}
+      <div className="absolute top-10 right-0 text-6xl opacity-60 rotate-45">🌿</div>
+      <div className="absolute bottom-20 left-0 text-5xl opacity-50 -rotate-12">🍃</div>
 
-          {/* Heading */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold text-cream leading-tight max-w-4xl mb-6"
-          >
-            The Real Gavakries of Mahabaleshwar.
-          </motion.h1>
-
-          {/* Subheading */}
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.8 }}
-            className="text-cream/90 text-lg md:text-xl lg:text-2xl max-w-2xl font-light leading-relaxed"
-          >
-            Grown in Gureghar. No Middlemen. Just 25 Years of Mastery.
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 0.8 }}
-            className="flex flex-wrap gap-4 mt-8"
-          >
-            <a
-              href="https://wa.me/919356257779?text=Hi!%20I%20want%20to%20order%20fresh%20berries"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary-gradient text-lg animate-pulse-glow"
-            >
-              Order Fresh Now
-            </a>
-            <a
-              href="#roots"
-              className="px-6 py-3 rounded-full border-2 border-cream/50 text-cream font-semibold hover:bg-cream/10 transition-all duration-300"
-            >
-              Our Story
-            </a>
-          </motion.div>
-        </div>
-      </motion.div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-6 h-10 rounded-full border-2 border-cream/50 flex items-start justify-center p-2"
+      {/* Floating berry images in circle arrangement */}
+      {floatingBerries.map((berry, index) => (
+        <div
+          key={index}
+          className={`absolute ${berry.size} rounded-3xl overflow-hidden shadow-xl animate-float-slow hidden md:block`}
+          style={{
+            top: berry.top,
+            left: berry.left,
+            right: berry.right,
+            bottom: berry.bottom,
+            animationDelay: berry.delay,
+          }}
         >
-          <div className="w-1.5 h-3 bg-cream/70 rounded-full" />
-        </motion.div>
-      </motion.div>
+          <img
+            src={berry.img}
+            alt="Fresh berries"
+            className="w-full h-full object-cover"
+          />
+          {/* Colorful shadow effect */}
+          <div 
+            className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-4 rounded-full blur-lg"
+            style={{
+              backgroundColor: ['#F87171', '#A78BFA', '#34D399', '#FBBF24', '#60A5FA', '#F472B6'][index],
+              opacity: 0.4,
+            }}
+          />
+        </div>
+      ))}
+
+      {/* Center content */}
+      <div className="container mx-auto px-4 min-h-screen flex flex-col items-center justify-center text-center relative z-10">
+        <p className="text-secondary font-semibold text-lg mb-2 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          Welcome to the heart of the
+        </p>
+        
+        <h1 
+          className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-4 animate-fade-in-up"
+          style={{ animationDelay: '0.2s' }}
+        >
+          <span className="text-primary">Berries</span>
+          <br />
+          <span className="text-foreground">World</span>
+        </h1>
+
+        <a 
+          href="#berries"
+          className="mt-6 text-primary font-semibold flex flex-col items-center gap-2 animate-fade-in-up hover:scale-105 transition-transform"
+          style={{ animationDelay: '0.4s' }}
+        >
+          <span>Meet the Berries</span>
+          <span className="text-2xl animate-bounce-gentle">↓</span>
+        </a>
+      </div>
     </section>
   );
 };

@@ -1,5 +1,3 @@
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
 import strawberryImg from '@/assets/strawberry-closeup.jpeg';
 import growingImg from '@/assets/growing-strawberry.jpeg';
 import harvestImg from '@/assets/fresh-harvest.jpeg';
@@ -11,130 +9,103 @@ const products = [
     tagline: 'The Mahabaleshwar Classic',
     description: 'Sweet, Red, & Juicy. The crown jewel of our farm.',
     image: strawberryImg,
-    badge: 'Hero Berry',
-    featured: true,
+    color: 'bg-primary',
+    shadowColor: 'shadow-[0_20px_50px_-15px_rgba(239,68,68,0.4)]',
   },
   {
     name: 'Mulberry',
     tagline: 'The Wild Dark Pearl',
     description: 'Deep purple, intensely sweet with earthy undertones.',
     image: growingImg,
-    badge: 'Seasonal',
-    featured: false,
+    color: 'bg-mulberry',
+    shadowColor: 'shadow-[0_20px_50px_-15px_rgba(139,92,246,0.4)]',
   },
   {
     name: 'Raspberry',
     tagline: 'Exotic Tartness',
-    description: 'Perfect balance of sweet and tart. A true delicacy.',
+    description: 'Perfect balance of sweet and tart.',
     image: harvestImg,
-    badge: 'Premium',
-    featured: false,
+    color: 'bg-secondary',
+    shadowColor: 'shadow-[0_20px_50px_-15px_rgba(244,114,182,0.4)]',
   },
   {
     name: 'Golden Berry',
-    tagline: 'The Cape Gooseberry',
-    description: "Nature's Wrapped Candy. Sweet with a citrus twist.",
+    tagline: 'Cape Gooseberry',
+    description: "Nature's Wrapped Candy with citrus twist.",
     image: singleImg,
-    badge: 'Unique',
-    featured: false,
+    color: 'bg-golden',
+    shadowColor: 'shadow-[0_20px_50px_-15px_rgba(251,191,36,0.4)]',
   },
 ];
 
 const ProductShowcase = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
-
   return (
-    <section id="berries" className="section-padding bg-muted/30" ref={ref}>
+    <section id="berries" className="section-spacing bg-muted/30 relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute top-20 left-10 text-6xl opacity-30">🍓</div>
+      <div className="absolute bottom-20 right-10 text-5xl opacity-30">🫐</div>
+
       <div className="container mx-auto">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <span className="text-secondary font-semibold text-sm tracking-widest uppercase mb-4 block">
-            Our Harvest
-          </span>
-          <h2 className="font-serif text-3xl md:text-5xl font-bold text-foreground mb-4">
-            The Fab Four
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Four exceptional berries, each with its own character. All grown with love in Gureghar's rich soil.
+        <div className="text-center mb-16">
+          <p className="text-accent font-bold text-sm tracking-wider uppercase mb-3">
+            Berry "Good" Farming
           </p>
-        </motion.div>
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4">
+            Sustainably <span className="text-primary">Grown</span> Berries
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+            Balancing quality, taste and environment
+          </p>
+        </div>
 
         {/* Product Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {products.map((product, index) => (
-            <motion.div
+            <div
               key={product.name}
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
-              whileHover={{ y: -16, transition: { duration: 0.3 } }}
-              className={`glass-card-heavy overflow-hidden cursor-pointer group ${
-                product.featured ? 'ring-2 ring-primary/30' : ''
-              }`}
+              className={`card-playful overflow-hidden group cursor-pointer transition-all duration-300 hover:-translate-y-3 ${product.shadowColor}`}
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
-              {/* Image */}
-              <div className="relative h-56 overflow-hidden">
-                <motion.img
+              {/* Image Container */}
+              <div className="relative h-48 overflow-hidden">
+                <img
                   src={product.image}
                   alt={product.name}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-soil/60 to-transparent" />
-                
-                {/* Badge */}
-                <span className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold ${
-                  product.featured 
-                    ? 'bg-gradient-primary text-primary-foreground' 
-                    : 'bg-gradient-gold text-soil'
-                }`}>
-                  {product.badge}
-                </span>
+                {/* Color overlay on hover */}
+                <div className={`absolute inset-0 ${product.color} opacity-0 group-hover:opacity-20 transition-opacity duration-300`} />
               </div>
 
               {/* Content */}
               <div className="p-6">
-                <h3 className="font-serif text-2xl font-bold text-foreground mb-1">
+                <h3 className="font-display text-2xl font-bold text-foreground mb-1">
                   {product.name}
                 </h3>
-                <p className="text-primary font-semibold text-sm mb-3">
+                <p className="text-primary font-semibold text-sm mb-2">
                   {product.tagline}
                 </p>
-                <p className="text-muted-foreground text-sm leading-relaxed">
+                <p className="text-muted-foreground text-sm">
                   {product.description}
                 </p>
               </div>
-
-              {/* Hover glow effect */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                <div className="absolute -inset-4 bg-primary/5 blur-2xl" />
-              </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="text-center mt-12"
-        >
+        <div className="text-center mt-12">
           <a
-            href="https://wa.me/919356257779?text=Hi!%20I%20want%20to%20know%20about%20all%20berries%20available"
+            href="https://wa.me/919356257779?text=Hi!%20I%20want%20to%20know%20about%20berries%20available"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary-gradient inline-flex items-center gap-2"
+            className="btn-berry inline-flex items-center gap-2"
           >
-            Check Availability
+            Order Fresh Berries
+            <span>🍓</span>
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

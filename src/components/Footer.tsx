@@ -1,52 +1,36 @@
-import { motion } from 'framer-motion';
-import { Sprout } from 'lucide-react';
-
 const Footer = () => {
   return (
-    <footer className="bg-soil text-cream py-12 px-4">
+    <footer className="bg-foreground text-background py-12 px-4">
       <div className="container mx-auto">
-        <div className="grid md:grid-cols-3 gap-8 items-center">
-          {/* Logo & Tagline */}
-          <div className="text-center md:text-left">
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              className="flex items-center gap-2 justify-center md:justify-start mb-3"
-            >
-              <Sprout className="w-6 h-6 text-secondary" />
-              <span className="font-serif text-xl font-bold tracking-wide">
-                NATIVE BERRY FARMS
+        <div className="grid md:grid-cols-3 gap-8 items-center text-center md:text-left">
+          {/* Logo */}
+          <div className="flex flex-col items-center md:items-start gap-2">
+            <div className="flex items-center gap-2">
+              <span className="text-3xl">🍓</span>
+              <span className="font-display text-2xl font-bold text-primary-foreground">
+                Native Berries
               </span>
-            </motion.div>
-            <p className="text-cream/60 text-sm">
+            </div>
+            <p className="text-background/60 text-sm">
               The Real Gavakries of Mahabaleshwar
             </p>
           </div>
 
           {/* Address */}
-          <div className="text-center">
-            <p className="text-cream/80 text-sm leading-relaxed">
-              Parking No 4, Near Mapro Garden,<br />
-              Gureghar, Mahabaleshwar
-            </p>
+          <div className="text-background/80 text-sm">
+            <p>Parking No 4, Near Mapro Garden,</p>
+            <p>Gureghar, Mahabaleshwar</p>
           </div>
 
           {/* Copyright */}
           <div className="text-center md:text-right">
-            <p className="text-cream/60 text-sm">
+            <p className="text-background/60 text-sm">
               © 2026 Native Berry Farms.
             </p>
-            <p className="text-cream/40 text-xs mt-1">
-              Grown with ❤️ in Gureghar
+            <p className="text-background/40 text-xs mt-1">
+              Grown with ❤️ since 1999
             </p>
           </div>
-        </div>
-
-        {/* Divider */}
-        <div className="border-t border-cream/10 mt-8 pt-6">
-          <p className="text-center text-cream/40 text-xs">
-            Since 1999 • Three Generations • Direct from Farm
-          </p>
         </div>
       </div>
     </footer>
