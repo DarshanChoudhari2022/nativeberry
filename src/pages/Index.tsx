@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
-import SocialBar from '@/components/SocialBar';
 import NavDots from '@/components/NavDots';
 import HeroSection from '@/components/HeroSection';
 import AboutSection from '@/components/AboutSection';
@@ -34,7 +33,6 @@ const Index = () => {
   return (
     <main className="bg-red-deep">
       <Navbar />
-      <SocialBar />
       <NavDots activeSection={activeSection} totalSections={5} />
       <HeroSection />
       <AboutSection />
