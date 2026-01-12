@@ -97,7 +97,7 @@ const ContactSection = () => {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Native Berry Farms Location"
-                className="absolute inset-0 grayscale opacity-80 hover:grayscale-0 transition-all duration-500"
+                className="absolute inset-0 w-full h-full"
               />
             </div>
           </div>
