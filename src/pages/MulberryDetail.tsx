@@ -26,7 +26,7 @@ const MulberryDetail = () => {
             <Navbar />
 
             {/* ---------------- HERO SECTION ---------------- */}
-            <section className="relative pt-24 pb-20 px-6 md:px-12 lg:px-20 overflow-hidden">
+            <section className="relative pt-20 pb-12 md:pt-24 md:pb-20 px-6 md:px-12 lg:px-20 overflow-hidden">
                 <div className="container mx-auto">
                     <Link to="/" className="inline-flex items-center text-purple-800 hover:text-purple-600 mb-8 transition-colors group">
                         <ArrowLeft className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" />
@@ -85,9 +85,9 @@ const MulberryDetail = () => {
             </section>
 
             {/* ---------------- AVAILABILITY SECTION (Dark Purple) ---------------- */}
-            <section className="bg-[#4A1D50] text-white py-20 px-6 md:px-12">
+            <section className="bg-[#4A1D50] text-white py-12 md:py-20 px-6 md:px-12">
                 <div className="container mx-auto">
-                    <div className="text-center mb-16">
+                    <div className="text-center mb-10 md:mb-16">
                         <Reveal>
                             <h2 className="text-4xl md:text-6xl font-bold mb-4 font-script">
                                 {t('detail.season')}
@@ -115,48 +115,64 @@ const MulberryDetail = () => {
                     </div>
 
                     {/* Timeline Chart */}
-                    <div className="max-w-5xl mx-auto bg-white/5 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-white/10">
-                        {/* Header Months */}
-                        <div className="grid grid-cols-12 gap-1 mb-6 text-center text-xs md:text-sm font-bold opacity-70 tracking-widest">
-                            <div>JAN</div>
-                            <div>FEB</div>
-                            <div>MAR</div>
-                            <div>APR</div>
-                            <div>MAY</div>
-                            <div>JUN</div>
-                            <div>JUL</div>
-                            <div>AUG</div>
-                            <div>SEP</div>
-                            <div>OCT</div>
-                            <div>NOV</div>
-                            <div>DEC</div>
+                    <div className="max-w-5xl mx-auto bg-white/5 backdrop-blur-sm rounded-3xl p-6 md:p-12 border border-white/10">
+                        <div className="overflow-x-auto pb-4">
+                            <div className="min-w-[600px]">
+                                {/* Header Months */}
+                                <div className="grid grid-cols-12 gap-1 mb-6 text-center text-xs md:text-sm font-bold opacity-70 tracking-widest">
+                                    <div>JAN</div>
+                                    <div>FEB</div>
+                                    <div>MAR</div>
+                                    <div>APR</div>
+                                    <div>MAY</div>
+                                    <div>JUN</div>
+                                    <div>JUL</div>
+                                    <div>AUG</div>
+                                    <div>SEP</div>
+                                    <div>OCT</div>
+                                    <div>NOV</div>
+                                    <div>DEC</div>
+                                </div>
+
+                                {/* Row 1: Mahabaleshwar */}
+                                <div className="mb-8">
+                                    <div className="flex items-center justify-between mb-2">
+                                        <span className="font-bold text-lg md:text-xl">{t('mulberry.season.harvest')}</span>
+                                    </div>
+                                    <div className="grid grid-cols-12 gap-1 h-3 md:h-4 bg-white/10 rounded-full overflow-hidden">
+                                        {/* Jan - Feb (Available late Jan) */}
+                                        <div className="col-span-1"></div>
+                                        <div className="col-span-1 bg-[#D946EF] opacity-50"></div>
+                                        {/* Mar - May (Peak) */}
+                                        <div className="col-span-3 bg-[#D946EF] rounded-l-full rounded-r-full relative group cursor-pointer">
+                                            <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-white text-purple-900 text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-bold hidden md:block">
+                                                {t('mulberry.season.summer')}
+                                            </div>
+                                        </div>
+                                        {/* Jun - Sep */}
+                                        <div className="col-span-4"></div>
+                                        {/* Oct - Nov (Winter Season) */}
+                                        <div className="col-span-2 bg-[#D946EF] rounded-full relative group cursor-pointer">
+                                            <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-white text-purple-900 text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-bold hidden md:block">
+                                                {t('mulberry.season.winter')}
+                                            </div>
+                                        </div>
+                                        {/* Dec */}
+                                        <div className="col-span-1"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        {/* Row 1: Mahabaleshwar */}
-                        <div className="mb-8">
-                            <div className="flex items-center justify-between mb-2">
-                                <span className="font-bold text-lg md:text-xl">{t('mulberry.season.harvest')}</span>
+                        {/* Mobile Legend/Info (Visible only on mobile) */}
+                        <div className="md:hidden mt-4 space-y-2 text-sm text-white/80 bg-white/5 p-4 rounded-xl border border-white/10">
+                            <div className="flex items-center gap-2">
+                                <span className="w-2 h-2 bg-[#D946EF] rounded-full"></span>
+                                <span><strong>Mar - May:</strong> {t('mulberry.season.summer')}</span>
                             </div>
-                            <div className="grid grid-cols-12 gap-1 h-3 md:h-4 bg-white/10 rounded-full overflow-hidden">
-                                {/* Jan - Feb (Available late Jan) */}
-                                <div className="col-span-1"></div>
-                                <div className="col-span-1 bg-[#D946EF] opacity-50"></div>
-                                {/* Mar - May (Peak) */}
-                                <div className="col-span-3 bg-[#D946EF] rounded-l-full rounded-r-full relative group cursor-pointer">
-                                    <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-white text-purple-900 text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-bold">
-                                        {t('mulberry.season.summer')}
-                                    </div>
-                                </div>
-                                {/* Jun - Sep */}
-                                <div className="col-span-4"></div>
-                                {/* Oct - Nov (Winter Season) */}
-                                <div className="col-span-2 bg-[#D946EF] rounded-full relative group cursor-pointer">
-                                    <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-white text-purple-900 text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-bold">
-                                        {t('mulberry.season.winter')}
-                                    </div>
-                                </div>
-                                {/* Dec */}
-                                <div className="col-span-1"></div>
+                            <div className="flex items-center gap-2">
+                                <span className="w-2 h-2 bg-[#D946EF] rounded-full"></span>
+                                <span><strong>Oct - Nov:</strong> {t('mulberry.season.winter')}</span>
                             </div>
                         </div>
 
@@ -170,7 +186,7 @@ const MulberryDetail = () => {
             </section>
 
             {/* ---------------- HOW TO STORE SECTION ---------------- */}
-            <section className="py-20 px-6 md:px-12 bg-[#FDF4FF]">
+            <section className="py-12 md:py-20 px-6 md:px-12 bg-[#FDF4FF]">
                 <div className="container mx-auto text-center">
                     <Reveal>
                         <h2 className="text-4xl md:text-5xl font-bold text-purple-900 font-script mb-4">
@@ -181,7 +197,7 @@ const MulberryDetail = () => {
                         </p>
                     </Reveal>
 
-                    <div className="grid md:grid-cols-4 gap-8">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
                         {[
                             {
                                 step: "STEP 1",
@@ -210,12 +226,12 @@ const MulberryDetail = () => {
                         ].map((item, idx) => (
                             <Reveal key={idx} delay={idx * 0.1}>
                                 <div className="text-left group cursor-pointer">
-                                    <div className="h-48 bg-white rounded-2xl mb-6 flex items-center justify-center text-6xl shadow-sm group-hover:shadow-md transition-shadow border border-purple-100">
+                                    <div className="h-40 md:h-48 bg-white rounded-2xl mb-4 md:mb-6 flex items-center justify-center text-6xl shadow-sm group-hover:shadow-md transition-shadow border border-purple-100">
                                         {item.icon}
                                     </div>
-                                    <p className="font-bold text-purple-900/50 mb-1 tracking-widest text-sm">{item.step}</p>
-                                    <h3 className="font-bold text-xl text-purple-950 mb-3">{item.title}</h3>
-                                    <p className="text-purple-900/60 text-sm leading-relaxed">{item.desc}</p>
+                                    <p className="font-bold text-purple-900/50 mb-1 tracking-widest text-xs md:text-sm">{item.step}</p>
+                                    <h3 className="font-bold text-lg md:text-xl text-purple-950 mb-2 md:mb-3">{item.title}</h3>
+                                    <p className="text-purple-900/60 text-xs md:text-sm leading-relaxed">{item.desc}</p>
                                 </div>
                             </Reveal>
                         ))}

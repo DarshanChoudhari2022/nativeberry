@@ -26,7 +26,7 @@ const GoldenBerryDetail = () => {
             <Navbar />
 
             {/* ---------------- HERO SECTION ---------------- */}
-            <section className="relative pt-24 pb-20 px-6 md:px-12 lg:px-20 overflow-hidden">
+            <section className="relative pt-20 pb-12 md:pt-24 md:pb-20 px-6 md:px-12 lg:px-20 overflow-hidden">
                 <div className="container mx-auto">
                     <Link to="/" className="inline-flex items-center text-amber-700 hover:text-amber-500 mb-8 transition-colors group">
                         <ArrowLeft className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" />
@@ -85,9 +85,9 @@ const GoldenBerryDetail = () => {
             </section>
 
             {/* ---------------- AVAILABILITY SECTION (Dark Amber) ---------------- */}
-            <section className="bg-[#78350F] text-white py-20 px-6 md:px-12">
+            <section className="bg-[#78350F] text-white py-12 md:py-20 px-6 md:px-12">
                 <div className="container mx-auto">
-                    <div className="text-center mb-16">
+                    <div className="text-center mb-10 md:mb-16">
                         <Reveal>
                             <h2 className="text-4xl md:text-6xl font-bold mb-4 font-script leading-normal py-2">
                                 {t('golden.season.title')}
@@ -115,39 +115,51 @@ const GoldenBerryDetail = () => {
                     </div>
 
                     {/* Timeline Chart */}
-                    <div className="max-w-5xl mx-auto bg-white/5 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-white/10">
-                        {/* Header Months */}
-                        <div className="grid grid-cols-12 gap-1 mb-6 text-center text-xs md:text-sm font-bold opacity-70 tracking-widest">
-                            <div>JAN</div>
-                            <div>FEB</div>
-                            <div>MAR</div>
-                            <div>APR</div>
-                            <div>MAY</div>
-                            <div>JUN</div>
-                            <div>JUL</div>
-                            <div>AUG</div>
-                            <div>SEP</div>
-                            <div>OCT</div>
-                            <div>NOV</div>
-                            <div>DEC</div>
-                        </div>
+                    <div className="max-w-5xl mx-auto bg-white/5 backdrop-blur-sm rounded-3xl p-6 md:p-12 border border-white/10">
+                        <div className="overflow-x-auto pb-4">
+                            <div className="min-w-[600px]">
+                                {/* Header Months */}
+                                <div className="grid grid-cols-12 gap-1 mb-6 text-center text-xs md:text-sm font-bold opacity-70 tracking-widest">
+                                    <div>JAN</div>
+                                    <div>FEB</div>
+                                    <div>MAR</div>
+                                    <div>APR</div>
+                                    <div>MAY</div>
+                                    <div>JUN</div>
+                                    <div>JUL</div>
+                                    <div>AUG</div>
+                                    <div>SEP</div>
+                                    <div>OCT</div>
+                                    <div>NOV</div>
+                                    <div>DEC</div>
+                                </div>
 
-                        {/* Row 1: Mahabaleshwar */}
-                        <div className="mb-8">
-                            <div className="flex items-center justify-between mb-2">
-                                <span className="font-bold text-lg md:text-xl">{t('golden.season.harvest')}</span>
-                            </div>
-                            <div className="grid grid-cols-12 gap-1 h-3 md:h-4 bg-white/10 rounded-full overflow-hidden">
-                                {/* Jan */}
-                                <div className="col-span-1 bg-[#F59E0B] opacity-50 rounded-l-full"></div>
-                                {/* Feb - May */}
-                                <div className="col-span-4 bg-[#F59E0B] relative group cursor-pointer">
-                                    <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-white text-amber-900 text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-bold">
-                                        {t('golden.season.peak')}
+                                {/* Row 1: Mahabaleshwar */}
+                                <div className="mb-8">
+                                    <div className="flex items-center justify-between mb-2">
+                                        <span className="font-bold text-lg md:text-xl">{t('golden.season.harvest')}</span>
+                                    </div>
+                                    <div className="grid grid-cols-12 gap-1 h-3 md:h-4 bg-white/10 rounded-full overflow-hidden">
+                                        {/* Jan */}
+                                        <div className="col-span-1 bg-[#F59E0B] opacity-50 rounded-l-full"></div>
+                                        {/* Feb - May */}
+                                        <div className="col-span-4 bg-[#F59E0B] relative group cursor-pointer">
+                                            <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-white text-amber-900 text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-bold hidden md:block">
+                                                {t('golden.season.peak')}
+                                            </div>
+                                        </div>
+                                        {/* Jun - Dec */}
+                                        <div className="col-span-7"></div>
                                     </div>
                                 </div>
-                                {/* Jun - Dec */}
-                                <div className="col-span-7"></div>
+                            </div>
+                        </div>
+
+                        {/* Mobile Legend/Info (Visible only on mobile) */}
+                        <div className="md:hidden mt-4 space-y-2 text-sm text-white/80 bg-white/5 p-4 rounded-xl border border-white/10">
+                            <div className="flex items-center gap-2">
+                                <span className="w-2 h-2 bg-[#F59E0B] rounded-full"></span>
+                                <span><strong>Feb - May:</strong> {t('golden.season.peak')}</span>
                             </div>
                         </div>
 
@@ -161,7 +173,7 @@ const GoldenBerryDetail = () => {
             </section>
 
             {/* ---------------- HOW TO STORE SECTION ---------------- */}
-            <section className="py-20 px-6 md:px-12 bg-[#FFFAF0]">
+            <section className="py-12 md:py-20 px-6 md:px-12 bg-[#FFFAF0]">
                 <div className="container mx-auto text-center">
                     <Reveal>
                         <h2 className="text-4xl md:text-5xl font-bold text-amber-900 font-script mb-4 leading-normal py-2">
@@ -172,7 +184,7 @@ const GoldenBerryDetail = () => {
                         </p>
                     </Reveal>
 
-                    <div className="grid md:grid-cols-4 gap-8">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
                         {[
                             {
                                 step: "STEP 1",
@@ -201,12 +213,12 @@ const GoldenBerryDetail = () => {
                         ].map((item, idx) => (
                             <Reveal key={idx} delay={idx * 0.1}>
                                 <div className="text-left group cursor-pointer">
-                                    <div className="h-48 bg-white rounded-2xl mb-6 flex items-center justify-center text-6xl shadow-sm group-hover:shadow-md transition-shadow border border-amber-100">
+                                    <div className="h-40 md:h-48 bg-white rounded-2xl mb-4 md:mb-6 flex items-center justify-center text-4xl md:text-6xl shadow-sm group-hover:shadow-md transition-shadow border border-amber-100">
                                         {item.icon}
                                     </div>
-                                    <p className="font-bold text-amber-900/50 mb-1 tracking-widest text-sm">{item.step}</p>
-                                    <h3 className="font-bold text-xl text-amber-950 mb-3 leading-normal py-1">{item.title}</h3>
-                                    <p className="text-amber-900/60 text-sm leading-relaxed">{item.desc}</p>
+                                    <p className="font-bold text-amber-900/50 mb-1 tracking-widest text-xs md:text-sm">{item.step}</p>
+                                    <h3 className="font-bold text-lg md:text-xl text-amber-950 mb-2 md:mb-3 leading-normal py-1">{item.title}</h3>
+                                    <p className="text-amber-900/60 text-xs md:text-sm leading-relaxed">{item.desc}</p>
                                 </div>
                             </Reveal>
                         ))}
