@@ -1,8 +1,11 @@
 import { ChevronDown, MessageCircle, Phone } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 import { motion } from 'framer-motion';
 import singleStrawberry from '@/assets/single-strawberry.jpeg';
 
 const HeroSection = () => {
+  const { t } = useLanguage();
+
   const handleWhatsAppOrder = () => {
     window.open('https://wa.me/918605589062?text=Hi! I want to order fresh strawberries from Native Berry Farms.', '_blank');
   };
@@ -25,26 +28,25 @@ const HeroSection = () => {
             className="flex-1 text-center lg:text-left order-2 lg:order-1"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.5 }}
           >
             {/* Main Heading */}
-            <h1 className="font-script text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-white text-shadow leading-[0.95] mb-1">
-              Native
+            <h1 className="font-script text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-white text-shadow leading-[1.2] mb-1 py-1">
+              {t('hero.title1')}
             </h1>
-            <h1 className="font-script text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-white text-shadow leading-[0.95] mb-1">
-              Berry
+            <h1 className="font-script text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-white text-shadow leading-[1.2] mb-1 py-1">
+              {t('hero.title2')}
             </h1>
-            <h2 className="font-script text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-golden leading-none mb-6 lg:mb-8">
-              Farms
+            <h2 className="font-script text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-golden leading-normal mb-6 lg:mb-8 py-2">
+              {t('hero.title3')}
             </h2>
 
             {/* Tagline */}
             <p className="text-white/90 text-lg sm:text-xl md:text-2xl mb-2 font-light">
-              The Real Gavakries of Mahabaleshwar
+              {t('hero.tagline')}
             </p>
             <p className="text-white/70 text-sm sm:text-base md:text-lg mb-6 lg:mb-8 leading-relaxed max-w-md mx-auto lg:mx-0">
-              Farm-fresh strawberries grown with 25+ years of legacy.
-              Harvested at sunrise, delivered to your doorstep. No middlemen.
+              {t('hero.desc')}
             </p>
 
             {/* CTA Buttons */}
@@ -56,7 +58,7 @@ const HeroSection = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6" />
-                Order on WhatsApp
+                {t('hero.whatsapp')}
               </motion.button>
 
               <motion.a
@@ -66,7 +68,7 @@ const HeroSection = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
-                Call Farmer
+                {t('hero.call')}
               </motion.a>
             </div>
 
@@ -77,7 +79,7 @@ const HeroSection = () => {
             className="flex-1 flex justify-center lg:justify-end relative order-1 lg:order-2"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
           >
             <div className="relative">
               {/* Glow effect behind image */}
@@ -92,16 +94,16 @@ const HeroSection = () => {
                   filter: 'drop-shadow(0 30px 60px rgba(0,0,0,0.4))'
                 }}
                 animate={{ y: [0, -15, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
               />
 
               {/* Floating badge */}
               <motion.div
                 className="absolute bottom-4 sm:bottom-8 right-0 sm:right-4 bg-golden text-red-900 px-4 sm:px-5 py-2 sm:py-3 rounded-full font-bold shadow-xl text-sm sm:text-lg"
                 animate={{ rotate: [-5, 5, -5] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
               >
-                🍓 100% Fresh
+                🍓 {t('hero.badge')}
               </motion.div>
             </div>
           </motion.div>
@@ -121,13 +123,13 @@ const HeroSection = () => {
       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/40 to-transparent py-2.5">
         <div className="container mx-auto px-3">
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-white/90 text-sm sm:text-base md:text-lg">
-            <span className="font-semibold">🍓 Vitamin C Rich</span>
+            <span className="font-semibold">🍓 {t('hero.vitc')}</span>
             <span className="text-white/40">•</span>
-            <span className="font-semibold">💪 High Antioxidants</span>
+            <span className="font-semibold">💪 {t('hero.antioxidant')}</span>
             <span className="text-white/40">•</span>
-            <span>🫀 Heart Healthy</span>
+            <span>🫀 {t('hero.heart')}</span>
             <span className="text-white/40">•</span>
-            <span>🌿 100% Natural</span>
+            <span>🌿 {t('hero.natural')}</span>
           </div>
         </div>
       </div>

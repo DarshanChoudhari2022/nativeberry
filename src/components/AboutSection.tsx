@@ -1,40 +1,44 @@
+import { Reveal } from '@/components/ui/Reveal';
 import { motion } from 'framer-motion';
 import { Sprout, Leaf, Home, Truck } from 'lucide-react';
 import farmLandscapeImg from '@/assets/farm-landscape.jpeg';
 import heroFarmImg from '@/assets/hero-farm.jpeg';
-
-const timelineData = [
-  {
-    year: "1920s",
-    title: "British Introduction",
-    description: "British introduce strawberries to Mahabaleshwar hill station.",
-    icon: Sprout,
-    color: "bg-green-500"
-  },
-  {
-    year: "1930s",
-    title: "Gureghar Adopts",
-    description: "Gureghar village adopts the crop. Our ancestors begin cultivation.",
-    icon: Leaf,
-    color: "bg-emerald-500"
-  },
-  {
-    year: "1999",
-    title: "Native Berry Farms",
-    description: "The Gade family establishes Native Berry Farms officially.",
-    icon: Home,
-    color: "bg-red-deep"
-  },
-  {
-    year: "Today",
-    title: "Direct to Doorstep",
-    description: "Delivering farm-fresh berries directly to Pune, Mumbai & beyond.",
-    icon: Truck,
-    color: "bg-golden"
-  }
-];
+import { useLanguage } from '@/context/LanguageContext';
 
 const AboutSection = () => {
+  const { t } = useLanguage();
+
+  const timelineData = [
+    {
+      year: "1920s",
+      title: t('timeline.1920.title'),
+      description: t('timeline.1920.desc'),
+      icon: Sprout,
+      color: "bg-green-500"
+    },
+    {
+      year: "1930s",
+      title: t('timeline.1930.title'),
+      description: t('timeline.1930.desc'),
+      icon: Leaf,
+      color: "bg-emerald-500"
+    },
+    {
+      year: "1999",
+      title: t('timeline.1999.title'),
+      description: t('timeline.1999.desc'),
+      icon: Home,
+      color: "bg-red-deep"
+    },
+    {
+      year: t('timeline.today.time'),
+      title: t('timeline.today.title'),
+      description: t('timeline.today.desc'),
+      icon: Truck,
+      color: "bg-golden"
+    }
+  ];
+
   return (
     <section id="about" className="min-h-screen section-light py-10 md:py-20 px-6 md:px-12 relative overflow-hidden">
       {/* Decorative strawberry outlines */}
@@ -68,25 +72,35 @@ const AboutSection = () => {
 
           {/* Content */}
           <div className="lg:pl-8 mt-12 lg:mt-0">
-            <p className="text-red-deep font-semibold text-sm tracking-widest uppercase mb-4">
-              About Us
-            </p>
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-red-dark leading-tight mb-4 md:mb-6">
-              It's a Berry's<br />
-              <span className="font-script text-red-deep">World!</span>
-            </h2>
-            <p className="text-base md:text-lg text-muted-foreground mb-6 leading-relaxed">
-              Discover the essence of Native Berry Farms. What started with a small farm in Gureghar, Mahabaleshwar has grown into a legacy spanning 25+ years.
-            </p>
-            <p className="text-muted-foreground mb-6 md:mb-8 leading-relaxed text-sm md:text-base">
-              Native Berry Farms is more than just a brand; it's a passion for quality. The Gade family cultivates our berries with care, ensuring every bite is a delight.
-            </p>
-
-            <blockquote className="border-l-4 border-red-deep pl-6 mb-8">
-              <p className="text-lg md:text-xl font-medium text-red-dark italic">
-                "It's not just what we grow. It's how we grow it—with care, consistency, and purpose."
+            <Reveal>
+              <p className="text-red-deep font-semibold text-sm tracking-widest uppercase mb-4">
+                {t('about.label')}
               </p>
-            </blockquote>
+            </Reveal>
+            <Reveal delay={0.3}>
+              <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-red-dark leading-normal mb-4 md:mb-6 py-2">
+                {t('about.title1')}<br />
+                <span className="font-script text-red-deep">{t('about.title2')}</span>
+              </h2>
+            </Reveal>
+            <Reveal delay={0.4}>
+              <p className="text-base md:text-lg text-muted-foreground mb-6 leading-relaxed">
+                {t('about.desc1')}
+              </p>
+            </Reveal>
+            <Reveal delay={0.5}>
+              <p className="text-muted-foreground mb-6 md:mb-8 leading-relaxed text-sm md:text-base">
+                {t('about.desc2')}
+              </p>
+            </Reveal>
+
+            <Reveal delay={0.6}>
+              <blockquote className="border-l-4 border-red-deep pl-6 mb-8">
+                <p className="text-lg md:text-xl font-medium text-red-dark italic">
+                  {t('about.quote')}
+                </p>
+              </blockquote>
+            </Reveal>
           </div>
         </div>
 
@@ -94,10 +108,10 @@ const AboutSection = () => {
         <div className="mt-12 md:mt-16 relative"> {/* Added relative for containment if needed */}
           <div className="text-center mb-10 md:mb-16">
             <p className="text-red-deep font-semibold text-sm tracking-widest uppercase mb-4">
-              Our Journey
+              {t('about.journey')}
             </p>
             <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-dark">
-              A Legacy of <span className="font-script text-red-deep">100 Years</span>
+              {t('about.legacy')} <span className="font-script text-red-deep">{t('about.years')}</span>
             </h3>
           </div>
 
@@ -111,9 +125,9 @@ const AboutSection = () => {
                 key={item.year}
                 className={`relative flex items-center mb-8 md:mb-16 last:mb-0 md:justify-between ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
                   }`}
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
+                transition={{ duration: 0.4, delay: index * 0.1, ease: "easeOut" }}
                 viewport={{ once: true }}
               >
                 {/* Content Card - Full width with padding on mobile, 5/12 on desktop */}

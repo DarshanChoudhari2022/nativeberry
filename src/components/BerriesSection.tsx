@@ -1,100 +1,146 @@
-import strawberryImg from '@/assets/strawberry-closeup.jpeg';
-
-
-
-// Real berry images from Unsplash
-const MULBERRY_IMG = 'https://images.unsplash.com/photo-1621961048738-a29e2c45161c?w=800&q=80';
-const RASPBERRY_IMG = 'https://images.unsplash.com/photo-1577069861033-55d04cec4ef5?w=800&q=80';
-const GOLDEN_BERRY_IMG = 'https://images.unsplash.com/photo-1596591868231-05e908752cc7?w=800&q=80';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { ChevronRight } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
+import strawberryImg from '@/assets/strawberry_hero.png';
+import mulberryImg from '@/assets/mulberry_hero.png';
+import raspberryImg from '@/assets/raspberry_hero.png';
+import goldenBerryImg from '@/assets/golden_berry_hero.png';
 
 const berries = [
   {
-    name: 'Strawberry',
-    tagline: 'The Mahabaleshwar Classic',
+    name: 'Strawberries',
     image: strawberryImg,
-    color: 'from-red-500 to-red-700',
+    // Using a deep organic green to match the "Explore the berry patch" reference style
+    color: 'text-[#4A6741]',
+    link: '/strawberries',
   },
   {
-    name: 'Mulberry',
-    tagline: 'The Wild Dark Pearl',
-    image: MULBERRY_IMG,
-    color: 'from-purple-500 to-purple-800',
+    name: 'Mulberries',
+    image: mulberryImg,
+    color: 'text-[#4A6741]',
+    link: '/mulberries',
   },
   {
-    name: 'Raspberry',
-    tagline: 'Exotic Tartness',
-    image: RASPBERRY_IMG,
-    color: 'from-pink-400 to-pink-600',
+    name: 'Raspberries',
+    image: raspberryImg,
+    color: 'text-[#4A6741]',
+    link: '/raspberries',
   },
   {
-    name: 'Golden Berry',
-    tagline: 'Nature\'s Wrapped Candy',
-    image: GOLDEN_BERRY_IMG,
-    color: 'from-yellow-400 to-orange-500',
+    name: 'Golden Berries',
+    image: goldenBerryImg,
+    color: 'text-[#4A6741]',
+    link: '/golden-berries',
   },
 ];
 
 const BerriesSection = () => {
+  const { t } = useLanguage();
+  const targetRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+  });
+
+  // Map vertical scroll to horizontal movement
+  // Adjusted scroll range for a comfortable pace
+  const x = useTransform(scrollYProgress, [0, 1], ['0%', '-60%']);
+  const fade = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.15], [1, 0.95]);
+
   return (
-    <section id="berries" className="min-h-screen section-red py-20 px-6 md:px-12 relative overflow-hidden bg-pattern-strawberry">
-      <div className="container mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <p className="text-white/70 font-semibold text-sm tracking-widest uppercase mb-4">
-            Our Collection
-          </p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-            Meet the <span className="font-script">Berries</span>
+    <section ref={targetRef} className="relative bg-[#F9F7F2]">
+
+      {/* ---------------- MOBILE VIEW (Native Horizontal Scroll) ---------------- */}
+      <div className="md:hidden py-16 min-h-screen flex flex-col justify-center">
+        <div className="text-center px-4 mb-8">
+          <h2 className="text-5xl font-bold text-[#2D3A26] font-script mb-2 drop-shadow-sm leading-normal py-2">
+            {t('berries.title')}
           </h2>
-          <p className="text-white/70 text-lg max-w-2xl mx-auto">
-            Four exceptional varieties, each with its own character
+          <p className="text-[#5C6B50] text-xs tracking-[0.2em] uppercase font-medium leading-relaxed py-1">
+            {t('berries.subtitle')}
           </p>
         </div>
 
-        {/* Berry Cards Grid/Carousel */}
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6 -mx-6 px-6 md:grid md:grid-cols-2 lg:grid-cols-4 md:overflow-visible md:pb-0 md:mx-0 md:px-0 scrollbar-hide">
-          {berries.map((berry, index) => (
-            <div
-              key={berry.name}
-              className="min-w-[85vw] md:min-w-0 snap-center group relative bg-white/10 backdrop-blur-sm rounded-3xl overflow-hidden hover:-translate-y-2 transition-all duration-500 cursor-pointer border border-white/10"
-            >
-              {/* Image */}
-              <div className="relative h-64 overflow-hidden">
+        {/* Native Scroll Container */}
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 px-6 pb-8 scrollbar-hide w-full">
+          {berries.map((berry) => (
+            <Link to={berry.link} key={berry.name} className="snap-center flex-shrink-0 w-[85vw] flex flex-col items-center justify-center p-4">
+              <div className="relative w-64 h-64 mb-6">
                 <img
                   src={berry.image}
                   alt={berry.name}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-contain filter drop-shadow-xl"
+                  style={{ filter: 'drop-shadow(0 15px 25px rgba(0,0,0,0.15))' }}
                 />
-                <div className={`absolute inset-0 bg-gradient-to-t ${berry.color} opacity-30`}></div>
               </div>
-
-              {/* Content */}
-              <div className="p-6">
-                <h3 className="text-2xl font-bold text-white mb-1">
-                  {berry.name}
+              <div className="flex items-center gap-2">
+                <h3 className={`text-4xl font-script font-bold ${berry.color} drop-shadow-sm`}>
+                  {t(`berry.${berry.name.toLowerCase().replace(' ', '')}`)}
                 </h3>
-                <p className="text-white/70 text-sm">
-                  {berry.tagline}
-                </p>
+                <ChevronRight className={`w-6 h-6 ${berry.color} opacity-80`} />
               </div>
-
-              {/* Hover overlay */}
-              <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </div>
+            </Link>
           ))}
+          {/* Padding End */}
+          <div className="w-6 flex-shrink-0"></div>
         </div>
+      </div>
 
-        {/* CTA */}
-        <div className="text-center mt-12">
-          <a
-            href="https://wa.me/918605589062?text=Hi!%20I%20want%20to%20order%20fresh%20berries"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-pill btn-white inline-flex items-center gap-2"
+
+      {/* ---------------- DESKTOP VIEW (Insane Sticky Scroll) ---------------- */}
+      <div className="hidden md:block h-[250vh] relative">
+        <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
+
+          {/* Decorative Horizontal Line */}
+          <div className="absolute top-[55%] left-0 w-full h-[1px] bg-neutral-200/60 -z-10" />
+
+          {/* Floating Header */}
+          <motion.div
+            style={{ opacity: fade, scale, willChange: 'opacity, transform' }}
+            className="absolute top-[18vh] w-full text-center z-10 px-4 pointer-events-none"
           >
-            Order Fresh Now
-            <span>🍓</span>
-          </a>
+            <h2 className="text-6xl lg:text-7xl font-bold text-[#2D3A26] font-script mb-4 drop-shadow-sm leading-normal py-2">
+              {t('berries.title')}
+            </h2>
+            <p className="text-[#5C6B50] text-base tracking-[0.2em] uppercase font-medium mt-2 leading-relaxed py-1">
+              {t('berries.subtitle')}
+            </p>
+          </motion.div>
+
+          {/* Horizontal Scroll Track */}
+          {/* Reduced padding-left to center the start better, adjusted gap */}
+          <motion.div style={{ x }} className="flex items-center gap-16 pl-[15vw] pt-[15vh]">
+            {berries.map((berry) => (
+              <Link to={berry.link} key={berry.name}>
+                <div
+                  className="group relative flex-shrink-0 w-[280px] flex flex-col items-center justify-center cursor-pointer py-6"
+                >
+                  {/* Image Area - Significantly smaller to match screenshot */}
+                  <div className="relative w-48 h-48 lg:w-56 lg:h-56 flex items-center justify-center transition-all duration-500 ease-out group-hover:-translate-y-4 group-hover:scale-110">
+                    <img
+                      src={berry.image}
+                      alt={berry.name}
+                      className="w-full h-full object-contain filter drop-shadow-xl"
+                      style={{ filter: 'drop-shadow(0 15px 25px rgba(0,0,0,0.15))', willChange: 'transform' }}
+                    />
+                  </div>
+
+                  {/* Title & Arrow - Scaled down */}
+                  <div className="mt-6 flex items-center justify-center gap-2 transition-all duration-300 group-hover:gap-3">
+                    <h3 className={`text-3xl lg:text-4xl font-script font-bold ${berry.color} drop-shadow-sm`}>
+                      {t(`berry.${berry.name.toLowerCase().replace(' ', '')}`)}
+                    </h3>
+                    <ChevronRight className={`w-6 h-6 ${berry.color} opacity-80 transition-transform duration-300 group-hover:translate-x-1`} />
+                  </div>
+                </div>
+              </Link>
+            ))}
+
+            {/* Spacer */}
+            <div className="w-[20vw]"></div>
+          </motion.div>
         </div>
       </div>
     </section>

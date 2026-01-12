@@ -6,23 +6,40 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
+import StrawberryDetail from "./pages/StrawberryDetail";
+import MulberryDetail from "./pages/MulberryDetail";
+import RaspberryDetail from "./pages/RaspberryDetail";
+import GoldenBerryDetail from "./pages/GoldenBerryDetail";
+import { ReactLenis } from '@studio-freight/react-lenis';
+import { LanguageProvider } from './context/LanguageContext';
+
+import LanguageToggle from "./components/LanguageToggle";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+    <LanguageProvider>
+      <TooltipProvider>
+        <ReactLenis root options={{ lerp: 0.1, duration: 1.5, smoothWheel: true }}>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <ScrollToTop />
+            <LanguageToggle />
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/strawberries" element={<StrawberryDetail />} />
+              <Route path="/mulberries" element={<MulberryDetail />} />
+              <Route path="/raspberries" element={<RaspberryDetail />} />
+              <Route path="/golden-berries" element={<GoldenBerryDetail />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </ReactLenis>
+      </TooltipProvider>
+    </LanguageProvider>
   </QueryClientProvider>
 );
 

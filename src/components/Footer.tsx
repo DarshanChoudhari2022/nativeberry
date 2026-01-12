@@ -1,4 +1,7 @@
+import { useLanguage } from '@/context/LanguageContext';
+
 const Footer = () => {
+  const { t } = useLanguage();
   return (
     <footer className="bg-red-dark text-white py-12 px-6 md:px-12">
       <div className="container mx-auto">
@@ -6,26 +9,25 @@ const Footer = () => {
           {/* Logo */}
           <div>
             <h3 className="text-2xl font-bold mb-2">
-              <span className="font-script text-3xl">Native</span> Berry Farms
+              <span className="font-script text-3xl">Native</span> {t('hero.title3')}
             </h3>
             <p className="text-white/60 text-sm">
-              The Real Gavakries of Mahabaleshwar
+              {t('footer.tagline')}
             </p>
           </div>
 
           {/* Address */}
           <div className="text-white/70 text-sm">
-            <p>Parking No 4, Near Mapro Garden,</p>
-            <p>Gureghar, Mahabaleshwar</p>
+            <p>{t('contact.address')}</p>
           </div>
 
           {/* Copyright */}
           <div className="text-center md:text-right">
             <p className="text-white/60 text-sm">
-              © 2026 Native Berry Farms.
+              © 2026 {t('footer.brand')}.
             </p>
             <p className="text-white/40 text-xs mt-1">
-              Grown with ❤️ since 1999
+              {t('footer.love')}
             </p>
           </div>
         </div>
