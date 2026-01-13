@@ -12,6 +12,7 @@ import realPkg2 from '@/assets/real_straw_2.jpg';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import videoSrc from '@/assets/video.mp4';
+import TrustBadges from '@/components/TrustBadges';
 
 const StrawberryDetail = () => {
     const { t } = useLanguage();
@@ -95,6 +96,8 @@ const StrawberryDetail = () => {
                     </div>
                 </div>
             </section>
+
+            <TrustBadges />
 
             {/* ---------------- AVAILABILITY SECTION (Dark Red) ---------------- */}
             <section className="bg-[#781B26] text-white py-12 md:py-20 px-6 md:px-12">

@@ -7,6 +7,7 @@ import { Reveal } from '@/components/ui/Reveal';
 import mulberryHero from '@/assets/mulberry_hero.png';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import TrustBadges from '@/components/TrustBadges';
 
 const MulberryDetail = () => {
     const { t } = useLanguage();
@@ -83,6 +84,8 @@ const MulberryDetail = () => {
                     </div>
                 </div>
             </section>
+
+            <TrustBadges />
 
             {/* ---------------- AVAILABILITY SECTION (Dark Purple) ---------------- */}
             <section className="bg-[#4A1D50] text-white py-12 md:py-20 px-6 md:px-12">

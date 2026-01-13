@@ -7,6 +7,7 @@ import { Reveal } from '@/components/ui/Reveal';
 import raspberryHero from '@/assets/raspberry_hero.png';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import TrustBadges from '@/components/TrustBadges';
 
 const RaspberryDetail = () => {
     const { t } = useLanguage();
@@ -83,6 +84,8 @@ const RaspberryDetail = () => {
                     </div>
                 </div>
             </section>
+
+            <TrustBadges />
 
             {/* ---------------- AVAILABILITY SECTION (Dark Pink) ---------------- */}
             <section className="bg-[#831843] text-white py-12 md:py-20 px-6 md:px-12">

@@ -7,6 +7,7 @@ import { Reveal } from '@/components/ui/Reveal';
 import goldenBerryHero from '@/assets/golden_berry_hero.png';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import TrustBadges from '@/components/TrustBadges';
 
 const GoldenBerryDetail = () => {
     const { t } = useLanguage();
@@ -83,6 +84,8 @@ const GoldenBerryDetail = () => {
                     </div>
                 </div>
             </section>
+
+            <TrustBadges />
 
             {/* ---------------- AVAILABILITY SECTION (Dark Amber) ---------------- */}
             <section className="bg-[#78350F] text-white py-12 md:py-20 px-6 md:px-12">
