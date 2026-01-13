@@ -59,12 +59,12 @@ const Footer = () => {
                 {t('footer.tagline')}
               </p>
             </div>
-            <div className="flex gap-4 justify-center md:justify-start">
-              {/* Social Placeholders */}
-              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">📸</div>
+            {/* <div className="flex gap-4 justify-center md:justify-start"> */}
+            {/* Social Placeholders */}
+            {/* <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">📸</div>
               <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">📘</div>
-              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">💬</div>
-            </div>
+              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">💬</div> */}
+            {/* </div> */}
           </div>
 
           {/* Quick Links */}
