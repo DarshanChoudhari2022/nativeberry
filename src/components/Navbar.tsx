@@ -1,11 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { ChevronLeft, Menu, X } from 'lucide-react';
 import logo from '@/assets/logo_final_v3.jpg';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { t } = useLanguage();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const menuItems = [
     { label: t('nav.home'), href: '/#home' },
@@ -15,7 +24,7 @@ const Navbar = () => {
     { label: t('nav.contact'), href: '/#contact' },
   ];
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-6 pointer-events-none">
+    <nav className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-4 transition-all duration-300 pointer-events-none ${isScrolled ? 'bg-red-dark/95 backdrop-blur-md py-3 shadow-lg' : 'bg-transparent py-6'}`}>
       <div className="flex items-center justify-between pointer-events-auto">
         {/* Logo */}
         {/* Logo */}
