@@ -393,7 +393,7 @@ const StrawberryDetail = () => {
             </section>
 
             {/* ---------------- SERVING SECTION ---------------- */}
-            <section className="py-12 md:py-20 px-6 md:px-12 bg-white overflow-hidden">
+            <section className="py-8 md:py-20 px-6 md:px-12 bg-white overflow-hidden">
                 <div className="container mx-auto">
                     <div className="grid lg:grid-cols-2 gap-12 items-center">
                         <Reveal>
