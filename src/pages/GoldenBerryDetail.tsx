@@ -229,6 +229,49 @@ const GoldenBerryDetail = () => {
                 </div>
             </section>
 
+            {/* ---------------- SERVING SECTION ---------------- */}
+            <section className="py-12 md:py-20 px-6 md:px-12 bg-white overflow-hidden">
+                <div className="container mx-auto">
+                    <div className="grid lg:grid-cols-2 gap-12 items-center">
+                        <Reveal>
+                            <div className="relative rounded-3xl overflow-hidden shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500">
+                                <img
+                                    src="/src/assets/lifestyle_goldenberry.png"
+                                    alt="Golden Berry Lifestyle"
+                                    className="w-full h-auto object-cover hover:scale-105 transition-transform duration-700"
+                                />
+                            </div>
+                        </Reveal>
+                        <div className="lg:pl-10">
+                            <Reveal delay={0.2}>
+                                <h2 className="text-3xl md:text-5xl font-bold text-amber-900 font-script mb-6">
+                                    {t('golden.hero.title')}
+                                </h2>
+                            </Reveal>
+                            <Reveal delay={0.3}>
+                                <p className="text-gray-600 text-lg leading-relaxed mb-6">
+                                    {t('golden.hero.desc')}
+                                </p>
+                                <ul className="space-y-4">
+                                    <li className="flex items-center gap-3 text-gray-700">
+                                        <span className="text-2xl">🍧</span>
+                                        <span>Amazing topping for yogurt parfaits</span>
+                                    </li>
+                                    <li className="flex items-center gap-3 text-gray-700">
+                                        <span className="text-2xl">🥗</span>
+                                        <span>Sweet burst in spicy salsa</span>
+                                    </li>
+                                    <li className="flex items-center gap-3 text-gray-700">
+                                        <span className="text-2xl">🍬</span>
+                                        <span>Nature's own wrapped candy</span>
+                                    </li>
+                                </ul>
+                            </Reveal>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <Footer />
         </main>
     );

@@ -242,6 +242,49 @@ const MulberryDetail = () => {
                 </div>
             </section>
 
+            {/* ---------------- SERVING SECTION ---------------- */}
+            <section className="py-12 md:py-20 px-6 md:px-12 bg-white overflow-hidden">
+                <div className="container mx-auto">
+                    <div className="grid lg:grid-cols-2 gap-12 items-center">
+                        <Reveal>
+                            <div className="relative rounded-3xl overflow-hidden shadow-2xl -rotate-2 hover:rotate-0 transition-transform duration-500">
+                                <img
+                                    src="/src/assets/lifestyle_mulberry.png"
+                                    alt="Mulberry Lifestyle"
+                                    className="w-full h-auto object-cover hover:scale-105 transition-transform duration-700"
+                                />
+                            </div>
+                        </Reveal>
+                        <div className="lg:pl-10">
+                            <Reveal delay={0.2}>
+                                <h2 className="text-3xl md:text-5xl font-bold text-purple-900 font-script mb-6">
+                                    {t('mulberry.hero.title')}
+                                </h2>
+                            </Reveal>
+                            <Reveal delay={0.3}>
+                                <p className="text-gray-600 text-lg leading-relaxed mb-6">
+                                    {t('mulberry.hero.desc')}
+                                </p>
+                                <ul className="space-y-4">
+                                    <li className="flex items-center gap-3 text-gray-700">
+                                        <span className="text-2xl">🫐</span>
+                                        <span>Great for making jams and preserves</span>
+                                    </li>
+                                    <li className="flex items-center gap-3 text-gray-700">
+                                        <span className="text-2xl">🥧</span>
+                                        <span>Bake into rustic galettes</span>
+                                    </li>
+                                    <li className="flex items-center gap-3 text-gray-700">
+                                        <span className="text-2xl">🍷</span>
+                                        <span>Infuse into syrups or wines</span>
+                                    </li>
+                                </ul>
+                            </Reveal>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <Footer />
         </main>
     );
