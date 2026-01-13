@@ -180,10 +180,12 @@ body.lang-mr .text-9xl {
 
 /* Marathi Specific Overrides */
 body.lang-mr {
-  line-height: 2.2 !important;
+  line-height: 2 !important;
   /* Increased for better legibility */
-  letter-spacing: 0.5px;
-  word-spacing: 2px;
+  letter-spacing: 0.2px;
+  word-spacing: 1px;
+  font-size: 18px;
+  /* Larger base font for Marathi on Mobile */
 }
 
 body.lang-mr .font-script {
