@@ -125,14 +125,21 @@ const BerriesSection = () => {
                       className="w-full h-full object-contain filter drop-shadow-xl"
                       style={{ filter: 'drop-shadow(0 15px 25px rgba(0,0,0,0.15))', willChange: 'transform' }}
                     />
+
+                    {/* Hover Pulse Animation */}
+                    <div className="absolute inset-0 bg-white/20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
 
                   {/* Title & Arrow - Scaled down */}
-                  <div className="mt-6 flex items-center justify-center gap-2 transition-all duration-300 group-hover:gap-3">
+                  <div className="mt-6 flex flex-col items-center justify-center gap-2 transition-all duration-300 group-hover:gap-3">
                     <h3 className={`text-3xl lg:text-4xl font-script font-bold ${berry.color} drop-shadow-sm`}>
                       {t(`berry.${berry.name.toLowerCase().replace(' ', '')}`)}
                     </h3>
-                    <ChevronRight className={`w-6 h-6 ${berry.color} opacity-80 transition-transform duration-300 group-hover:translate-x-1`} />
+
+                    <div className="flex items-center gap-2 opacity-60 group-hover:opacity-100 transition-opacity">
+                      <span className={`text-sm tracking-widest uppercase font-bold ${berry.color}`}>Explore</span>
+                      <ChevronRight className={`w-5 h-5 ${berry.color} transition-transform duration-300 group-hover:translate-x-1`} />
+                    </div>
                   </div>
                 </div>
               </Link>

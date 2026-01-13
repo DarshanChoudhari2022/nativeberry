@@ -47,15 +47,27 @@ const Navbar = () => {
         <div className="fixed inset-0 bg-red-dark/95 z-40 flex items-center justify-center pointer-events-auto">
           <div className="flex flex-col items-center gap-8 text-white">
             {/* Navigation Items */}
+            {/* Navigation Items */}
             {menuItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="text-3xl font-light hover:opacity-70 transition-opacity"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {item.label}
-              </a>
+              <div key={item.label} className="flex flex-col items-center gap-2">
+                <a
+                  href={item.href}
+                  className="text-3xl font-light hover:opacity-70 transition-opacity"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.label}
+                </a>
+
+                {/* Mobile Submenu for Berries */}
+                {item.href === '/#berries' && (
+                  <div className="flex flex-col gap-2 mt-1 items-center">
+                    <a href="/strawberries" className="text-lg opacity-80 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{t('berry.strawberries')}</a>
+                    <a href="/mulberries" className="text-lg opacity-80 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{t('berry.mulberries')}</a>
+                    <a href="/raspberries" className="text-lg opacity-80 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{t('berry.raspberries')}</a>
+                    <a href="/golden-berries" className="text-lg opacity-80 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{t('berry.goldenberries')}</a>
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         </div>

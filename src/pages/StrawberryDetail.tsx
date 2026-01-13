@@ -247,6 +247,8 @@ const StrawberryDetail = () => {
                                     controls
                                     muted
                                     playsInline
+                                    webkit-playsinline="true"
+                                    x5-playsinline="true"
                                     poster={pkg1}
                                 >
                                     <source src="/src/assets/video.mp4" type="video/mp4" />
