@@ -22,12 +22,12 @@ export const Reveal = ({ children, width = "fit-content", delay = 0.1 }: RevealP
         <div ref={ref} style={{ position: "relative", width, overflow: "hidden" }}>
             <motion.div
                 variants={{
-                    hidden: { opacity: 0, y: 30 }, // Reduced y travel for snappiness
+                    hidden: { opacity: 1, y: 0 }, // Removed animation: start visible
                     visible: { opacity: 1, y: 0 },
                 }}
-                initial="hidden"
+                initial="visible" // Start visible immediately
                 animate={mainControls}
-                transition={{ duration: 0.35, delay: delay, ease: "easeOut" }} // Faster duration and eased
+                transition={{ duration: 0 }} // Instant transition
             >
                 {children}
             </motion.div>

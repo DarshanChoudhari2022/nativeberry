@@ -11,6 +11,7 @@ import realPkg1 from '@/assets/real_straw_1.jpg';
 import realPkg2 from '@/assets/real_straw_2.jpg';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import videoSrc from '@/assets/video.mp4';
 
 const StrawberryDetail = () => {
     const { t } = useLanguage();
@@ -251,7 +252,7 @@ const StrawberryDetail = () => {
                                     x5-playsinline="true"
                                     poster={pkg1}
                                 >
-                                    <source src="/src/assets/video.mp4" type="video/mp4" />
+                                    <source src={videoSrc} type="video/mp4" />
                                     Your browser does not support the video tag.
                                 </video>
                                 <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors pointer-events-none"></div>

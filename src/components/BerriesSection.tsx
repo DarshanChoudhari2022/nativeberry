@@ -74,12 +74,19 @@ const BerriesSection = () => {
                   className="w-full h-full object-contain filter drop-shadow-xl"
                   style={{ filter: 'drop-shadow(0 15px 25px rgba(0,0,0,0.15))' }}
                 />
+                {/* Mobile Tap Indicator */}
+                <div className="absolute bottom-4 right-4 bg-white/30 backdrop-blur-sm p-2 rounded-full animate-bounce">
+                  <div className="w-2 h-2 bg-white rounded-full"></div>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-col items-center gap-2">
                 <h3 className={`text-4xl font-script font-bold ${berry.color} drop-shadow-sm`}>
                   {t(`berry.${berry.name.toLowerCase().replace(' ', '')}`)}
                 </h3>
-                <ChevronRight className={`w-6 h-6 ${berry.color} opacity-80`} />
+                <div className="flex items-center gap-1.5 opacity-80">
+                  <span className={`text-xs tracking-widest uppercase font-bold ${berry.color}`}>Tap to View</span>
+                  <ChevronRight className={`w-4 h-4 ${berry.color}`} />
+                </div>
               </div>
             </Link>
           ))}
