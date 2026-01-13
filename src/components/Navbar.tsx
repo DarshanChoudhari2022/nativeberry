@@ -73,7 +73,6 @@ const Navbar = () => {
         <div className="fixed inset-0 bg-red-dark/95 z-40 flex items-center justify-center pointer-events-auto">
           <div className="flex flex-col items-center gap-8 text-white">
             {/* Navigation Items */}
-            {/* Navigation Items */}
             {menuItems.map((item) => (
               <div key={item.label} className="flex flex-col items-center gap-2">
                 <a
@@ -95,6 +94,14 @@ const Navbar = () => {
                 )}
               </div>
             ))}
+
+            <a
+              href="/#contact"
+              className="bg-[#FFD700] text-[#781B26] px-8 py-3 rounded-full font-bold text-lg tracking-wide hover:scale-105 transition-transform shadow-lg mt-4"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              {t('nav.order')}
+            </a>
           </div>
         </div>
       )}
