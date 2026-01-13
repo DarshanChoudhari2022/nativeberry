@@ -7,6 +7,7 @@ import BerriesSection from '@/components/BerriesSection';
 import WholesaleSection from '@/components/WholesaleSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
+import TestimonialsSection from '@/components/TestimonialsSection';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState(0);
@@ -38,6 +39,7 @@ const Index = () => {
       <AboutSection />
       <BerriesSection />
       <WholesaleSection />
+      <TestimonialsSection />
       <ContactSection />
       <Footer />
     </main>

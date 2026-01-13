@@ -226,6 +226,17 @@ const translations: Record<string, { en: string; mr: string }> = {
     'golden.step3.desc': { en: 'Want to keep them for 3-4 weeks? Pop them in the fridge in a breathable container.', mr: '३-४ आठवडे ठेवायच्या आहेत? हवेशीर डब्यात फ्रिजमध्ये ठेवा.' },
     'golden.step4.title': { en: 'Peel & Rinse', mr: 'सोलून धुवा' },
     'golden.step4.desc': { en: 'Peel the husk and rinse under cold water only when ready to eat. They might feel slightly sticky (natural pectin).', mr: 'खाण्यापूर्वीच आवरण काढा आणि थंड पाण्याने धुवा. त्या थोड्या चिकट असू शकतात (नैसर्गिक पेक्टिन).' },
+    // Testimonials
+    'testim.title': { en: 'What Our Customers Say', mr: 'आमचे ग्राहक काय म्हणतात' },
+    'testim.1.name': { en: 'Priya Deshmukh', mr: 'प्रिया देशमुख' },
+    'testim.1.text': { en: 'Best strawberries I have ever tasted! They remind me of my childhood trips to Mahabaleshwar.', mr: 'आजवर चाखलेली सर्वोत्तम स्ट्रॉबेरी! मला माझ्या लहानपणीच्या महाबळेश्वर सहलींची आठवण झाली.' },
+    'testim.1.loc': { en: 'Pune', mr: 'पुणे' },
+    'testim.2.name': { en: 'Rahul Mehta', mr: 'राहुल मेहता' },
+    'testim.2.text': { en: 'Incredible freshness. Delivered within 24 hours as promised. The packaging was top notch.', mr: 'अविश्वसनीय ताजेपणा. वचनाप्रमाणे २४ तासात डिलिव्हरी. पॅकेजिंग उत्कृष्ट होते.' },
+    'testim.2.loc': { en: 'Mumbai', mr: 'मुंबई' },
+    'testim.3.name': { en: 'Anjali Patil', mr: 'जई पाटील' },
+    'testim.3.text': { en: 'My kids absolutely love the Mulberries. It is rare to find such high quality organic fruits online.', mr: 'माझ्या मुलांना मलबेरीज खूप आवडतात. ऑनलाइन अशी उच्च दर्जाची सेंद्रिय फळे मिळणे दुर्मिळ आहे.' },
+    'testim.3.loc': { en: 'Nashik', mr: 'नाशिक' },
 };
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
