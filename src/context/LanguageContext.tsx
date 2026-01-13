@@ -237,6 +237,21 @@ const translations: Record<string, { en: string; mr: string }> = {
     'testim.3.name': { en: 'Anjali Patil', mr: 'जई पाटील' },
     'testim.3.text': { en: 'My kids absolutely love the Mulberries. It is rare to find such high quality organic fruits online.', mr: 'माझ्या मुलांना मलबेरीज खूप आवडतात. ऑनलाइन अशी उच्च दर्जाची सेंद्रिय फळे मिळणे दुर्मिळ आहे.' },
     'testim.3.loc': { en: 'Nashik', mr: 'नाशिक' },
+    // Trust Badges
+    'trust.organic.title': { en: 'Organic Practices', mr: 'सेंद्रिय पद्धती' },
+    'trust.organic.desc': { en: 'No harmful pesticides', mr: 'हानिकारक रसायने नाहीत' },
+    'trust.safety.title': { en: 'Food Safety', mr: 'अन्न सुरक्षा' },
+    'trust.safety.desc': { en: 'Hygienic handling', mr: 'स्वच्छ हाताळणी' },
+    'trust.quality.title': { en: 'Premium Quality', mr: 'उच्च दर्जा' },
+    'trust.quality.desc': { en: 'Hand-picked daily', mr: 'दररोज हाताने वेचलेली' },
+    'trust.delivery.title': { en: 'Fast Delivery', mr: 'जलद वितरण' },
+    'trust.delivery.desc': { en: 'Within 24 hours', mr: '२४ तासांच्या आत' },
+
+    // Newsletter
+    'news.title': { en: 'Join the Harvest', mr: 'आमच्याशी जोडा' },
+    'news.desc': { en: 'Get notified when fresh batches are harvested.', mr: 'ताजी कापणी झाल्यावर सूचना मिळवा.' },
+    'news.placeholder': { en: 'Enter your email', mr: 'तुमचा ईमेल टाका' },
+    'news.btn': { en: 'Subscribe', mr: 'सबस्क्राईब करा' },
 };
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);

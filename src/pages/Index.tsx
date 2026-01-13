@@ -9,6 +9,8 @@ import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import TestimonialsSection from '@/components/TestimonialsSection';
 
+import TrustBadges from '@/components/TrustBadges';
+
 const Index = () => {
   const [activeSection, setActiveSection] = useState(0);
 
@@ -36,6 +38,7 @@ const Index = () => {
       <Navbar />
       <NavDots activeSection={activeSection} totalSections={6} />
       <HeroSection />
+      <TrustBadges />
       <AboutSection />
       <BerriesSection />
       <WholesaleSection />

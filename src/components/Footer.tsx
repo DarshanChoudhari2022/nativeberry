@@ -5,6 +5,24 @@ const Footer = () => {
   return (
     <footer className="bg-red-dark text-white pt-20 pb-10 px-6 md:px-12 border-t border-white/10">
       <div className="container mx-auto">
+        {/* Newsletter CTA */}
+        <div className="bg-red-800/30 rounded-2xl p-8 mb-16 flex flex-col md:flex-row items-center justify-between gap-6 border border-white/10">
+          <div className="text-center md:text-left">
+            <h3 className="text-2xl font-bold font-script mb-2">{t('news.title')}</h3>
+            <p className="text-white/70 text-sm">{t('news.desc')}</p>
+          </div>
+          <div className="flex w-full md:w-auto gap-2">
+            <input
+              type="email"
+              placeholder={t('news.placeholder')}
+              className="bg-white/10 border border-white/20 rounded-full px-4 py-2 text-sm text-white placeholder:text-white/40 focus:outline-none focus:bg-white/20 w-full md:w-64"
+            />
+            <button className="bg-golden text-red-900 px-6 py-2 rounded-full font-bold text-sm hover:bg-yellow-400 transition-colors">
+              {t('news.btn')}
+            </button>
+          </div>
+        </div>
+
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand Column */}
           <div className="space-y-6 text-center md:text-left">
