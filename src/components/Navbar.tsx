@@ -24,7 +24,7 @@ const Navbar = () => {
     { label: t('nav.contact'), href: '/#contact' },
   ];
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-4 transition-all duration-300 pointer-events-none ${isScrolled ? 'bg-red-dark/95 backdrop-blur-md py-3 shadow-lg' : 'bg-transparent py-6'}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-2 transition-all duration-300 pointer-events-none ${isScrolled ? 'bg-red-dark/95 backdrop-blur-md py-2 shadow-lg' : 'bg-transparent py-4'}`}>
       <div className="flex items-center justify-between pointer-events-auto">
         {/* Logo */}
         {/* Logo */}

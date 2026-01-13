@@ -245,7 +245,7 @@ const translations: Record<string, { en: string; mr: string }> = {
     'trust.quality.title': { en: 'Premium Quality', mr: 'उच्च दर्जा' },
     'trust.quality.desc': { en: 'Hand-picked daily', mr: 'दररोज हाताने वेचलेली' },
     'trust.delivery.title': { en: 'Fast Delivery', mr: 'जलद वितरण' },
-    'trust.delivery.desc': { en: 'Within 24 hours', mr: '२४ तासांच्या आत' },
+    'trust.delivery.desc': { en: 'Direct to Home', mr: 'थेट तुमच्या घरी' },
 
     // Newsletter
     'news.title': { en: 'Join the Harvest', mr: 'आमच्याशी जोडा' },
