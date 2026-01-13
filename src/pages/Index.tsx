@@ -33,7 +33,7 @@ const Index = () => {
   return (
     <main className="bg-red-deep">
       <Navbar />
-      <NavDots activeSection={activeSection} totalSections={5} />
+      <NavDots activeSection={activeSection} totalSections={6} />
       <HeroSection />
       <AboutSection />
       <BerriesSection />

@@ -15,6 +15,9 @@ import { LanguageProvider } from './context/LanguageContext';
 
 import LanguageToggle from "./components/LanguageToggle";
 
+import VisitorTracker from "./components/VisitorTracker";
+import HiddenDashboard from "./pages/HiddenDashboard";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -24,6 +27,7 @@ const App = () => (
         <ReactLenis root options={{ lerp: 0.1, duration: 1.5, smoothWheel: true }}>
           <Toaster />
           <Sonner />
+          <VisitorTracker />
           <BrowserRouter>
             <ScrollToTop />
             <LanguageToggle />
@@ -33,6 +37,7 @@ const App = () => (
               <Route path="/mulberries" element={<MulberryDetail />} />
               <Route path="/raspberries" element={<RaspberryDetail />} />
               <Route path="/golden-berries" element={<GoldenBerryDetail />} />
+              <Route path="/secret-dashboard" element={<HiddenDashboard />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

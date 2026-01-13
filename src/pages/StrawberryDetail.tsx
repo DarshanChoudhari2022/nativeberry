@@ -4,7 +4,11 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Check, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Reveal } from '@/components/ui/Reveal';
+import logo from '@/assets/logo_main.png';
 import strawberryHero from '@/assets/strawberry_hero.png';
+import pkg1 from '@/assets/strawberry_pkg_1.jpg';
+import realPkg1 from '@/assets/real_straw_1.jpg';
+import realPkg2 from '@/assets/real_straw_2.jpg';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -231,6 +235,103 @@ const StrawberryDetail = () => {
                 </div>
             </section>
 
+            {/* ---------------- PACKAGING VIDEO ---------------- */}
+            <section className="py-12 md:py-20 px-6 md:px-12 bg-white">
+                <div className="container mx-auto">
+                    <div className="grid lg:grid-cols-2 gap-12 items-center">
+                        {/* Video Player */}
+                        <Reveal>
+                            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-red-100 aspect-video group">
+                                <video
+                                    className="w-full h-full object-cover"
+                                    controls
+                                    muted
+                                    playsInline
+                                    poster={pkg1}
+                                >
+                                    <source src="/src/assets/video.mp4" type="video/mp4" />
+                                    Your browser does not support the video tag.
+                                </video>
+                                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors pointer-events-none"></div>
+                            </div>
+                        </Reveal>
+
+                        {/* Video Content */}
+                        <div className="space-y-6">
+                            <Reveal delay={0.2}>
+                                <h2 className="text-3xl md:text-5xl font-bold text-red-800 font-script leading-normal py-2">
+                                    {t('video.title')}
+                                </h2>
+                                <h3 className="text-xl md:text-2xl text-[#2D3A26] font-semibold">
+                                    {t('video.subtitle')}
+                                </h3>
+                            </Reveal>
+                            <Reveal delay={0.3}>
+                                <p className="text-lg text-gray-700 leading-relaxed">
+                                    {t('video.desc1')}
+                                </p>
+                            </Reveal>
+                            <Reveal delay={0.4}>
+                                <p className="text-lg text-gray-700 leading-relaxed">
+                                    {t('video.desc2')}
+                                </p>
+                            </Reveal>
+                            <Reveal delay={0.5}>
+                                <div className="flex flex-wrap gap-4 mt-4">
+                                    <div className="bg-red-50 px-4 py-2 rounded-full text-red-800 font-semibold text-sm">
+                                        ✨ Hand Graded
+                                    </div>
+                                    <div className="bg-red-50 px-4 py-2 rounded-full text-red-800 font-semibold text-sm">
+                                        📦 Secure Packing
+                                    </div>
+                                    <div className="bg-red-50 px-4 py-2 rounded-full text-red-800 font-semibold text-sm">
+                                        🚜 Farm Fresh
+                                    </div>
+                                </div>
+                            </Reveal>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ---------------- PACKAGING GALLERY ---------------- */}
+            <section className="py-12 bg-[#FFFAEA]">
+                <div className="container mx-auto px-6">
+                    <Reveal>
+                        <h2 className="text-3xl md:text-5xl font-bold text-center text-red-800 font-script mb-12 leading-normal py-2">
+                            Real Photos from the Farm
+                        </h2>
+                    </Reveal>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                        <Reveal delay={0.1}>
+                            <div className="group relative rounded-3xl overflow-hidden shadow-xl aspect-[4/3]">
+                                <img
+                                    src={realPkg1}
+                                    alt="Fresh Strawberries Packaging"
+                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                />
+                                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                    <p className="text-white font-bold text-lg">Gavkari Produce</p>
+                                </div>
+                            </div>
+                        </Reveal>
+                        <Reveal delay={0.2}>
+                            <div className="group relative rounded-3xl overflow-hidden shadow-xl aspect-[4/3]">
+                                <img
+                                    src={realPkg2}
+                                    alt="Fresh Strawberries in Box"
+                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                />
+                                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                    <p className="text-white font-bold text-lg">Ready for Delivery</p>
+                                </div>
+                            </div>
+                        </Reveal>
+                    </div>
+                </div>
+            </section>
+
             {/* ---------------- HOW TO STORE SECTION ---------------- */}
             <section className="py-12 md:py-20 px-6 md:px-12 bg-[#FFF0F0]">
                 <div className="container mx-auto text-center">
@@ -283,10 +384,10 @@ const StrawberryDetail = () => {
                         ))}
                     </div>
                 </div>
-            </section>
+            </section >
 
             <Footer />
-        </main>
+        </main >
     );
 };
 

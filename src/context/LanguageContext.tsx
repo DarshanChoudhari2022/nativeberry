@@ -36,14 +36,17 @@ const translations: Record<string, { en: string; mr: string }> = {
 
     // About Section
     'about.label': { en: 'About Us', mr: 'आमच्याबद्दल' },
-    'about.title1': { en: "It's a Berry's", mr: 'हे बेरीजचे' },
-    'about.title2': { en: "World!", mr: 'विश्व आहे!' },
+    'about.title1': { en: "The True", mr: 'खरे' },
+    'about.title2': { en: "Taste of Home", mr: 'घरची चव' },
     'about.desc1': { en: 'Discover the essence of Native Berry Farms. What started with a small farm in Gureghar, Mahabaleshwar has grown into a legacy spanning 25+ years.', mr: 'नेटिव्ह बेरी फार्म्सचे सार अनुभवा. गुरेघर, महाबळेश्वरमधील एका छोट्या शेतापासून सुरू झालेला हा प्रवास आज २५+ वर्षांच्या समृद्ध वारशात रूपांतरित झाला आहे.' },
-    'about.desc2': { en: "Native Berry Farms is not just a brand; it's a passion for quality. The Gade family cultivates our berries with care, ensuring every bite is a delight.", mr: 'नेटिव्ह बेरी फार्म्स हा केवळ एक ब्रँड नाही; ती गुणवत्तेची आवड आहे. गाडे कुटुंब आमची फळे प्रेमाने पिकवते, ज्यामुळे प्रत्येक घास आनंददायी ठरतो.' },
+    'about.desc2': {
+        en: 'Today, Native Berry Farms continues that legacy. We combine traditional wisdom with modern organic practices to bring you strawberries that taste exactly as nature intended—sweet, juicy, and full of honest flavor.',
+        mr: 'आज, नेटिव्ह बेरी फार्म्स तो वारसा पुढे चालवत आहे. आम्ही पारंपारिक ज्ञान आणि आधुनिक सेंद्रिय पद्धतींची सांगड घालतो, जेणेकरून तुम्हाला अशा स्ट्रॉबेरीज मिळतील ज्यांची चव निसर्गाला अभिप्रेत असलेल्या गोड, रसाळ आणि अस्सल चवीसारखीच असेल.'
+    },
     'about.quote': { en: '"It\'s not just what we grow. It\'s how we grow it—with care, consistency, and purpose."', mr: '"आम्ही काय पिकवतो यापेक्षा आम्ही ते कसे पिकवतो हे महत्त्वाचे आहे—काळजीपूर्वक, सातत्याने आणि हेतूने."' },
     'about.journey': { en: 'Our Journey', mr: 'आमचा प्रवास' },
-    'about.legacy': { en: 'A Legacy of', mr: 'वारसा' },
-    'about.years': { en: '100 Years', mr: '१०० वर्षांचा' },
+    'about.legacy': { en: 'A Legacy of', mr: 'एक वारसा' },
+    'about.years': { en: '100+ Years', mr: '१००+ वर्षांचा' },
 
     // Timeline
     'timeline.1920.title': { en: 'British Introduction', mr: 'ब्रिटिशांचे आगमन' },
@@ -81,6 +84,7 @@ const translations: Record<string, { en: string; mr: string }> = {
     'contact.address': { en: 'Parking No 4, Near Mapro Garden, Gureghar, Mahabaleshwar', mr: 'पार्किंग क्र. ४, मॅप्रो गार्डन जवळ, गुरेघर, महाबळेश्वर' },
     'contact.visit': { en: 'Visit Farm', mr: 'शेताला भेट द्या' },
     'contact.chat': { en: 'Chat Now', mr: 'चॅट करा' },
+    'contact.chat_desc': { en: 'Connect on WhatsApp', mr: 'व्हॉट्सॲपवर संपर्क साधा' },
     'contact.call_action': { en: 'Call Now', mr: 'कॉल करा' },
     'contact.directions': { en: 'Get Directions', mr: 'दिशा मिळवा' },
 
@@ -159,6 +163,12 @@ const translations: Record<string, { en: string; mr: string }> = {
     'strawberry.step4.title': { en: 'Serve at Room Temp', mr: 'खोलीच्या तापमानाला सर्व्ह करा' },
     'strawberry.step4.desc': { en: 'To enhance their natural flavors, let strawberries reach room temperature before serving.', mr: 'त्यांची नैसर्गिक चव वाढवण्यासाठी, सर्व्ह करण्यापूर्वी त्या खोलीच्या तापमानाला येऊ द्या.' },
 
+    // Video Section
+    'video.title': { en: 'Real Taste of Gavkari Farming', mr: 'गावकरी शेतीची खरी चव' },
+    'video.subtitle': { en: 'Organic • Authentic • Pure', mr: 'सेंद्रिय • अस्सल • शुद्ध' },
+    'video.desc1': { en: 'Experience the authentic taste of "Gavkari" (Villager) produce. Grown with traditional organic methods passed down through generations.', mr: '"गावकरी" उत्पादनाची अस्सल चव अनुभवा. पिढ्यानपिढ्या चालत आलेल्या पारंपरिक सेंद्रिय पद्धतींनी पिकवलेले.' },
+    'video.desc2': { en: 'No harmful chemicals, just pure nature. Our strawberries carry the sweet scent of the Mahabaleshwar soil.', mr: 'कोणतीही हानिकारक रसायने नाहीत, फक्त शुद्ध निसर्ग. आमच्या स्ट्रॉबेरीमध्ये महाबळेश्वरच्या मातीचा गोड सुगंध आहे.' },
+
     // Mulberry Detail
     'mulberry.hero.subtitle': { en: 'Native Treasures', mr: 'देशी खजिना' },
     'mulberry.hero.title': { en: 'The Ancient Superfood', mr: 'प्राचीन सुपरफूड' },
@@ -226,6 +236,14 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     const t = (key: string) => {
         return translations[key]?.[language] || translations[key]?.['en'] || key;
     };
+
+    React.useEffect(() => {
+        if (language === 'mr') {
+            document.body.classList.add('lang-mr');
+        } else {
+            document.body.classList.remove('lang-mr');
+        }
+    }, [language]);
 
     return (
         <LanguageContext.Provider value={{ language, setLanguage, t }}>

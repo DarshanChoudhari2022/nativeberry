@@ -71,32 +71,32 @@ const AboutSection = () => {
           </div>
 
           {/* Content */}
-          <div className="lg:pl-8 mt-12 lg:mt-0">
+          <div className="lg:pl-8 mt-12 lg:mt-0 space-y-8">
             <Reveal>
               <p className="text-red-deep font-semibold text-sm tracking-widest uppercase mb-4">
                 {t('about.label')}
               </p>
             </Reveal>
             <Reveal delay={0.3}>
-              <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-red-dark leading-normal mb-4 md:mb-6 py-2">
+              <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-red-dark leading-tight mb-4 md:mb-6 py-2">
                 {t('about.title1')}<br />
                 <span className="font-script text-red-deep">{t('about.title2')}</span>
               </h2>
             </Reveal>
             <Reveal delay={0.4}>
-              <p className="text-base md:text-lg text-muted-foreground mb-6 leading-relaxed">
+              <p className="text-base md:text-lg text-muted-foreground mb-6 leading-[28px]">
                 {t('about.desc1')}
               </p>
             </Reveal>
             <Reveal delay={0.5}>
-              <p className="text-muted-foreground mb-6 md:mb-8 leading-relaxed text-sm md:text-base">
+              <p className="text-muted-foreground mb-6 md:mb-8 leading-[28px] text-sm md:text-base">
                 {t('about.desc2')}
               </p>
             </Reveal>
 
             <Reveal delay={0.6}>
-              <blockquote className="border-l-4 border-red-deep pl-6 mb-8">
-                <p className="text-lg md:text-xl font-medium text-red-dark italic">
+              <blockquote className="border-l-4 border-red-deep pl-6 mb-8 py-2">
+                <p className="text-lg md:text-xl font-medium text-red-dark italic leading-relaxed">
                   {t('about.quote')}
                 </p>
               </blockquote>
@@ -105,8 +105,8 @@ const AboutSection = () => {
         </div>
 
         {/* Timeline Section */}
-        <div className="mt-12 md:mt-16 relative"> {/* Added relative for containment if needed */}
-          <div className="text-center mb-10 md:mb-16">
+        <div className="mt-16 md:mt-24 relative">
+          <div className="text-center mb-16 md:mb-20">
             <p className="text-red-deep font-semibold text-sm tracking-widest uppercase mb-4">
               {t('about.journey')}
             </p>
@@ -116,49 +116,41 @@ const AboutSection = () => {
           </div>
 
           {/* Timeline Container */}
-          <div className="relative max-w-4xl mx-auto">
+          <div className="relative max-w-4xl mx-auto space-y-8 md:space-y-0">
             {/* Vertical Line - Left on mobile, Center on Desktop */}
-            <div className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 w-1 h-full bg-gradient-to-b from-green-500 via-red-deep to-golden rounded-full"></div>
+            <div className="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 w-0.5 h-full bg-gray-200"></div>
 
             {timelineData.map((item, index) => (
               <motion.div
                 key={item.year}
-                className={`relative flex items-center mb-8 md:mb-16 last:mb-0 md:justify-between ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                className={`relative flex items-center mb-12 md:mb-24 last:mb-0 md:justify-between ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
                   }`}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.1, ease: "easeOut" }}
+                transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
                 viewport={{ once: true }}
               >
                 {/* Content Card - Full width with padding on mobile, 5/12 on desktop */}
-                <div className={`w-full pl-12 md:pl-0 md:w-5/12 ${index % 2 === 0 ? 'md:pr-8 md:text-right' : 'md:pl-8 md:text-left'
+                <div className={`w-full pl-20 md:pl-0 md:w-[45%] ${index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12 md:text-left'
                   }`}>
-                  <motion.div
-                    className="bg-white rounded-2xl p-4 md:p-6 shadow-xl border border-gray-100 hover:shadow-2xl transition-shadow duration-300 relative"
-                    whileHover={{ scale: 1.02 }}
-                  >
-                    {/* Mobile connector arrow (optional, can be CSS'd but simple card is fine) */}
-                    <span className={`inline-block px-4 py-1 rounded-full text-white text-sm font-bold mb-3 ${item.color}`}>
+                  <div className="bg-transparent md:bg-white md:p-0">
+                    <span className={`inline-block px-4 py-1.5 rounded-full text-white text-xs font-bold mb-3 shadow-md ${item.color}`}>
                       {item.year}
                     </span>
-                    <h4 className="text-xl font-bold text-red-dark mb-2">{item.title}</h4>
-                    <p className="text-muted-foreground text-sm">{item.description}</p>
-                  </motion.div>
+                    <h4 className="text-xl md:text-2xl font-bold text-red-dark mb-3">{item.title}</h4>
+                    <p className="text-muted-foreground text-sm md:text-base leading-relaxed">{item.description}</p>
+                  </div>
                 </div>
 
                 {/* Center/Left Icon */}
-                <div className="absolute left-4 md:left-1/2 transform -translate-x-1/2 z-10">
-                  <motion.div
-                    className={`w-8 h-8 md:w-14 md:h-14 rounded-full ${item.color} flex items-center justify-center shadow-lg border-2 md:border-4 border-white`}
-                    whileHover={{ scale: 1.2, rotate: 360 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <item.icon className="w-4 h-4 md:w-6 md:h-6 text-white" />
-                  </motion.div>
+                <div className="absolute left-2 md:left-1/2 transform md:-translate-x-1/2 z-10 flex items-center justify-center">
+                  <div className={`w-10 h-10 md:w-16 md:h-16 rounded-full ${item.color} flex items-center justify-center shadow-lg border-4 border-white`}>
+                    <item.icon className="w-5 h-5 md:w-8 md:h-8 text-white" />
+                  </div>
                 </div>
 
                 {/* Empty space for alternating layout on desktop - hidden on mobile */}
-                <div className="hidden md:block md:w-5/12"></div>
+                <div className="hidden md:block md:w-[45%]"></div>
               </motion.div>
             ))}
           </div>

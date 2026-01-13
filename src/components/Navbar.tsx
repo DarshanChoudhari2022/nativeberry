@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { ChevronLeft, Menu, X } from 'lucide-react';
+import logo from '@/assets/logo_final_v3.jpg';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -13,12 +14,17 @@ const Navbar = () => {
     { label: t('nav.wholesale'), href: '#wholesale' },
     { label: t('nav.contact'), href: '#contact' },
   ];
-
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-6">
-      <div className="flex items-center justify-between ml-auto">
-        {/* Hamburger Menu - Pushed to right via ml-auto on container or just justified content end */}
-        <div className="ml-auto">
+    <nav className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-6 pointer-events-none">
+      <div className="flex items-center justify-between pointer-events-auto">
+        {/* Logo */}
+        {/* Logo */}
+        <a href="/" className="block w-24 h-24 md:w-32 md:h-32 hover:scale-105 transition-transform duration-300">
+          <img src={logo} alt="Native Berry Farms" className="w-full h-full object-contain filter drop-shadow-md mixed-blend-multiply" />
+        </a>
+
+        {/* Hamburger Menu */}
+        <div>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="text-white hover:opacity-80 transition-opacity"

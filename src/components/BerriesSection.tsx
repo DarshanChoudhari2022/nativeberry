@@ -99,7 +99,7 @@ const BerriesSection = () => {
           {/* Floating Header */}
           <motion.div
             style={{ opacity: fade, scale, willChange: 'opacity, transform' }}
-            className="absolute top-[18vh] w-full text-center z-10 px-4 pointer-events-none"
+            className="absolute top-[5vh] w-full text-center z-10 px-4 pointer-events-none"
           >
             <h2 className="text-6xl lg:text-7xl font-bold text-[#2D3A26] font-script mb-4 drop-shadow-sm leading-normal py-2">
               {t('berries.title')}
@@ -111,7 +111,7 @@ const BerriesSection = () => {
 
           {/* Horizontal Scroll Track */}
           {/* Reduced padding-left to center the start better, adjusted gap */}
-          <motion.div style={{ x }} className="flex items-center gap-16 pl-[15vw] pt-[15vh]">
+          <motion.div style={{ x }} className="flex items-center gap-16 pl-[15vw] pt-[35vh]">
             {berries.map((berry) => (
               <Link to={berry.link} key={berry.name}>
                 <div

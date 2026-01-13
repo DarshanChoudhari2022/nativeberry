@@ -11,126 +11,103 @@ const HeroSection = () => {
   };
 
   return (
-    <section id="home" className="min-h-screen section-red relative overflow-hidden bg-pattern-strawberry">
+    <section id="home" className="min-h-screen section-red relative overflow-hidden bg-pattern-strawberry flex items-center">
       {/* Decorative strawberry outlines in background */}
-      <div className="absolute inset-0 opacity-5">
+      <div className="absolute inset-0 opacity-5 pointer-events-none">
         <svg className="absolute top-20 right-20 w-64 h-64" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.5">
           <path d="M50 10 C20 20, 10 50, 30 80 C40 95, 60 95, 70 80 C90 50, 80 20, 50 10" />
         </svg>
       </div>
 
+      <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10 w-full">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20 w-full">
 
-      <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10 min-h-screen flex items-center py-24 lg:py-0">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 w-full">
-
-          {/* Left: Text Content */}
+          {/* Left: Text Content - 50% width on LG */}
           <motion.div
-            className="flex-1 text-center lg:text-left order-2 lg:order-1"
+            className="w-full lg:w-1/2 text-center lg:text-left order-2 lg:order-1"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
           >
             {/* Main Heading */}
-            <h1 className="font-script text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-white text-shadow leading-[1.2] mb-1 py-1">
-              {t('hero.title1')}
-            </h1>
-            <h1 className="font-script text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-white text-shadow leading-[1.2] mb-1 py-1">
-              {t('hero.title2')}
-            </h1>
-            <h2 className="font-script text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-golden leading-normal mb-6 lg:mb-8 py-2">
-              {t('hero.title3')}
-            </h2>
+            <div className="mb-6 lg:mb-8 flex flex-col items-center lg:items-start space-y-0">
+              {/* Reduced leading and spacing significantly for tightly stacked look */}
+              <h1 className="font-script text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white drop-shadow-lg leading-[0.9] pb-0 mb-0">
+                {t('hero.title1')}
+              </h1>
+              <h1 className="font-script text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white drop-shadow-lg leading-[0.9] pb-0 mb-0">
+                {t('hero.title2')}
+              </h1>
+              <h2 className="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#FFD700] drop-shadow-md leading-tight pt-2">
+                {t('hero.title3')}
+              </h2>
+            </div>
 
-            {/* Tagline */}
-            <p className="text-white/90 text-lg sm:text-xl md:text-2xl mb-2 font-light">
+            {/* Tagline & Desc */}
+            <p className="text-white text-lg sm:text-xl md:text-2xl mb-4 font-medium tracking-wide">
               {t('hero.tagline')}
             </p>
-            <p className="text-white/70 text-sm sm:text-base md:text-lg mb-6 lg:mb-8 leading-relaxed max-w-md mx-auto lg:mx-0">
+            <p className="text-white/90 text-base sm:text-lg mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0 font-light">
               {t('hero.desc')}
             </p>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-6 lg:mb-8">
+            {/* CTA Buttons - Improved Contrast */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8 lg:mb-0">
               <motion.button
                 onClick={handleWhatsAppOrder}
-                className="group flex items-center justify-center gap-2 sm:gap-3 bg-green-500 hover:bg-green-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="group flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#20bd5a] text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                aria-label="Order on WhatsApp"
               >
-                <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6" />
+                <MessageCircle className="w-6 h-6" />
                 {t('hero.whatsapp')}
               </motion.button>
 
               <motion.a
                 href="tel:+919284639747"
-                className="group flex items-center justify-center gap-2 sm:gap-3 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg border border-white/30 transition-all duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="group flex items-center justify-center gap-3 bg-white hover:bg-gray-100 text-[#D32F2F] px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                aria-label="Call Now"
               >
-                <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
+                <Phone className="w-6 h-6" />
                 {t('hero.call')}
               </motion.a>
             </div>
 
           </motion.div>
 
-          {/* Right: Complete Strawberry Image */}
+          {/* Right: Image - 50% width on LG */}
           <motion.div
-            className="flex-1 flex justify-center lg:justify-end relative order-1 lg:order-2"
-            initial={{ opacity: 0, scale: 0.8 }}
+            className="w-full lg:w-1/2 flex justify-center lg:justify-end relative order-1 lg:order-2"
+            initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="relative">
-              {/* Glow effect behind image */}
-              <div className="absolute inset-0 bg-gradient-to-br from-red-400/20 to-pink-500/20 blur-3xl rounded-full scale-125"></div>
+            <div className="relative w-72 h-72 sm:w-96 sm:h-96 lg:w-[500px] lg:h-[500px]">
+              {/* Glow effect */}
+              <div className="absolute inset-0 bg-red-400/30 blur-[100px] rounded-full scale-90"></div>
 
-              {/* Main strawberry image - Complete circular */}
+              {/* Main strawberry image */}
               <motion.img
                 src={singleStrawberry}
                 alt="Fresh Mahabaleshwar Strawberry"
-                className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px] xl:w-[480px] xl:h-[480px] object-cover rounded-full shadow-2xl border-4 border-white/10"
-                style={{
-                  filter: 'drop-shadow(0 30px 60px rgba(0,0,0,0.4))'
-                }}
-                animate={{ y: [0, -15, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="relative w-full h-full object-cover rounded-full shadow-2xl border-4 border-white/20"
+                animate={{ y: [0, -20, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               />
 
               {/* Floating badge */}
               <motion.div
-                className="absolute bottom-4 sm:bottom-8 right-0 sm:right-4 bg-golden text-red-900 px-4 sm:px-5 py-2 sm:py-3 rounded-full font-bold shadow-xl text-sm sm:text-lg"
-                animate={{ rotate: [-5, 5, -5] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute bottom-4 right-4 lg:bottom-10 lg:right-0 bg-white text-[#D32F2F] px-6 py-3 rounded-full font-bold shadow-xl text-lg border-2 border-red-100"
+                animate={{ rotate: [-3, 3, -3] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
               >
                 🍓 {t('hero.badge')}
               </motion.div>
             </div>
           </motion.div>
-        </div>
-
-        {/* Scroll indicator - positioned properly */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <ChevronDown className="w-8 h-8 text-white/70" />
-        </motion.div>
-      </div>
-
-      {/* Bottom Info Bar - Berry Nutrients */}
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/40 to-transparent py-2.5">
-        <div className="container mx-auto px-3">
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-white/90 text-sm sm:text-base md:text-lg">
-            <span className="font-semibold">🍓 {t('hero.vitc')}</span>
-            <span className="text-white/40">•</span>
-            <span className="font-semibold">💪 {t('hero.antioxidant')}</span>
-            <span className="text-white/40">•</span>
-            <span>🫀 {t('hero.heart')}</span>
-            <span className="text-white/40">•</span>
-            <span>🌿 {t('hero.natural')}</span>
-          </div>
         </div>
       </div>
     </section>

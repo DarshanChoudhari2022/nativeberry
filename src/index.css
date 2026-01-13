@@ -2,7 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
+
+/* ... existing styles ... */
+
+.font-script {
+  font-family: 'Dancing Script', cursive;
+}
+
+/* Marathi Specific Overrides */
+body.lang-mr {
+  /* Noto Sans Devanagari is optimized for Marathi script */
+  font-family: 'Noto Sans Devanagari', 'Poppins', sans-serif !important;
+  line-height: 2.4 !important;
+  /* Generous spacing for kana/matras */
+  letter-spacing: 0px;
+  /* Standard spacing for readability */
+}
+
+body.lang-mr .font-script {
+  /* Fallback to normal font for Marathi text in script areas */
+  font-family: 'Noto Sans Devanagari', sans-serif !important;
+  font-weight: 700;
+}
+
+body.lang-mr h1,
+body.lang-mr h2,
+body.lang-mr h3,
+body.lang-mr h4,
+body.lang-mr h5,
+body.lang-mr h6 {
+  line-height: 1.8 !important;
+  padding-top: 0.5em;
+  /* Specific unit for font-relative spacing */
+  padding-bottom: 0.5em;
+  margin-bottom: 0.8rem;
+}
+
+/* Ensure no text cut-off on mobile */
+body.lang-mr p,
+body.lang-mr span,
+body.lang-mr div {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+/* Specific fix for large hero text in Marathi on mobile */
+body.lang-mr .text-5xl,
+body.lang-mr .text-6xl,
+body.lang-mr .text-7xl,
+body.lang-mr .text-8xl,
+body.lang-mr .text-9xl {
+  line-height: 1.1 !important;
+  /* Very tight spacing */
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  word-break: keep-all;
+}
 
 /* Native Berry Farms - Bold Strawberry Red Design (Dribbble inspired) */
 
@@ -106,16 +163,83 @@
     color: white;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: 'Poppins', system-ui, sans-serif;
   }
 
-  .font-script {
-    font-family: 'Dancing Script', cursive;
+}
+
+.font-script {
+  font-family: 'Dancing Script', cursive;
+}
+
+/* Marathi Specific Overrides */
+body.lang-mr {
+  line-height: 2.2 !important;
+  /* Increased for better legibility */
+  letter-spacing: 0.5px;
+  word-spacing: 2px;
+}
+
+body.lang-mr .font-script {
+  /* Fallback to normal font for Marathi as script fonts often break rendering */
+  font-family: 'Poppins', system-ui, sans-serif !important;
+  font-weight: 700;
+}
+
+body.lang-mr h1,
+body.lang-mr h2,
+body.lang-mr h3,
+body.lang-mr h4,
+body.lang-mr h5,
+body.lang-mr h6 {
+  line-height: 1.8 !important;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Specific fix for large hero text in Marathi on mobile */
+body.lang-mr .text-5xl,
+body.lang-mr .text-6xl,
+body.lang-mr .text-7xl,
+body.lang-mr .text-8xl,
+body.lang-mr .text-9xl {
+  line-height: 1.4 !important;
+  /* Tighter for very large text to prevent huge gaps */
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+
+/* Base Font Settings for Desktop */
+@media (min-width: 1024px) {
+  body {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+}
+
+/* Global Section Gutters */
+section {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+@media (min-width: 768px) {
+  section {
+    padding-top: 80px;
+    padding-bottom: 80px;
   }
 }
 
 @layer components {
+
   /* Full screen red section */
   .section-red {
     background-color: hsl(var(--red-deep));

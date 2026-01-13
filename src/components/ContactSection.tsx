@@ -27,58 +27,66 @@ const ContactSection = () => {
           </Reveal>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-16">
+        <div className="grid lg:grid-cols-3 gap-10 max-w-7xl mx-auto mb-16">
           {/* WhatsApp Card */}
           <Reveal delay={0.1}>
             <a
-              href="https://wa.me/918605589062"
+              href="https://wa.me/919309393216"
               target="_blank"
-              className="block group p-8 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 h-full"
+              className="block group p-8 lg:p-10 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 h-full backdrop-blur-sm"
             >
-              <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-green-500/20 flex items-center justify-center text-green-400 group-hover:scale-110 transition-transform">
-                <MessageCircle className="w-8 h-8" />
+              <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-green-500/20 flex items-center justify-center text-green-400 group-hover:scale-110 transition-transform">
+                <MessageCircle className="w-10 h-10" />
               </div>
               <h3 className="text-2xl font-bold text-white mb-2 text-center">{t('hero.whatsapp')}</h3>
-              <p className="text-white/60 mb-6 font-mono text-center">+91 86055 89062</p>
-              <div className="flex items-center justify-center text-green-400 font-semibold group-hover:gap-2 transition-all">
-                {t('contact.chat')} <ArrowRight className="w-4 h-4 ml-2" />
+              <p className="text-white/60 mb-8 text-center text-sm leading-relaxed">{t('contact.chat_desc') || "Click to start chat"}</p>
+              <div className="flex items-center justify-center text-green-400 font-bold tracking-wide group-hover:gap-2 transition-all">
+                {t('contact.chat')} <ArrowRight className="w-5 h-5 ml-2" />
               </div>
             </a>
           </Reveal>
 
           {/* Call Card */}
           <Reveal delay={0.2}>
-            <a
-              href="tel:+919284639747"
-              className="block group p-8 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 h-full"
-            >
-              <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
-                <Phone className="w-8 h-8" />
+            <div className="block group p-8 lg:p-10 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 h-full backdrop-blur-sm">
+              <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
+                <Phone className="w-10 h-10" />
               </div>
               <h3 className="text-2xl font-bold text-white mb-2 text-center">{t('hero.call')}</h3>
-              <p className="text-white/60 mb-6 font-mono text-center">+91 92846 39747</p>
-              <div className="flex items-center justify-center text-blue-400 font-semibold group-hover:gap-2 transition-all">
-                {t('contact.call_action')} <ArrowRight className="w-4 h-4 ml-2" />
+
+              <div className="space-y-4 mb-8">
+                <div>
+                  <p className="text-white/40 text-xs text-center uppercase tracking-widest mb-1">Farmer</p>
+                  <a href="tel:+919284639747" className="block text-white/90 font-mono text-center hover:text-blue-400 text-lg transition-colors">+91 92846 39747</a>
+                </div>
+                <div>
+                  <p className="text-white/40 text-xs text-center uppercase tracking-widest mb-1">Order Booking</p>
+                  <a href="tel:+919623214755" className="block text-white/90 font-mono text-center hover:text-blue-400 text-lg transition-colors">+91 96232 14755</a>
+                </div>
               </div>
-            </a>
+
+              <div className="flex items-center justify-center text-blue-400 font-bold tracking-wide group-hover:gap-2 transition-all">
+                {t('contact.call_action')} <ArrowRight className="w-5 h-5 ml-2" />
+              </div>
+            </div>
           </Reveal>
 
           {/* Visit Card */}
           <Reveal delay={0.3}>
-            <div className="block group p-8 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 h-full">
-              <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-red-500/20 flex items-center justify-center text-red-400">
-                <MapPin className="w-8 h-8" />
+            <div className="block group p-8 lg:p-10 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 h-full backdrop-blur-sm">
+              <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-red-500/20 flex items-center justify-center text-red-400 group-hover:scale-110 transition-transform">
+                <MapPin className="w-10 h-10" />
               </div>
               <h3 className="text-2xl font-bold text-white mb-2 text-center">{t('contact.visit')}</h3>
-              <p className="text-white/60 mb-6 text-center text-sm md:text-base">
+              <p className="text-white/60 mb-8 text-center text-sm md:text-base leading-relaxed">
                 {t('contact.address')}
               </p>
               <a
                 href="https://maps.google.com"
                 target="_blank"
-                className="flex items-center justify-center text-red-400 font-semibold hover:gap-2 transition-all cursor-pointer"
+                className="flex items-center justify-center text-red-400 font-bold tracking-wide hover:gap-2 transition-all cursor-pointer"
               >
-                {t('contact.directions')} <ArrowRight className="w-4 h-4 ml-2" />
+                {t('contact.directions')} <ArrowRight className="w-5 h-5 ml-2" />
               </a>
             </div>
           </Reveal>

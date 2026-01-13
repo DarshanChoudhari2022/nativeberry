@@ -66,29 +66,29 @@ const ProductShowcase = () => {
           {products.map((product, index) => (
             <div
               key={product.name}
-              className={`card-playful overflow-hidden group cursor-pointer transition-all duration-300 hover:-translate-y-3 ${product.shadowColor}`}
+              className={`card-playful overflow-hidden group cursor-pointer transition-all duration-300 hover:-translate-y-3 bg-white rounded-3xl shadow-lg hover:shadow-2xl ${product.shadowColor}`}
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Image Container */}
-              <div className="relative h-48 overflow-hidden">
+              <div className="relative h-56 md:h-64 overflow-hidden">
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 {/* Color overlay on hover */}
                 <div className={`absolute inset-0 ${product.color} opacity-0 group-hover:opacity-20 transition-opacity duration-300`} />
               </div>
 
               {/* Content */}
-              <div className="p-6">
-                <h3 className="font-display text-2xl font-bold text-foreground mb-1">
+              <div className="p-6 md:p-8 space-y-3">
+                <h3 className="font-display text-2xl font-bold text-foreground mb-1 leading-tight">
                   {product.name}
                 </h3>
-                <p className="text-primary font-semibold text-sm mb-2">
+                <p className="text-primary font-bold text-sm tracking-wide uppercase">
                   {product.tagline}
                 </p>
-                <p className="text-muted-foreground text-sm">
+                <p className="text-muted-foreground text-sm leading-relaxed">
                   {product.description}
                 </p>
               </div>
@@ -99,7 +99,7 @@ const ProductShowcase = () => {
         {/* CTA */}
         <div className="text-center mt-12">
           <a
-            href="https://wa.me/918605589062?text=Hi!%20I%20want%20to%20know%20about%20berries%20available"
+            href="https://wa.me/919309393216?text=Hi!%20I%20want%20to%20know%20about%20berries%20available"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-berry inline-flex items-center gap-2"
