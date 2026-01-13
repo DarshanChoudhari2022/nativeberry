@@ -143,7 +143,7 @@ const translations: Record<string, { en: string; mr: string }> = {
 
     // Strawberry Detail
     'strawberry.hero.title': { en: 'The Sweetheart of the Berry World', mr: 'बेरी विश्वाची लाडकी' },
-    'strawberry.hero.desc': { en: 'Bright, juicy, and full of charm, strawberries are the timeless favorite. Whether dipped in chocolate or blended into a smoothie, our Mahabaleshwar strawberries bring a perfect balance of sweetness and tartness.', mr: 'चमकदार, रसाळ आणि मोहक, स्ट्रॉबेरी ही नेहमीच सर्वांची आवडती आहे. चॉकलेटमध्ये बुडवलेली असो किंवा स्मूदीमध्ये, आमची महाबळेश्वरची स्ट्रॉबेरी गोडवा आणि आंबटपणाचा परिपूर्ण समतोल आणते.' },
+    'strawberry.hero.desc': { en: 'Bright, juicy, and full of charm, strawberries are the timeless favorite. Whether dipped in chocolate or blended into a smoothie, our Mahabaleshwar strawberries bring a perfect balance of sweetness and tartness.', mr: 'लख्ख लाल, रसाळ आणि मोहक... स्ट्रॉबेरी म्हणजे सर्वांची "लाडकी". चॉकलेटमध्ये बुडवा किंवा थेट खा, आमच्या महाबळेश्वरच्या स्ट्रॉबेरीचा गोडवा आणि तो हलकासा आंबट ओलावा जिभेवर रेंगाळत राहतो.' },
     'strawberry.soil.title': { en: 'Perfect Soil', mr: 'परिपूर्ण माती' },
     'strawberry.soil.desc': { en: 'Our laterite red soil, rich in iron and unique to the Mahabaleshwar plateau, gives our strawberries their distinctive deep red distinct color and intense sweetness.', mr: 'आमची लोहयुक्त जांभा (लॅटराइट) तांबडी माती, जी महाबळेश्वर पठाराचे वैशिष्ट्य आहे, आमच्या स्ट्रॉबेरीला गडद लाल रंग आणि तीव्र गोडवा देते.' },
     'strawberry.climate.title': { en: 'Ideal Climate', mr: 'योग्य हवामान' },
@@ -170,9 +170,9 @@ const translations: Record<string, { en: string; mr: string }> = {
     'video.desc2': { en: 'No harmful chemicals, just pure nature. Our strawberries carry the sweet scent of the Mahabaleshwar soil.', mr: 'कोणतीही हानिकारक रसायने नाहीत, फक्त शुद्ध निसर्ग. आमच्या स्ट्रॉबेरीमध्ये महाबळेश्वरच्या मातीचा गोड सुगंध आहे.' },
 
     // Mulberry Detail
-    'mulberry.hero.subtitle': { en: 'Native Treasures', mr: 'देशी खजिना' },
+    'mulberry.hero.subtitle': { en: 'Native Treasures', mr: 'आपला देशी खजिना' },
     'mulberry.hero.title': { en: 'The Ancient Superfood', mr: 'प्राचीन सुपरफूड' },
-    'mulberry.hero.desc': { en: 'Deeply pigmented and intensely flavorful, our Mahabaleshwar Mulberries (Shahtoot) are a rare seasonal treat. Known for their balance of sweet and tart, they stain your fingers but heal your soul.', mr: 'गडद रंगाची आणि तीव्र चव असलेली आमची महाबळेश्वरची तुती (शहतूत) ही एक दुर्मिळ हंगामी मेजवानी आहे. गोड आणि आंबट चवीच्या समतोलासाठी प्रसिद्ध, ती तुमची बोटे रंगवते पण आत्म्याला तृप्त करते.' },
+    'mulberry.hero.desc': { en: 'Deeply pigmented and intensely flavorful, our Mahabaleshwar Mulberries (Shahtoot) are a rare seasonal treat. Known for their balance of sweet and tart, they stain your fingers but heal your soul.', mr: 'गडद जांभळा रंग आणि जीभेवर विरघळणारी चव... आमची महाबळेश्वरची तुती (शहतूत) म्हणजे उन्हाळ्याची खरी मेजवानी. हाताला रंग लागेल पण मनाला जी तृप्ती मिळेल, ती काही औरच!' },
     'mulberry.season.desc': { en: 'Mulberries have two distinct short seasons in Mahabaleshwar. Catch them while you can!', mr: 'महाबळेश्वरमध्ये तुतीचे दोन छोटे हंगाम असतात. संधी गमावू नका!' },
     'mulberry.season.harvest': { en: 'Mahabaleshwar Harvesting', mr: 'महाबळेश्वर कापणी' },
     'mulberry.season.summer': { en: 'Summer Harvest', mr: 'उन्हाळी हंगाम' },
@@ -190,8 +190,8 @@ const translations: Record<string, { en: string; mr: string }> = {
 
     // Raspberry Detail
     'raspberry.hero.subtitle': { en: 'Delicate & Tart', mr: 'नाजूक आणि आंबट-गोड' },
-    'raspberry.hero.title': { en: "Nature's Candy", mr: 'निसर्गाची गोड कँडी' },
-    'raspberry.hero.desc': { en: 'With their hollow core and delicate structure, Raspberries offer a melt-in-your-mouth texture. Grown in our controlled polyhouses to protect them from the harsh sun.', mr: 'पोकळ गाभा आणि नाजूक रचनेमुळे रासबेरी तोंडात विरघळते. कडक उन्हापासून वाचवण्यासाठी आम्ही त्यांना नियंत्रित पॉलीहाऊसमध्ये पिकवतो.' },
+    'raspberry.hero.title': { en: "Nature's Candy", mr: 'रानमेव्याचा गोडवा' },
+    'raspberry.hero.desc': { en: 'With their hollow core and delicate structure, Raspberries offer a melt-in-your-mouth texture. Grown in our controlled polyhouses to protect them from the harsh sun.', mr: 'पोकळ गाभा आणि अत्यंत नाजूक... रासबेरी जिभेवर ठेवताच विरघळते. कडक उन्हाचा त्रास होऊ नये म्हणून आम्ही यांना अगदी लहान बाळाप्रमाणे जपतो आणि पॉलीहाऊसमध्ये वाढवतो.' },
     'raspberry.season.title': { en: 'Harvest Calendar', mr: 'कापणी वेळापत्रक' },
     'raspberry.season.desc': { en: 'Raspberries love the cool Mahabaleshwar winter. We harvest them daily during peak season.', mr: 'रासबेरीला महाबळेश्वरची थंड हिवाळा आवडतो. मुख्य हंगामात आम्ही दररोज त्यांची कापणी करतो.' },
     'raspberry.season.growing': { en: 'Growing Season', mr: 'वाढीचा हंगाम' },
@@ -209,9 +209,9 @@ const translations: Record<string, { en: string; mr: string }> = {
     'raspberry.step4.desc': { en: "If you can't finish them, freeze them on a tray first, then bag them for smoothies.", mr: 'जर संपवू शकत नसाल, तर ट्रेमध्ये गोठवा आणि नंतर स्मूदीसाठी पिशवीत ठेवा.' },
 
     // Golden Berry Detail
-    'golden.hero.subtitle': { en: 'Exotic & Tangy', mr: 'विदेशी आणि आंबट' },
-    'golden.hero.title': { en: 'The Hidden Gem', mr: 'लपलेला अनमोल ठेवा' },
-    'golden.hero.desc': { en: 'Enclosed in a paper-like lantern (husk), these golden spheres explode with a sweet-tart flavor profile. Also known as Cape Gooseberry or Rasbhari, they are a native wild delight of the Western Ghats.', mr: 'कागदासारख्या आवरणात (हस्क) बंदिस्त, हे सोनेरी गोळे गोड-आंबट चवीचा स्फोट घडवतात. केप गूजबेरी किंवा रासभरी म्हणून ओळखले जाणारे हे पश्चिम घाटातील एक रानटी वैभव आहे.' },
+    'golden.hero.subtitle': { en: 'Exotic & Tangy', mr: 'चटकदार आणि रसाळ' },
+    'golden.hero.title': { en: 'The Hidden Gem', mr: 'शिवारातील सोनं' },
+    'golden.hero.desc': { en: 'Enclosed in a paper-like lantern (husk), these golden spheres explode with a sweet-tart flavor profile. Also known as Cape Gooseberry or Rasbhari, they are a native wild delight of the Western Ghats.', mr: 'कागदासारख्या नाजूक आवरणात लपलेले हे "शिवारातील सोनं". यालाच आपण रासभरी किंवा केप गूजबेरी म्हणतो. पश्चिम घाटातील हा रानमेवा खाताना आंबट-गोड चवीचा जो स्फोट होतो, तो अनुभवण्यासारखा असतो!' },
     'golden.season.title': { en: 'Seasonal Availability', mr: 'हंगामी उपलब्धता' },
     'golden.season.desc': { en: 'A summer favorite. Our Rasbhari harvest peaks just as the winter chill fades away.', mr: 'उन्हाळ्यातील आवडते फळ. थंडी कमी होताच आमची रासभरी बहरते.' },
     'golden.season.harvest': { en: 'Harvest Period', mr: 'कापणी कालावधी' },
