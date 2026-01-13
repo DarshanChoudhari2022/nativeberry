@@ -8,11 +8,11 @@ const Navbar = () => {
   const { t } = useLanguage();
 
   const menuItems = [
-    { label: t('nav.home'), href: '#home' },
-    { label: t('nav.about'), href: '#about' },
-    { label: t('nav.berries'), href: '#berries' },
-    { label: t('nav.wholesale'), href: '#wholesale' },
-    { label: t('nav.contact'), href: '#contact' },
+    { label: t('nav.home'), href: '/#home' },
+    { label: t('nav.about'), href: '/#about' },
+    { label: t('nav.berries'), href: '/#berries' },
+    { label: t('nav.wholesale'), href: '/#wholesale' },
+    { label: t('nav.contact'), href: '/#contact' },
   ];
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-6 pointer-events-none">

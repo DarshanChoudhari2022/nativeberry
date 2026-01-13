@@ -50,7 +50,7 @@ const BerriesSection = () => {
   const scale = useTransform(scrollYProgress, [0, 0.15], [1, 0.95]);
 
   return (
-    <section ref={targetRef} className="relative bg-[#F9F7F2]">
+    <section id="berries" ref={targetRef} className="relative bg-[#F9F7F2]">
 
       {/* ---------------- MOBILE VIEW (Native Horizontal Scroll) ---------------- */}
       <div className="md:hidden py-16 min-h-screen flex flex-col justify-center">
