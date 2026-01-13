@@ -21,8 +21,8 @@ const translations: Record<string, { en: string; mr: string }> = {
     'hero.title1': { en: 'Native', mr: 'नेटिव्ह' },
     'hero.title2': { en: 'Berry', mr: 'बेरी' },
     'hero.title3': { en: 'Farms', mr: 'फार्म्स' },
-    'hero.tagline': { en: 'The Real Gavakries of Mahabaleshwar', mr: 'महाबळेश्वरची खरी गावकरी चव' },
-    'hero.desc': { en: 'Farm-fresh strawberries grown with 25+ years of legacy. Harvested at sunrise, delivered to your doorstep.', mr: '२५ हून अधिक वर्षांची परंपरा असलेली शेतातील ताजी स्ट्रॉबेरी. सूर्योदयाला तोडलेली, तुमच्या दारापर्यंत पोहोचवलेली.' },
+    'hero.tagline': { en: 'The Real Fresh Strawberries of Mahabaleshwar', mr: 'महाबळेश्वरची अस्सल "गावकरी" चव' },
+    'hero.desc': { en: 'Farm-fresh, pesticide-free strawberries grown with 25+ years of legacy. Harvested at sunrise, delivered straight to your doorstep within 24 hours.', mr: '२५ हून अधिक वर्षांची परंपरा असलेली शेतातील ताजी, रसायनमुक्त स्ट्रॉबेरी. सूर्योदयाला तोडलेली आणि २४ तासांत थेट तुमच्या दारापर्यंत पोहोचवलेली.' },
     'hero.whatsapp': { en: 'Order on WhatsApp', mr: 'व्हॉट्सॲपवर ऑर्डर करा' },
     'hero.call': { en: 'Call Farmer', mr: 'शेतकऱ्याला कॉल करा' },
 
@@ -40,8 +40,8 @@ const translations: Record<string, { en: string; mr: string }> = {
     'about.title2': { en: "Taste of Home", mr: 'घरची चव' },
     'about.desc1': { en: 'Discover the essence of Native Berry Farms. What started with a small farm in Gureghar, Mahabaleshwar has grown into a legacy spanning 25+ years.', mr: 'नेटिव्ह बेरी फार्म्सचे सार अनुभवा. गुरेघर, महाबळेश्वरमधील एका छोट्या शेतापासून सुरू झालेला हा प्रवास आज २५+ वर्षांच्या समृद्ध वारशात रूपांतरित झाला आहे.' },
     'about.desc2': {
-        en: 'Today, Native Berry Farms continues that legacy. We combine traditional wisdom with modern organic practices to bring you strawberries that taste exactly as nature intended—sweet, juicy, and full of honest flavor.',
-        mr: 'आज, नेटिव्ह बेरी फार्म्स तो वारसा पुढे चालवत आहे. आम्ही पारंपारिक ज्ञान आणि आधुनिक सेंद्रिय पद्धतींची सांगड घालतो, जेणेकरून तुम्हाला अशा स्ट्रॉबेरीज मिळतील ज्यांची चव निसर्गाला अभिप्रेत असलेल्या गोड, रसाळ आणि अस्सल चवीसारखीच असेल.'
+        en: 'Today, Native Berry Farms continues that legacy. We combine traditional wisdom with modern sustainable organic practices to bring you strawberries that taste exactly as nature intended—sweet, juicy, and full of honest flavor.',
+        mr: 'आज, नेटिव्ह बेरी फार्म्स तो वारसा पुढे चालवत आहे. आम्ही पारंपारिक ज्ञान आणि आधुनिक शाश्वत सेंद्रिय पद्धतींची सांगड घालतो, जेणेकरून तुम्हाला अशा स्ट्रॉबेरीज मिळतील ज्यांची चव निसर्गाला अभिप्रेत असलेल्या गोड, रसाळ आणि अस्सल चवीसारखीच असेल.'
     },
     'about.quote': { en: '"It\'s not just what we grow. It\'s how we grow it—with care, consistency, and purpose."', mr: '"आम्ही काय पिकवतो यापेक्षा आम्ही ते कसे पिकवतो हे महत्त्वाचे आहे—काळजीपूर्वक, सातत्याने आणि हेतूने."' },
     'about.journey': { en: 'Our Journey', mr: 'आमचा प्रवास' },
@@ -70,7 +70,7 @@ const translations: Record<string, { en: string; mr: string }> = {
     'wholesale.title': { en: 'Partner with the Source', mr: 'थेट उत्पादकांशी भागीदारी' },
     'wholesale.desc': { en: 'Cut out the middlemen. Work directly with third-generation farmers.', mr: 'मध्यस्थांना टाळा. थेट तिसऱ्या पिढीतील शेतकऱ्यांशी व्यवहार करा.' },
     'wholesale.opt1.title': { en: 'Corporate Gifting', mr: 'कॉर्पोरेट गिफ्टिंग' },
-    'wholesale.opt1.desc': { en: 'Premium packaging for Diwali, festivals & corporate events.', mr: 'दिवाळी, सण आणि कॉर्पोरेट कार्यक्रमांसाठी खास पॅकेजिंग.' },
+    'wholesale.opt1.desc': { en: 'Premium packaging for Diwali, festivals & corporate events.', mr: 'दिवाळी भेटी, सण आणि कॉर्पोरेट कार्यक्रमांसाठी खास "रॉयल" पॅकेजिंग.' },
     'wholesale.opt2.title': { en: 'Retail Supply', mr: 'रिटेल सप्लाई' },
     'wholesale.opt2.desc': { en: 'Direct delivery to supermarkets and organic stores.', mr: 'सुपरमार्केट आणि ऑरगॅनिक स्टोअर्सना थेट पुरवठा.' },
     'wholesale.opt3.title': { en: 'Chefs & Hotels', mr: 'शेफ आणि हॉटेल्स' },
@@ -91,7 +91,7 @@ const translations: Record<string, { en: string; mr: string }> = {
     // Footer
     'footer.brand': { en: 'Native Berry Farms', mr: 'नेटिव्ह बेरी फार्म्स' },
     'footer.love': { en: 'Grown with ❤️ since 1999', mr: '१९९९ पासून प्रेमाने पिकवलेले ❤️' },
-    'footer.tagline': { en: 'The Real Gavakries of Mahabaleshwar', mr: 'महाबळेश्वरची खरी गावकरी चव' },
+    'footer.tagline': { en: 'The Real Gavakries of Mahabaleshwar', mr: 'महाबळेश्वरची खरी "गावकरी" चव' },
 
     // Detail Pages Common
     'detail.back': { en: 'Back to Home', mr: 'मुख्य पृष्ठावर परत' },
