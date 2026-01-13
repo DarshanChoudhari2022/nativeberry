@@ -44,7 +44,7 @@ const Navbar = () => {
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 bg-red-dark/95 z-40 flex items-center justify-center">
+        <div className="fixed inset-0 bg-red-dark/95 z-40 flex items-center justify-center pointer-events-auto">
           <div className="flex flex-col items-center gap-8 text-white">
             {/* Navigation Items */}
             {menuItems.map((item) => (
