@@ -76,7 +76,7 @@ const translations: Record<string, { en: string; mr: string }> = {
     'wholesale.opt3.title': { en: 'Chefs & Hotels', mr: 'शेफ आणि हॉटेल्स' },
     'wholesale.opt3.desc': { en: 'Consistent quality supply for premium restaurants.', mr: 'प्रिमियम हॉटेल्ससाठी सातत्यपूर्ण आणि दर्जेदार पुरवठा.' },
     'wholesale.partner': { en: 'Become a Partner', mr: 'भागीदार व्हा' },
-    'wholesale.excellence': { en: 'Years of Farming Excellence', mr: 'वर्षांची कृषी परंपरा' },
+    'wholesale.excellence': { en: 'Years of Farming Excellence', mr: 'वर्षांचा कृषी अनुभव' },
 
     // Contact Section
     'contact.title': { en: 'Ready to Order?', mr: 'ऑर्डर देण्यासाठी तयार?' },
