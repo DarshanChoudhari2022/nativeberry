@@ -1,7 +1,22 @@
+import { useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
+import { Check } from 'lucide-react';
 
 const Footer = () => {
   const { t } = useLanguage();
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'success'>('idle');
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    // Simulate API call
+    setTimeout(() => {
+      setStatus('success');
+      setEmail('');
+    }, 500);
+  };
+
   return (
     <footer className="bg-red-dark text-white pt-20 pb-10 px-6 md:px-12 border-t border-white/10">
       <div className="container mx-auto">
@@ -11,16 +26,26 @@ const Footer = () => {
             <h3 className="text-2xl font-bold font-script mb-2">{t('news.title')}</h3>
             <p className="text-white/70 text-sm">{t('news.desc')}</p>
           </div>
-          <div className="flex w-full md:w-auto gap-2">
-            <input
-              type="email"
-              placeholder={t('news.placeholder')}
-              className="bg-white/10 border border-white/20 rounded-full px-4 py-2 text-sm text-white placeholder:text-white/40 focus:outline-none focus:bg-white/20 w-full md:w-64"
-            />
-            <button className="bg-golden text-red-900 px-6 py-2 rounded-full font-bold text-sm hover:bg-yellow-400 transition-colors">
-              {t('news.btn')}
-            </button>
-          </div>
+          {status === 'success' ? (
+            <div className="flex items-center gap-2 text-[#FFD700] font-bold bg-white/10 px-6 py-3 rounded-full animate-fade-in">
+              <Check className="w-5 h-5" />
+              <span>Subscribed Successfully!</span>
+            </div>
+          ) : (
+            <form onSubmit={handleSubscribe} className="flex w-full md:w-auto gap-2">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder={t('news.placeholder')}
+                className="bg-white/10 border border-white/20 rounded-full px-4 py-2 text-sm text-white placeholder:text-white/40 focus:outline-none focus:bg-white/20 w-full md:w-64"
+                required
+              />
+              <button type="submit" className="bg-[#FFD700] text-red-900 px-6 py-2 rounded-full font-bold text-sm hover:bg-yellow-400 transition-colors">
+                {t('news.btn')}
+              </button>
+            </form>
+          )}
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
