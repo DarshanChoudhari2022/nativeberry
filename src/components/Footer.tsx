@@ -93,9 +93,17 @@ const Footer = () => {
           {/* Contact & Legals */}
           <div className="text-center md:text-left">
             <h4 className="font-bold text-lg mb-6 text-[#FFD700]">Contact</h4>
-            <p className="text-white/80 text-sm leading-relaxed mb-6">
-              {t('contact.address')}
-            </p>
+            <div className="space-y-4 text-white/80 text-sm mb-6">
+              <p>{t('contact.address')}</p>
+              <div>
+                <span className="block text-[#FFD700] text-xs uppercase tracking-widest font-bold">Orders & Support</span>
+                <a href="tel:+919623214755" className="hover:text-white transition-colors">+91 96232 14755</a>
+              </div>
+              <div>
+                <span className="block text-[#FFD700] text-xs uppercase tracking-widest font-bold">Wholesale Enquiries</span>
+                <a href="tel:+919309393216" className="hover:text-white transition-colors">+91 93093 93216</a>
+              </div>
+            </div>
             <p className="text-white/60 text-xs">
               <a href="#" className="hover:text-white transition-colors">Privacy Policy</a> • <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
             </p>

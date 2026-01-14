@@ -18,13 +18,13 @@ const translations: Record<string, { en: string; mr: string }> = {
     'nav.order': { en: 'Order Now', mr: 'ऑर्डर करा' },
 
     // Hero Section
-    'hero.title1': { en: 'Native', mr: 'नेटिव्ह' },
-    'hero.title2': { en: 'Berry', mr: 'बेरी' },
-    'hero.title3': { en: 'Farms', mr: 'फार्म्स' },
-    'hero.tagline': { en: 'The Real Fresh Strawberries of Mahabaleshwar', mr: 'महाबळेश्वरची अस्सल "गावकरी" चव' },
-    'hero.desc': { en: 'Farm-fresh, pesticide-free strawberries grown with 25+ years of legacy. Harvested at sunrise, delivered straight to your doorstep within 24 hours.', mr: '२५ हून अधिक वर्षांची परंपरा असलेली शेतातील ताजी, रसायनमुक्त स्ट्रॉबेरी. सूर्योदयाला तोडलेली आणि २४ तासांत थेट तुमच्या दारापर्यंत पोहोचवलेली.' },
+    'hero.title1': { en: "Mahabaleshwar's", mr: 'महाबळेश्वरची' },
+    'hero.title2': { en: 'Finest', mr: 'सर्वात' },
+    'hero.title3': { en: 'Strawberries', mr: 'रसरशीत स्ट्रॉबेरी' },
+    'hero.tagline': { en: 'Delivered Fresh from Our Family Farm to Your Doorstep', mr: 'आमच्या शेतातील ताजेपणा... थेट तुमच्या दारी!' },
+    'hero.desc': { en: 'Clean, pesticide-free farming. Harvested at sunrise, reaching your home in Pune & Mumbai fresh. Experience the authentic sweetness of Gureghar.', mr: 'शुद्ध आणि नैसर्गिक शेती. सूर्योदयाला तोडलेली, रासायनिक फवारणी नसलेली, अस्सल गुळगुळीत चव. पुणे आणि मुंबईमध्ये थेट पोहोच.' },
     'hero.whatsapp': { en: 'Order on WhatsApp', mr: 'व्हॉट्सॲपवर ऑर्डर करा' },
-    'hero.call': { en: 'Call Farmer', mr: 'शेतकऱ्याला कॉल करा' },
+    'hero.call': { en: 'Call the Farmer', mr: 'शेतकऱ्याला कॉल करा' },
 
     // Berries Section
     'berries.title': { en: 'Explore the Berry Patch', mr: 'आमच्या बेरींच्या जगात' },
@@ -35,13 +35,13 @@ const translations: Record<string, { en: string; mr: string }> = {
     'berry.goldenberries': { en: 'Golden Berries', mr: 'गोल्डन बेरीज' },
 
     // About Section
-    'about.label': { en: 'About Us', mr: 'आमच्याबद्दल' },
-    'about.title1': { en: "The True", mr: 'खरे' },
-    'about.title2': { en: "Taste of Home", mr: 'घरची चव' },
-    'about.desc1': { en: 'Discover the essence of Native Berry Farms. What started with a small farm in Gureghar, Mahabaleshwar has grown into a legacy spanning 25+ years.', mr: 'नेटिव्ह बेरी फार्म्सचे सार अनुभवा. गुरेघर, महाबळेश्वरमधील एका छोट्या शेतापासून सुरू झालेला हा प्रवास आज २५+ वर्षांच्या समृद्ध वारशात रूपांतरित झाला आहे.' },
+    'about.label': { en: 'Our Story', mr: 'आमची कथा' },
+    'about.title1': { en: "From Our Family Farm", mr: 'आमच्या कुटुंबाकडून' },
+    'about.title2': { en: "To Your Table", mr: 'तुमच्या ताटात' },
+    'about.desc1': { en: "We are the Gade family from Gureghar, the heart of strawberry country. For over 25 years, we’ve cultivated our land with a simple promise: pure, honest farming. No middlemen, no cold storage—just the fruit, the sun, and our hands.", mr: 'आम्ही स्ट्रॉबेरीचे माहेरघर असलेल्या गुरेघरचे "गाडे" कुटुंब आहोत. २५ वर्षांपासून आम्ही एका साध्या वचनावर काम करत आहोत: शुद्ध आणि प्रामाणिक शेती. कोणताही मध्यस्थ नाही, कोल्ड स्टोरेज नाही—फक्त निसर्ग, कष्ट आणि आमची फळे.' },
     'about.desc2': {
-        en: 'Today, Native Berry Farms continues that legacy. We combine traditional wisdom with modern sustainable organic practices to bring you strawberries that taste exactly as nature intended—sweet, juicy, and full of honest flavor.',
-        mr: 'आज, नेटिव्ह बेरी फार्म्स तो वारसा पुढे चालवत आहे. आम्ही पारंपारिक ज्ञान आणि आधुनिक शाश्वत सेंद्रिय पद्धतींची सांगड घालतो, जेणेकरून तुम्हाला अशा स्ट्रॉबेरीज मिळतील ज्यांची चव निसर्गाला अभिप्रेत असलेल्या गोड, रसाळ आणि अस्सल चवीसारखीच असेल.'
+        en: "Hand-picked at sunrise. Packed with care. Delivered globally. We combine traditional wisdom with modern sustainable practices to bring you berries that taste exactly as nature intended.",
+        mr: 'सूर्योदयाच्या वेळी हाताने वेचलेली. काळजीपूर्वक पॅक केलेली. आम्ही पारंपरिक शहाणपण आणि आधुनिक पद्धतींची सांगड घालतो, जेणेकरून तुम्हाला फळांची तीच नैसर्गिक आणि अस्सल चव मिळेल.'
     },
     'about.quote': { en: '"It\'s not just what we grow. It\'s how we grow it—with care, consistency, and purpose."', mr: '"आम्ही काय पिकवतो यापेक्षा आम्ही ते कसे पिकवतो हे महत्त्वाचे आहे—काळजीपूर्वक, सातत्याने आणि हेतूने."' },
     'about.journey': { en: 'Our Journey', mr: 'आमचा प्रवास' },
@@ -69,21 +69,21 @@ const translations: Record<string, { en: string; mr: string }> = {
     'hero.natural': { en: '100% Natural', mr: '१००% नैसर्गिक' },
 
     // Wholesale Section
-    'wholesale.title': { en: 'Partner with the Source', mr: 'थेट उत्पादकांशी भागीदारी' },
-    'wholesale.desc': { en: 'Cut out the middlemen. Work directly with third-generation farmers.', mr: 'मध्यस्थांना टाळा. थेट तिसऱ्या पिढीतील शेतकऱ्यांशी व्यवहार करा.' },
+    'wholesale.title': { en: 'Wholesale & Gifting', mr: 'व्यापारी भागीदार आणि गिफ्टिंग' },
+    'wholesale.desc': { en: 'Partner directly with the source. We provide consistent, premium grade berries for businesses and celebrations.', mr: 'थेट उत्पादकांशी जोडा. आम्ही व्यवसाय आणि कार्यक्रमांसाठी सातत्याने उच्च दर्जाची फळे पुरवतो.' },
     'wholesale.opt1.title': { en: 'Corporate Gifting', mr: 'कॉर्पोरेट गिफ्टिंग' },
-    'wholesale.opt1.desc': { en: 'Premium packaging for Diwali, festivals & corporate events.', mr: 'दिवाळी भेटी, सण आणि कॉर्पोरेट कार्यक्रमांसाठी खास "रॉयल" पॅकेजिंग.' },
-    'wholesale.opt2.title': { en: 'Retail Supply', mr: 'रिटेल सप्लाई' },
-    'wholesale.opt2.desc': { en: 'Direct delivery to supermarkets and organic stores.', mr: 'सुपरमार्केट आणि ऑरगॅनिक स्टोअर्सना थेट पुरवठा.' },
+    'wholesale.opt1.desc': { en: 'Exclusive hampers for Diwali & events. Leave a lasting impression with premium, farm-fresh gifts.', mr: 'दिवाळी आणि सणांसाठी खास हॅम्पर्स. आमच्या प्रीमियम गिफ्ट्सने तुमचे नाते अधिक घट्ट करा.' },
+    'wholesale.opt2.title': { en: 'Retail Supply', mr: 'रिटेल विक्री' },
+    'wholesale.opt2.desc': { en: 'Reliable daily supply for supermarkets. 100% organic-certified produce that customers trust.', mr: 'सुपरमार्केटसाठी दररोजचा ताजा पुरवठा.' },
     'wholesale.opt3.title': { en: 'Chefs & Hotels', mr: 'शेफ आणि हॉटेल्स' },
-    'wholesale.opt3.desc': { en: 'Consistent quality supply for premium restaurants.', mr: 'प्रिमियम हॉटेल्ससाठी सातत्यपूर्ण आणि दर्जेदार पुरवठा.' },
+    'wholesale.opt3.desc': { en: 'For Chefs who demand the best. Consistent size, flavor, and texture for your signature dishes.', mr: 'ज्या शेफला सर्वोत्तम हवे असते त्यांच्यासाठी. सातत्यपूर्ण चव आणि दर्जा.' },
     'wholesale.partner': { en: 'Become a Partner', mr: 'भागीदार व्हा' },
     'wholesale.excellence': { en: 'Years of Farming Excellence', mr: 'वर्षांचा कृषी अनुभव' },
 
     // Contact Section
-    'contact.title': { en: 'Ready to Order?', mr: 'ऑर्डर देण्यासाठी तयार?' },
-    'contact.desc': { en: 'Three ways to connect with us.', mr: 'आमच्याशी संपर्क साधण्याचे तीन मार्ग.' },
-    'contact.address': { en: 'Parking No 4, Near Mapro Garden, Gureghar, Mahabaleshwar', mr: 'पार्किंग क्र. ४, मॅप्रो गार्डन जवळ, गुरेघर, महाबळेश्वर' },
+    'contact.title': { en: 'Bring the Farm Home', mr: 'ऑर्डर देण्यासाठी तयार?' },
+    'contact.desc': { en: 'Order via WhatsApp or Call. We deliver to Pune, Mumbai, and surrounding areas.', mr: 'आमच्याशी संपर्क साधण्याचे तीन मार्ग.' },
+    'contact.address': { en: 'Farm Location: Parking No 4, Near Mapro Garden, Gureghar, Mahabaleshwar', mr: 'पार्किंग क्र. ४, मॅप्रो गार्डन जवळ, गुरेघर, महाबळेश्वर' },
     'contact.visit': { en: 'Visit Farm', mr: 'शेताला भेट द्या' },
     'contact.chat': { en: 'Chat Now', mr: 'चॅट करा' },
     'contact.chat_desc': { en: 'Connect on WhatsApp', mr: 'व्हॉट्सॲपवर संपर्क साधा' },
@@ -144,8 +144,8 @@ const translations: Record<string, { en: string; mr: string }> = {
     'fact.rare': { en: 'Rare', mr: 'दुर्मिळ' },
 
     // Strawberry Detail
-    'strawberry.hero.title': { en: 'The Sweetheart of the Berry World', mr: 'बेरी विश्वाची लाडकी' },
-    'strawberry.hero.desc': { en: 'Bright, juicy, and full of charm, strawberries are the timeless favorite. Whether dipped in chocolate or blended into a smoothie, our Mahabaleshwar strawberries bring a perfect balance of sweetness and tartness.', mr: 'लख्ख लाल, रसाळ आणि मोहक... स्ट्रॉबेरी म्हणजे सर्वांची "लाडकी". चॉकलेटमध्ये बुडवा किंवा थेट खा, आमच्या महाबळेश्वरच्या स्ट्रॉबेरीचा गोडवा आणि तो हलकासा आंबट ओलावा जिभेवर रेंगाळत राहतो.' },
+    'strawberry.hero.title': { en: 'The Crown Jewel of Mahabaleshwar', mr: 'महाबळेश्वरचा अनमोल ठेवा' },
+    'strawberry.hero.desc': { en: 'Naturally sweet, deep red, and bursting with juice. Our strawberries are sun-ripened on the vine and picked at peak maturity. Perfect for desserts, smoothies, or eating straight from the box.', mr: 'नैसर्गिकरित्या गोड, गडद लाल आणि रसाळ. आमच्या स्ट्रॉबेरीज वेलीवरच पिकवल्या जातात. थेट डब्यातून खाण्यासाठी किंवा डेझर्टसाठी सर्वोत्तम.' },
     'strawberry.soil.title': { en: 'Perfect Soil', mr: 'परिपूर्ण माती' },
     'strawberry.soil.desc': { en: 'Our laterite red soil, rich in iron and unique to the Mahabaleshwar plateau, gives our strawberries their distinctive deep red distinct color and intense sweetness.', mr: 'आमची लोहयुक्त जांभा (लॅटराइट) तांबडी माती, जी महाबळेश्वर पठाराचे वैशिष्ट्य आहे, आमच्या स्ट्रॉबेरीला गडद लाल रंग आणि तीव्र गोडवा देते.' },
     'strawberry.climate.title': { en: 'Ideal Climate', mr: 'योग्य हवामान' },
@@ -174,7 +174,7 @@ const translations: Record<string, { en: string; mr: string }> = {
     // Mulberry Detail
     'mulberry.hero.subtitle': { en: 'Native Treasures', mr: 'आपला देशी खजिना' },
     'mulberry.hero.title': { en: 'The Ancient Superfood', mr: 'प्राचीन सुपरफूड' },
-    'mulberry.hero.desc': { en: 'Deeply pigmented and intensely flavorful, our Mahabaleshwar Mulberries (Shahtoot) are a rare seasonal treat. Known for their balance of sweet and tart, they stain your fingers but heal your soul.', mr: 'गडद जांभळा रंग आणि जीभेवर विरघळणारी चव... आमची महाबळेश्वरची तुती (शहतूत) म्हणजे उन्हाळ्याची खरी मेजवानी. हाताला रंग लागेल पण मनाला जी तृप्ती मिळेल, ती काही औरच!' },
+    'mulberry.hero.desc': { en: 'Sweet, tart, and messy in the best way. Our Mulberries (Shahtoot) are packed with iron and nostalgia. Hand-harvested carefully to preserve their delicate structure.', mr: 'गडद जांभळा रंग आणि जीभेवर विरघळणारी चव... आमची महाबळेश्वरची तुती (शहतूत) म्हणजे उन्हाळ्याची खरी मेजवानी. हाताला रंग लागेल पण मनाला जी तृप्ती मिळेल, ती काही औरच!' },
     'mulberry.season.desc': { en: 'Mulberries have two distinct short seasons in Mahabaleshwar. Catch them while you can!', mr: 'महाबळेश्वरमध्ये तुतीचे दोन छोटे हंगाम असतात. संधी गमावू नका!' },
     'mulberry.season.harvest': { en: 'Mahabaleshwar Harvesting', mr: 'महाबळेश्वर कापणी' },
     'mulberry.season.summer': { en: 'Summer Harvest', mr: 'उन्हाळी हंगाम' },
@@ -230,15 +230,15 @@ const translations: Record<string, { en: string; mr: string }> = {
     'golden.step4.desc': { en: 'Peel the husk and rinse under cold water only when ready to eat. They might feel slightly sticky (natural pectin).', mr: 'खाण्यापूर्वीच आवरण काढा आणि थंड पाण्याने धुवा. त्या थोड्या चिकट असू शकतात (नैसर्गिक पेक्टिन).' },
     // Testimonials
     'testim.title': { en: 'What Our Customers Say', mr: 'आमचे ग्राहक काय म्हणतात' },
-    'testim.1.name': { en: 'Priya Deshmukh', mr: 'प्रिया देशमुख' },
-    'testim.1.text': { en: 'Best strawberries I have ever tasted! They remind me of my childhood trips to Mahabaleshwar.', mr: 'आजवर चाखलेली सर्वोत्तम स्ट्रॉबेरी! मला माझ्या लहानपणीच्या महाबळेश्वर सहलींची आठवण झाली.' },
-    'testim.1.loc': { en: 'Pune', mr: 'पुणे' },
-    'testim.2.name': { en: 'Rahul Mehta', mr: 'राहुल मेहता' },
-    'testim.2.text': { en: 'Incredible freshness. Delivered within 24 hours as promised. The packaging was top notch.', mr: 'अविश्वसनीय ताजेपणा. वचनाप्रमाणे २४ तासात डिलिव्हरी. पॅकेजिंग उत्कृष्ट होते.' },
-    'testim.2.loc': { en: 'Mumbai', mr: 'मुंबई' },
-    'testim.3.name': { en: 'Anjali Patil', mr: 'जई पाटील' },
-    'testim.3.text': { en: 'My kids absolutely love the Mulberries. It is rare to find such high quality organic fruits online.', mr: 'माझ्या मुलांना मलबेरीज खूप आवडतात. ऑनलाइन अशी उच्च दर्जाची सेंद्रिय फळे मिळणे दुर्मिळ आहे.' },
-    'testim.3.loc': { en: 'Nashik', mr: 'नाशिक' },
+    'testim.1.name': { en: 'Soham P.', mr: 'सोहम प.' },
+    'testim.1.text': { en: "Ordered 5kg for my daughter's birthday. The sweetness was unbelievable—way better than what we get in Mumbai markets. Delivered fresh.", mr: 'मुलीच्या वाढदिवसासाठी ५ किलो मागवल्या. मुंबई मार्केटपेक्षा कितीतरी पटीने उत्तम आणि गोड होत्या. एकदम फ्रेश मिळाल्या.' },
+    'testim.1.loc': { en: 'Dadar, Mumbai', mr: 'दादर, मुंबई' },
+    'testim.2.name': { en: 'Anjali M.', mr: 'अंजली म.' },
+    'testim.2.text': { en: 'Finally, a genuine organic source! The transparency of the Gade family won us over. We visit the farm every year now. Highly recommended.', mr: 'शेवटी एक खात्रीचा सेंद्रिय स्रोत मिळाला! गाडे कुटुंबाचा प्रामाणिकपणा भावला. आता आम्ही दरवर्षी शेतावर जातो.' },
+    'testim.2.loc': { en: 'Pune', mr: 'पुणे' },
+    'testim.3.name': { en: 'Chef Vikram', mr: 'शेफ विक्रम' },
+    'testim.3.text': { en: 'Our cafe has been sourcing mulberries from Native Berry Farms for 3 seasons. Best quality in the region, hands down. Guests love them.', mr: 'आमचे कॅफे गेल्या ३ हंगामांपासून इथूनच मलबेरी मागवत आहे. या भागातील सर्वोत्तम दर्जा. ग्राहकांना खूप आवडते.' },
+    'testim.3.loc': { en: 'Panchgani', mr: 'पाचगणी' },
     // Trust Badges
     'trust.organic.title': { en: 'Organic Practices', mr: 'सेंद्रिय पद्धती' },
     'trust.organic.desc': { en: 'No harmful pesticides', mr: 'हानिकारक रसायने नाहीत' },
