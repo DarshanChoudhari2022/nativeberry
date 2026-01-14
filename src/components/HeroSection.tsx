@@ -7,7 +7,7 @@ const HeroSection = () => {
   const { t } = useLanguage();
 
   const handleWhatsAppOrder = () => {
-    window.open('https://wa.me/918605589062?text=Hi! I want to order fresh strawberries from Native Berry Farms.', '_blank');
+    window.open('https://wa.me/919309393216?text=Hi! I want to order fresh strawberries from Native Berry Farms.', '_blank');
   };
 
   return (
