@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { ChevronLeft, Menu, X } from 'lucide-react';
-import logo from '@/assets/logo_final_v3.jpg';
+import logo from '@/assets/logo_white_transparent.png';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -26,10 +26,8 @@ const Navbar = () => {
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-2 transition-all duration-300 pointer-events-none ${isScrolled ? 'bg-red-dark/95 backdrop-blur-md py-2 shadow-lg' : 'bg-transparent py-4'}`}>
       <div className="flex items-center justify-between pointer-events-auto">
-        {/* Logo */}
-        {/* Logo */}
-        <a href="/" className={`block transition-all duration-300 ${isScrolled ? 'w-16 h-16 md:w-20 md:h-20' : 'w-24 h-24 md:w-32 md:h-32'}`}>
-          <img src={logo} alt="Native Berry Farms" className="w-full h-full object-contain filter drop-shadow-md mixed-blend-multiply" />
+        <a href="/" className={`block transition-all duration-300 ${isScrolled ? 'w-20 h-20 md:w-24 md:h-24' : 'w-32 h-32 md:w-40 md:h-40'}`}>
+          <img src={logo} alt="Native Berry Farms" className="w-full h-full object-contain filter drop-shadow-md" />
         </a>
 
         {/* Desktop Menu */}
