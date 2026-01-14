@@ -24,7 +24,7 @@ const Navbar = () => {
     { label: t('nav.contact'), href: '/#contact' },
   ];
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-2 transition-all duration-300 pointer-events-none ${isScrolled ? 'bg-red-dark/95 backdrop-blur-md py-2 shadow-lg' : 'bg-transparent py-4'}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-[200] px-6 md:px-12 py-2 transition-all duration-300 ${isScrolled ? 'bg-red-dark/95 backdrop-blur-md py-2 shadow-lg pointer-events-auto' : 'bg-transparent py-4 pointer-events-none'}`}>
       <div className="flex items-center justify-between pointer-events-auto">
         <a href="/" className={`block transition-all duration-300 ${isScrolled ? 'w-20 h-20 md:w-24 md:h-24' : 'w-32 h-32 md:w-40 md:h-40'}`}>
           <img src={logo} alt="Native Berry Farms" className="w-full h-full object-contain filter drop-shadow-md" />

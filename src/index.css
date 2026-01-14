@@ -161,6 +161,7 @@ body.lang-mr .text-9xl {
     font-family: 'Poppins', system-ui, sans-serif;
     background-color: hsl(var(--red-deep));
     color: white;
+    overflow-x: hidden;
   }
 
   h1,
