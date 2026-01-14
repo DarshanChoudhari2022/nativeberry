@@ -16,6 +16,17 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
+
   const menuItems = [
     { label: t('nav.home'), href: '/#home' },
     { label: t('nav.about'), href: '/#about' },
@@ -23,10 +34,19 @@ const Navbar = () => {
     { label: t('nav.wholesale'), href: '/#wholesale' },
     { label: t('nav.contact'), href: '/#contact' },
   ];
+
+
+  // Determine navbar styles based on state
+  const navBackground = isMobileMenuOpen
+    ? 'bg-transparent' // Let the overlay handle the background
+    : isScrolled
+      ? 'bg-red-dark/95 backdrop-blur-md shadow-lg pointer-events-auto'
+      : 'bg-transparent pointer-events-none';
+
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-[200] px-6 md:px-12 py-2 transition-all duration-300 ${isScrolled ? 'bg-red-dark/95 backdrop-blur-md py-2 shadow-lg pointer-events-auto' : 'bg-transparent py-4 pointer-events-none'}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-[200] px-6 md:px-12 py-2 transition-all duration-300 ${isScrolled || isMobileMenuOpen ? 'py-2' : 'py-4'} ${navBackground}`}>
       <div className="flex items-center justify-between pointer-events-auto">
-        <a href="/" className={`block transition-all duration-300 ${isScrolled ? 'w-20 h-20 md:w-24 md:h-24' : 'w-32 h-32 md:w-40 md:h-40'}`}>
+        <a href="/" className={`block transition-all duration-300 ${isScrolled || isMobileMenuOpen ? 'w-20 h-20 md:w-24 md:h-24' : 'w-32 h-32 md:w-40 md:h-40'}`}>
           <img src={logo} alt="Native Berry Farms" className="w-full h-full object-contain filter drop-shadow-md" />
         </a>
 
@@ -48,10 +68,10 @@ const Navbar = () => {
         </div>
 
         {/* Hamburger Menu (Mobile Only) */}
-        <div className="md:hidden">
+        <div className="md:hidden relative z-50">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-white hover:opacity-80 transition-opacity"
+            className="text-white hover:opacity-80 transition-opacity p-2"
           >
             {isMobileMenuOpen ? (
               <X className="w-8 h-8" />
@@ -68,14 +88,14 @@ const Navbar = () => {
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 bg-red-dark/95 z-40 flex items-center justify-center pointer-events-auto">
-          <div className="flex flex-col items-center gap-8 text-white">
+        <div className="fixed inset-0 bg-red-dark z-40 flex items-center justify-center pointer-events-auto w-screen h-screen">
+          <div className="flex flex-col items-center gap-8 text-white w-full max-h-screen overflow-y-auto py-20 px-4">
             {/* Navigation Items */}
             {menuItems.map((item) => (
-              <div key={item.label} className="flex flex-col items-center gap-2">
+              <div key={item.label} className="flex flex-col items-center gap-2 w-full">
                 <a
                   href={item.href}
-                  className="text-3xl font-light hover:opacity-70 transition-opacity"
+                  className="text-3xl font-light hover:opacity-70 transition-opacity text-center"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.label}
@@ -83,7 +103,7 @@ const Navbar = () => {
 
                 {/* Mobile Submenu for Berries */}
                 {item.href === '/#berries' && (
-                  <div className="flex flex-col gap-2 mt-1 items-center">
+                  <div className="flex flex-col gap-3 mt-2 items-center bg-white/5 w-full py-4 rounded-xl">
                     <a href="/strawberries" className="text-lg opacity-80 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{t('berry.strawberries')}</a>
                     <a href="/mulberries" className="text-lg opacity-80 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{t('berry.mulberries')}</a>
                     <a href="/raspberries" className="text-lg opacity-80 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}>{t('berry.raspberries')}</a>
@@ -95,7 +115,7 @@ const Navbar = () => {
 
             <a
               href="/#contact"
-              className="bg-[#FFD700] text-[#781B26] px-8 py-3 rounded-full font-bold text-lg tracking-wide hover:scale-105 transition-transform shadow-lg mt-4"
+              className="bg-[#FFD700] text-[#781B26] px-8 py-3 rounded-full font-bold text-lg tracking-wide hover:scale-105 transition-transform shadow-lg mt-4 shrink-0"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               {t('nav.order')}
