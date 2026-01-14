@@ -1,6 +1,8 @@
 import farmLandscapeImg from '@/assets/farm-landscape.jpeg';
+import { useLanguage } from '@/context/LanguageContext';
 
 const WhyUsSection = () => {
+  const { t } = useLanguage();
   return (
     <section id="about" className="section-spacing bg-background relative overflow-hidden">
       {/* Background decoration */}
@@ -14,7 +16,7 @@ const WhyUsSection = () => {
             <p className="text-accent font-bold text-sm tracking-wider uppercase mb-3">
               About Us
             </p>
-            
+
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
               It's a Berry's <span className="text-primary">World!</span>
             </h2>
@@ -51,10 +53,7 @@ const WhyUsSection = () => {
               <div className="absolute -top-4 -right-4 w-20 h-20 bg-accent rounded-full flex items-center justify-center text-3xl shadow-lg">
                 🌱
               </div>
-              <div className="absolute -bottom-4 -left-4 bg-card rounded-2xl shadow-xl p-4">
-                <p className="font-display text-3xl font-bold text-primary">25+</p>
-                <p className="text-sm text-muted-foreground">Years of Farming</p>
-              </div>
+
             </div>
           </div>
         </div>

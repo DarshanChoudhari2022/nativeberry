@@ -47,6 +47,8 @@ const translations: Record<string, { en: string; mr: string }> = {
     'about.journey': { en: 'Our Journey', mr: 'आमचा प्रवास' },
     'about.legacy': { en: 'A Legacy of', mr: 'एक वारसा' },
     'about.years': { en: '100+ Years', mr: '१००+ वर्षांचा' },
+    'about.farming_experience': { en: 'Years of Farming', mr: 'वर्षांचा कृषी अनुभव' },
+    'about.years_count': { en: '25+', mr: '२५+' },
 
     // Timeline
     'timeline.1920.title': { en: 'British Introduction', mr: 'ब्रिटिशांचे आगमन' },

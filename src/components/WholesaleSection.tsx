@@ -102,10 +102,7 @@ const WholesaleSection = () => {
                 />
               </div>
               {/* Floating Badge */}
-              <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl w-auto max-w-xs border border-gray-100 min-w-[200px] z-20">
-                <p className="font-bold text-3xl text-red-600 mb-1">25+</p>
-                <p className="text-gray-600 text-sm font-medium">{t('wholesale.excellence')}</p>
-              </div>
+
             </div>
           </Reveal>
         </div>
