@@ -276,10 +276,11 @@ const DeliveryManager = () => {
                                             <SelectValue placeholder={t.selectDriver} />
                                         </SelectTrigger>
                                         <SelectContent className="bg-white text-gray-900">
-                                            <SelectItem value="Ramesh">Ramesh (Bike 1)</SelectItem>
-                                            <SelectItem value="Suresh">Suresh (Bike 2)</SelectItem>
-                                            <SelectItem value="Mahesh">Mahesh (Van)</SelectItem>
-                                            <SelectItem value="External">Dunzo/Porter</SelectItem>
+                                            <SelectItem value="Darshan">Darshan</SelectItem>
+                                            <SelectItem value="Suraj">Suraj</SelectItem>
+                                            <SelectItem value="Sushant">Sushant</SelectItem>
+                                            <SelectItem value="Deepak">Deepak</SelectItem>
+                                            <SelectItem value="External">External (Dunzo/Porter)</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </CardContent>
