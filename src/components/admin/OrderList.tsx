@@ -154,7 +154,10 @@ const OrderList = ({ refreshTrigger }: { refreshTrigger: number }) => {
                                     </TableCell>
                                     <TableCell>{getStatusBadge(order.status)}</TableCell>
                                     <TableCell>
-                                        <Badge variant={order.payment_status === 'Paid' ? 'outline' : 'destructive'}>
+                                        <Badge className={order.payment_status === 'Paid'
+                                            ? 'bg-green-100 text-green-800 border-green-200 hover:bg-green-100'
+                                            : 'bg-red-100 text-red-800 border-red-200 hover:bg-red-100'
+                                        }>
                                             {order.payment_status}
                                         </Badge>
                                     </TableCell>

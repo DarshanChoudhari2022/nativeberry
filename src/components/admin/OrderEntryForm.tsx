@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -60,8 +60,53 @@ const OrderEntryForm = ({ currentUser, onOrderCreated }: OrderEntryFormProps) =>
     const [isCalculating, setIsCalculating] = useState(false);
 
     // Pricing State (Defaults)
+    // Pricing State (Defaults)
+    // Pricing State (Defaults)
     const [price250g, setPrice250g] = useState(100);
     const [price1kg, setPrice1kg] = useState(350);
+
+    // Customer History for Autocomplete
+    const [customerHistory, setCustomerHistory] = useState<Record<string, { address: string, phone: string, distance: string }>>({});
+
+    useEffect(() => {
+        loadCustomerHistory();
+    }, []);
+
+    const loadCustomerHistory = async () => {
+        const { data } = await supabase.from('orders').select('customer_name, customer_address, customer_phone, distance_km');
+        if (data) {
+            const history: Record<string, any> = {};
+            data.forEach((order: any) => {
+                if (order.customer_name && !history[order.customer_name.toLowerCase()]) {
+                    history[order.customer_name.toLowerCase()] = {
+                        address: order.customer_address,
+                        phone: order.customer_phone,
+                        distance: order.distance_km
+                    };
+                }
+            });
+            setCustomerHistory(history);
+        }
+    };
+
+    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const name = e.target.value;
+        form.setValue('customer_name', name);
+
+        // Auto-fill check
+        const match = customerHistory[name.toLowerCase()];
+        if (match) {
+            const currentAddress = form.getValues('customer_address');
+            if (!currentAddress || currentAddress.length < 5) {
+                toast.info("Found returning customer!", { description: "Auto-filling address & phone..." });
+                form.setValue('customer_address', match.address);
+                form.setValue('customer_phone', match.phone);
+                form.setValue('distance_km', match.distance.toString());
+            }
+        }
+    };
+
+
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
