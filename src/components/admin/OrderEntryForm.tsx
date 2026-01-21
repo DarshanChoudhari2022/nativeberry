@@ -121,6 +121,7 @@ const OrderEntryForm = ({ currentUser, onOrderCreated }: OrderEntryFormProps) =>
             }
 
 
+
             if (data && data.length > 0) {
                 const destLat = parseFloat(data[0].lat);
                 const destLon = parseFloat(data[0].lon);
@@ -129,24 +130,45 @@ const OrderEntryForm = ({ currentUser, onOrderCreated }: OrderEntryFormProps) =>
                 const originLat = 18.491370;
                 const originLon = 73.897395;
 
-                // Haversine Formula for air distance
-                const R = 6371; // Earth radius km
-                const dLat = (destLat - originLat) * Math.PI / 180;
-                const dLon = (destLon - originLon) * Math.PI / 180;
-                const a =
-                    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                    Math.cos(originLat * Math.PI / 180) * Math.cos(destLat * Math.PI / 180) *
-                    Math.sin(dLon / 2) * Math.sin(dLon / 2);
-                const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-                const airDistance = R * c;
+                // Use OSRM for Real Driving Distance
+                // Format: {lon},{lat};{lon},{lat}
+                const osrmUrl = `https://router.project-osrm.org/route/v1/driving/${originLon},${originLat};${destLon},${destLat}?overview=false`;
 
-                // Road adjustment factor (1.4x is a safe city traffic proxy)
-                const roadDistance = (airDistance * 1.4).toFixed(1);
+                try {
+                    const routeRes = await fetch(osrmUrl);
+                    const routeData = await routeRes.json();
 
-                form.setValue('distance_km', roadDistance.toString());
-                toast.success(`Estimated distance: ${roadDistance} km`, {
-                    description: "Calculated via OpenStreetMap. Verify if needed."
-                });
+                    if (routeData.code === 'Ok' && routeData.routes.length > 0) {
+                        const distanceMeters = routeData.routes[0].distance;
+                        const distanceKm = (distanceMeters / 1000).toFixed(1);
+
+                        form.setValue('distance_km', distanceKm);
+                        toast.success(`Distance by road: ${distanceKm} km`, {
+                            description: "Calculated via OSRM Driving Route"
+                        });
+                    } else {
+                        // Fallback to Haversine if OSRM fails
+                        throw new Error("OSRM failed");
+                    }
+                } catch (routeError) {
+                    console.log("OSRM failed, falling back to air distance", routeError);
+
+                    // Fallback: Haversine Formula
+                    const R = 6371;
+                    const dLat = (destLat - originLat) * Math.PI / 180;
+                    const dLon = (destLon - originLon) * Math.PI / 180;
+                    const a =
+                        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                        Math.cos(originLat * Math.PI / 180) * Math.cos(destLat * Math.PI / 180) *
+                        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+                    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                    const airDistance = R * c;
+                    const roadDistance = (airDistance * 1.5).toFixed(1); // Slightly higher multiplier for safety
+
+                    form.setValue('distance_km', roadDistance.toString());
+                    toast.warning(`Road calculation failed. Estimated: ${roadDistance} km`);
+                }
+
             } else {
                 toast.error("Could not find address automatically.");
             }
