@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Trash2, Plus, Receipt, Calendar as CalendarIcon } from 'lucide-react';
+import { Trash2, Plus, Receipt, Calendar as CalendarIcon, Pencil, X } from 'lucide-react';
 import { toast } from 'sonner';
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
@@ -29,6 +29,7 @@ export default function ExpenseManager() {
     const [expenses, setExpenses] = useState<Expense[]>([]);
     const [newExpense, setNewExpense] = useState({ description: '', amount: '', category: 'General' });
     const [date, setDate] = useState<Date | undefined>(new Date());
+    const [editingId, setEditingId] = useState<number | null>(null);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -48,30 +49,63 @@ export default function ExpenseManager() {
         }
     };
 
-    const addExpense = async () => {
+    const handleSaveExpense = async () => {
         if (!newExpense.description || !newExpense.amount) {
             toast.error("Please fill in description and amount");
             return;
         }
 
         setLoading(true);
-        const { error } = await supabase.from('expenses').insert([{
+
+        const expenseData = {
             description: newExpense.description,
             amount: parseFloat(newExpense.amount),
             category: newExpense.category,
             date: date ? date.toISOString() : new Date().toISOString()
-        }]);
+        };
+
+        let error;
+
+        if (editingId) {
+            const { error: updateError } = await supabase
+                .from('expenses')
+                .update(expenseData)
+                .eq('id', editingId);
+            error = updateError;
+        } else {
+            const { error: insertError } = await supabase
+                .from('expenses')
+                .insert([expenseData]);
+            error = insertError;
+        }
 
         if (error) {
-            console.error('Error adding expense:', error);
-            toast.error('Failed to add expense');
+            console.error('Error saving expense:', error);
+            toast.error(editingId ? 'Failed to update expense' : 'Failed to add expense');
         } else {
-            toast.success('Expense added');
+            toast.success(editingId ? 'Expense updated' : 'Expense added');
             setNewExpense({ description: '', amount: '', category: 'General' });
             setDate(new Date());
+            setEditingId(null);
             fetchExpenses();
         }
         setLoading(false);
+    };
+
+    const startEditing = (expense: Expense) => {
+        setNewExpense({
+            description: expense.description,
+            amount: expense.amount.toString(),
+            category: expense.category || 'General'
+        });
+        setDate(new Date(expense.date));
+        setEditingId(expense.id);
+    };
+
+    const cancelEditing = () => {
+        setNewExpense({ description: '', amount: '', category: 'General' });
+        setDate(new Date());
+        setEditingId(null);
     };
 
     const deleteExpense = async (id: number) => {
@@ -94,8 +128,13 @@ export default function ExpenseManager() {
             </div>
 
             <Card className="border-purple-100 bg-purple-50/50">
-                <CardHeader>
-                    <CardTitle className="text-purple-900">Add New Expense</CardTitle>
+                <CardHeader className="flex flex-row items-center justify-between">
+                    <CardTitle className="text-purple-900">{editingId ? 'Edit Expense' : 'Add New Expense'}</CardTitle>
+                    {editingId && (
+                        <Button variant="ghost" size="sm" onClick={cancelEditing} className="text-gray-500 hover:text-gray-700">
+                            <X className="h-4 w-4 mr-1" /> Cancel
+                        </Button>
+                    )}
                 </CardHeader>
                 <CardContent className="flex flex-col md:flex-row gap-4 items-end">
                     <div className="space-y-2 flex-1 w-full">
@@ -143,8 +182,12 @@ export default function ExpenseManager() {
                             className="bg-white"
                         />
                     </div>
-                    <Button onClick={addExpense} disabled={loading} className="bg-purple-600 hover:bg-purple-700 w-full md:w-auto">
-                        <Plus className="mr-2 h-4 w-4" /> Add Application
+                    <Button onClick={handleSaveExpense} disabled={loading} className="bg-purple-600 hover:bg-purple-700 w-full md:w-auto min-w-[140px]">
+                        {editingId ? (
+                            <> <Pencil className="mr-2 h-4 w-4" /> Update </>
+                        ) : (
+                            <> <Plus className="mr-2 h-4 w-4" /> Add Expense </>
+                        )}
                     </Button>
                 </CardContent>
             </Card>
@@ -182,9 +225,14 @@ export default function ExpenseManager() {
                                             <TableCell>{expense.description}</TableCell>
                                             <TableCell className="font-medium">₹{expense.amount}</TableCell>
                                             <TableCell>
-                                                <Button variant="ghost" size="sm" onClick={() => deleteExpense(expense.id)} className="text-red-500 hover:text-red-700 hover:bg-red-50">
-                                                    <Trash2 className="h-4 w-4" />
-                                                </Button>
+                                                <div className="flex gap-1">
+                                                    <Button variant="ghost" size="sm" onClick={() => startEditing(expense)} className="text-blue-500 hover:text-blue-700 hover:bg-blue-50">
+                                                        <Pencil className="h-4 w-4" />
+                                                    </Button>
+                                                    <Button variant="ghost" size="sm" onClick={() => deleteExpense(expense.id)} className="text-red-500 hover:text-red-700 hover:bg-red-50">
+                                                        <Trash2 className="h-4 w-4" />
+                                                    </Button>
+                                                </div>
                                             </TableCell>
                                         </TableRow>
                                     ))
