@@ -13,8 +13,10 @@ import { Toaster as Sonner, toast } from "sonner";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { CardContent } from "@/components/ui/card";
 import ExpenseManager from '@/components/admin/ExpenseManager';
+import PaymentRecovery from '@/components/admin/PaymentRecovery';
+import { Receipt, IndianRupee } from 'lucide-react';
 import SupplierManager from '@/components/admin/SupplierManager';
-import { Receipt, ArrowLeft, Store } from 'lucide-react';
+import { ArrowLeft, Store } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const HiddenDashboard = () => {
@@ -160,6 +162,9 @@ const HiddenDashboard = () => {
                         <TabsTrigger value="expenses" className="flex gap-2">
                             <Receipt className="h-4 w-4" /> Expenses
                         </TabsTrigger>
+                        <TabsTrigger value="recovery" className="flex gap-2 text-red-700 data-[state=active]:text-red-800">
+                            <IndianRupee className="h-4 w-4" /> Recovery
+                        </TabsTrigger>
                     </TabsList>
 
                     <TabsContent value="new-order" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -211,6 +216,10 @@ const HiddenDashboard = () => {
 
                     <TabsContent value="expenses" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <ExpenseManager />
+                    </TabsContent>
+
+                    <TabsContent value="recovery" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                        <PaymentRecovery />
                     </TabsContent>
                 </Tabs>
             </main>
