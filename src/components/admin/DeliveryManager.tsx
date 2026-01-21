@@ -136,33 +136,37 @@ const DeliveryManager = () => {
         }
     };
 
-    const markDelivered = async (orderId: number) => {
+    const markDelivered = async (orderId: number, paymentCollected: boolean) => {
         const data = deliveryData[orderId] || { bikeUsed: false, travelCharge: '0', comments: '' };
+
+        const updateData = {
+            status: 'Delivered',
+            payment_status: paymentCollected ? 'Paid' : 'Pending', // Key Fix
+            bike_used: data.bikeUsed,
+            travel_charge: parseFloat(data.travelCharge || '0'),
+            delivery_notes: data.comments
+        };
 
         const { error } = await supabase
             .from('orders')
-            .update({
-                status: 'Delivered',
-                payment_status: 'Paid',
-                bike_used: data.bikeUsed,
-                travel_charge: parseFloat(data.travelCharge || '0'),
-                delivery_notes: data.comments
-            })
+            .update(updateData)
             .eq('id', orderId);
 
         if (error) {
             toast.error("Update failed");
         } else {
-            toast.success(t.deliveryUpdated);
+            toast.success(paymentCollected ? "Delivered & Paid!" : "Delivered (Payment Pending)");
+
             // Optimistic update
             setOrders(prev => prev.map(o =>
                 o.id === orderId
-                    ? { ...o, status: 'Delivered', payment_status: 'Paid' }
+                    ? { ...o, ...updateData }
                     : o
             ));
-            // fetchDeliveries(); // No need to re-fetch immediately if we update local state
+
             // Clear data for this order
             setDeliveryData(prev => {
+
                 const newState = { ...prev };
                 delete newState[orderId];
                 return newState;
@@ -380,13 +384,24 @@ const DeliveryManager = () => {
                                             )}
                                         </span>
                                     </div>
-                                    <Button
-                                        className="bg-green-600 hover:bg-green-700 shadow-sm shadow-green-200"
-                                        onClick={() => markDelivered(order.id)}
-                                    >
-                                        <CheckCircle className="mr-2 h-4 w-4" />
-                                        {t.markDelivered}
-                                    </Button>
+                                    <div className="flex gap-2">
+                                        <Button
+                                            size="sm"
+                                            className="bg-yellow-500 hover:bg-yellow-600 text-white"
+                                            onClick={() => markDelivered(order.id, false)}
+                                            title="Mark Delivered but Payment Pending"
+                                        >
+                                            Credit
+                                        </Button>
+                                        <Button
+                                            size="sm"
+                                            className="bg-green-600 hover:bg-green-700 shadow-sm shadow-green-200"
+                                            onClick={() => markDelivered(order.id, true)}
+                                        >
+                                            <CheckCircle className="mr-2 h-4 w-4" />
+                                            {t.markDelivered}
+                                        </Button>
+                                    </div>
                                 </div>
                             </CardContent>
                         </Card>
