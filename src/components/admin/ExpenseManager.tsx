@@ -6,8 +6,16 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Trash2, Plus, Receipt } from 'lucide-react';
+import { Trash2, Plus, Receipt, Calendar as CalendarIcon } from 'lucide-react';
 import { toast } from 'sonner';
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
+import { Calendar } from "@/components/ui/calendar";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover";
 
 interface Expense {
     id: number;
@@ -20,6 +28,7 @@ interface Expense {
 export default function ExpenseManager() {
     const [expenses, setExpenses] = useState<Expense[]>([]);
     const [newExpense, setNewExpense] = useState({ description: '', amount: '', category: 'General' });
+    const [date, setDate] = useState<Date | undefined>(new Date());
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -50,7 +59,7 @@ export default function ExpenseManager() {
             description: newExpense.description,
             amount: parseFloat(newExpense.amount),
             category: newExpense.category,
-            date: new Date().toISOString()
+            date: date ? date.toISOString() : new Date().toISOString()
         }]);
 
         if (error) {
@@ -59,6 +68,7 @@ export default function ExpenseManager() {
         } else {
             toast.success('Expense added');
             setNewExpense({ description: '', amount: '', category: 'General' });
+            setDate(new Date());
             fetchExpenses();
         }
         setLoading(false);
@@ -89,6 +99,32 @@ export default function ExpenseManager() {
                 </CardHeader>
                 <CardContent className="flex flex-col md:flex-row gap-4 items-end">
                     <div className="space-y-2 flex-1 w-full">
+                        <Label>Date</Label>
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant={"outline"}
+                                    className={cn(
+                                        "w-full justify-start text-left font-normal bg-white",
+                                        !date && "text-muted-foreground"
+                                    )}
+                                >
+                                    <CalendarIcon className="mr-2 h-4 w-4" />
+                                    {date ? format(date, "PPP") : <span>Pick a date</span>}
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0" align="start">
+                                <Calendar
+                                    mode="single"
+                                    selected={date}
+                                    onSelect={setDate}
+                                    initialFocus
+                                    className="bg-white"
+                                />
+                            </PopoverContent>
+                        </Popover>
+                    </div>
+                    <div className="space-y-2 flex-[2] w-full">
                         <Label>Description</Label>
                         <Input
                             value={newExpense.description}
