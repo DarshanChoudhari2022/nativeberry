@@ -107,7 +107,7 @@ const DeliveryManager = () => {
                 )
             `)
             .neq('status', 'Cancelled')
-            .neq('status', 'Delivered')
+            // .neq('status', 'Delivered') // FETCH DELIVERED TOO for history
             .order('delivery_date', { ascending: true });
 
         if (error) {
@@ -154,7 +154,13 @@ const DeliveryManager = () => {
             toast.error("Update failed");
         } else {
             toast.success(t.deliveryUpdated);
-            fetchDeliveries();
+            // Optimistic update
+            setOrders(prev => prev.map(o =>
+                o.id === orderId
+                    ? { ...o, status: 'Delivered', payment_status: 'Paid' }
+                    : o
+            ));
+            // fetchDeliveries(); // No need to re-fetch immediately if we update local state
             // Clear data for this order
             setDeliveryData(prev => {
                 const newState = { ...prev };
@@ -221,8 +227,9 @@ const DeliveryManager = () => {
 
     if (loading) return <Loader2 className="animate-spin" />;
 
-    const unassigned = orders.filter(o => !o.delivery_boy);
-    const active = orders.filter(o => o.delivery_boy);
+    const unassigned = orders.filter(o => !o.delivery_boy && o.status !== 'Delivered');
+    const active = orders.filter(o => o.delivery_boy && o.status !== 'Delivered');
+    const deliveredOrders = orders.filter(o => o.status === 'Delivered');
 
     return (
         <div className="space-y-8 pb-12">
@@ -290,6 +297,7 @@ const DeliveryManager = () => {
                 </div>
             </div>
 
+            {/* SECTION 2: Active Deliveries */}
             {/* SECTION 2: Active Deliveries */}
             <div>
                 <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 pt-4 border-t gap-4">
@@ -384,6 +392,51 @@ const DeliveryManager = () => {
                         </Card>
                     ))}
                     {active.length === 0 && <p className="text-gray-500 italic ml-2">{t.noActive}</p>}
+                </div>
+            </div>
+
+            {/* SECTION 3: Delivered History */}
+            <div>
+                <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 pt-4 border-t gap-4">
+                    <h3 className="text-xl font-bold flex items-center gap-2 text-gray-800">
+                        <div className="bg-green-100 p-2 rounded-full"><CheckCircle className="text-green-600 h-5 w-5" /></div>
+                        Delivered Today ({deliveredOrders.length})
+                    </h3>
+                </div>
+
+                <div className="rounded-md border bg-white">
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-sm">
+                            <thead className="bg-gray-50 border-b">
+                                <tr>
+                                    <th className="h-10 px-4 text-left font-medium text-gray-500">Order ID</th>
+                                    <th className="h-10 px-4 text-left font-medium text-gray-500">Customer</th>
+                                    <th className="h-10 px-4 text-left font-medium text-gray-500">Driver</th>
+                                    <th className="h-10 px-4 text-right font-medium text-gray-500">Amount</th>
+                                    <th className="h-10 px-4 text-right font-medium text-gray-500">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {deliveredOrders.length === 0 ? (
+                                    <tr>
+                                        <td colSpan={5} className="p-4 text-center text-gray-500">No deliveries completed yet today.</td>
+                                    </tr>
+                                ) : (
+                                    deliveredOrders.map((order) => (
+                                        <tr key={order.id} className="border-b last:border-0 hover:bg-gray-50">
+                                            <td className="p-3 font-mono text-xs">#{order.id}</td>
+                                            <td className="p-3 font-medium">{order.customer_name}</td>
+                                            <td className="p-3 text-gray-600">{order.delivery_boy || '-'}</td>
+                                            <td className="p-3 text-right">₹{order.total_amount}</td>
+                                            <td className="p-3 text-right">
+                                                <Badge className="bg-green-100 text-green-800 border-green-200">Delivered</Badge>
+                                            </td>
+                                        </tr>
+                                    ))
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
