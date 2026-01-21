@@ -89,11 +89,37 @@ const OrderEntryForm = ({ currentUser, onOrderCreated }: OrderEntryFormProps) =>
         }
         setIsCalculating(true);
         try {
-            // 1. Geocode Address using OpenStreetMap (Nominatim)
-            // Appending "Pune" to help context if missing
-            const query = encodeURIComponent(watchAddress + (watchAddress.toLowerCase().includes('pune') ? '' : ' Pune'));
-            const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`);
-            const data = await res.json();
+            // Function to fetch coordinates with retry logic
+            const getCoordinates = async (address: string) => {
+                const query = encodeURIComponent(address + (address.toLowerCase().includes('pune') ? '' : ' Pune'));
+                const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`);
+                const data = await res.json();
+                return data;
+            };
+
+            let data = await getCoordinates(watchAddress);
+
+            // Retry logic: Remove first part of address if not found (e.g., house number)
+            if (!data || data.length === 0) {
+                const parts = watchAddress.split(',');
+                if (parts.length > 1) {
+                    // Try without the first part (e.g. "42, Meeta Nagar" -> "Meeta Nagar")
+                    const simpleAddress = parts.slice(1).join(',').trim();
+                    console.log("Retrying with simple address:", simpleAddress);
+                    data = await getCoordinates(simpleAddress);
+                }
+            }
+
+            // Second Retry: Try with just the last two parts if still failing (e.g. Area + City)
+            if (!data || data.length === 0) {
+                const parts = watchAddress.split(',');
+                if (parts.length > 2) {
+                    const areaCityAddress = parts.slice(-2).join(',').trim();
+                    console.log("Retrying with area/city:", areaCityAddress);
+                    data = await getCoordinates(areaCityAddress);
+                }
+            }
+
 
             if (data && data.length > 0) {
                 const destLat = parseFloat(data[0].lat);
@@ -123,7 +149,6 @@ const OrderEntryForm = ({ currentUser, onOrderCreated }: OrderEntryFormProps) =>
                 });
             } else {
                 toast.error("Could not find address automatically.");
-                // We do NOT open maps automatically anymore per user request
             }
         } catch (e) {
             console.error(e);
