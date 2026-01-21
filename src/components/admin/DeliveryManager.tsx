@@ -22,6 +22,11 @@ interface DeliveryOrder {
     delivery_date: string;
     payment_status: string;
     total_amount: number;
+    order_items?: {
+        weight_kg: number;
+        quantity: number;
+        product_type: string;
+    }[];
 }
 
 type Language = 'en' | 'mr';
@@ -93,7 +98,14 @@ const DeliveryManager = () => {
         setLoading(true);
         const { data, error } = await supabase
             .from('orders')
-            .select('*')
+            .select(`
+                *,
+                order_items (
+                    weight_kg,
+                    quantity,
+                    product_type
+                )
+            `)
             .neq('status', 'Cancelled')
             .neq('status', 'Delivered')
             .order('delivery_date', { ascending: true });
@@ -101,6 +113,7 @@ const DeliveryManager = () => {
         if (error) {
             console.error('Error:', error);
         } else {
+            console.log("Orders with items:", data);
             setOrders(data || []);
         }
         setLoading(false);
@@ -187,9 +200,12 @@ const DeliveryManager = () => {
         let message = `*📦 ${header} (${dateStr})*\n\n`;
 
         data.forEach((order, index) => {
-            message += `*${index + 1}. ${order.customer_name}* (${order.distance_km}km)\n`;
-            if (type === 'active') message += `   👤 ${t.driver}: ${order.delivery_boy}\n`;
-            message += `   📍 ${order.customer_address.slice(0, 40).replace(/\n/g, ', ')}...\n`;
+            const itemsText = order.order_items?.map(i => `${i.quantity}x ${i.product_type} (${i.weight_kg}kg)`).join(', ') || 'No items';
+
+            message += `   📦 ${itemsText}\n`;
+            message += `   📍 ${order.customer_address.slice(0, 40).replace(/\n/g, ', ')}...`;
+            if (order.distance_km) message += ` (${order.distance_km}km)`;
+            message += `\n`;
             message += `   📞 ${order.customer_phone || 'No Phone'}\n`;
 
             const statusIcon = order.payment_status === 'Paid' ? '✅' : '🔴';
