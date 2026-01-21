@@ -13,9 +13,12 @@ import { Toaster as Sonner, toast } from "sonner";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { CardContent } from "@/components/ui/card";
 import ExpenseManager from '@/components/admin/ExpenseManager';
-import { Receipt } from 'lucide-react';
+import SupplierManager from '@/components/admin/SupplierManager';
+import { Receipt, ArrowLeft, Store } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const HiddenDashboard = () => {
+    const navigate = useNavigate();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [currentUser, setCurrentUser] = useState('');
     const [refreshTrigger, setRefreshTrigger] = useState(0);
@@ -93,6 +96,9 @@ const HiddenDashboard = () => {
             <div className="border-b bg-white sticky top-0 z-50 shadow-sm">
                 <div className="flex h-16 items-center px-4 md:px-8 max-w-7xl mx-auto justify-between">
                     <div className="flex items-center gap-2 font-bold text-red-600 text-lg">
+                        <Button variant="ghost" size="icon" onClick={() => navigate('/')} className="-ml-2 hover:bg-red-50 text-red-700">
+                            <ArrowLeft className="h-5 w-5" />
+                        </Button>
                         <LayoutDashboard className="h-6 w-6" />
                         <span>SUPPLY CHAIN ADMIN</span>
                     </div>
@@ -137,6 +143,9 @@ const HiddenDashboard = () => {
                         </TabsTrigger>
                         <TabsTrigger value="orders-list" className="flex gap-2">
                             <List className="h-4 w-4" /> Master List
+                        </TabsTrigger>
+                        <TabsTrigger value="supplier" className="flex gap-2">
+                            <Store className="h-4 w-4" /> Supplier/Gade
                         </TabsTrigger>
                         <TabsTrigger value="expenses" className="flex gap-2">
                             <Receipt className="h-4 w-4" /> Expenses
@@ -184,6 +193,10 @@ const HiddenDashboard = () => {
                         <CardContent className="bg-white p-6 rounded-lg border shadow-sm">
                             <OrderList refreshTrigger={refreshTrigger} />
                         </CardContent>
+                    </TabsContent>
+
+                    <TabsContent value="supplier" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                        <SupplierManager />
                     </TabsContent>
 
                     <TabsContent value="expenses" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
