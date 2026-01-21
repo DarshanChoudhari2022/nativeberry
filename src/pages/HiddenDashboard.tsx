@@ -30,7 +30,8 @@ const HiddenDashboard = () => {
         pendingDeliveries: 0,
         pendingPayments: 0,
         totalWeight: 0,
-        totalRevenue: 0
+        totalRevenue: 0,
+        pendingSupplierBalance: 0
     });
 
     useEffect(() => {
@@ -70,7 +71,16 @@ const HiddenDashboard = () => {
             const { data: items } = await supabase.from('order_items').select('weight_kg');
             const totalWeight = items ? items.reduce((acc, curr) => acc + (curr.weight_kg || 0), 0) : 0;
 
-            setStats({ totalOrders, pendingDeliveries, pendingPayments, totalWeight, totalRevenue });
+            // Fetch supplier balance
+            const { data: supplierTxns } = await supabase.from('supplier_transactions').select('*');
+            let pendingSupplierBalance = 0;
+            if (supplierTxns) {
+                const totalPayable = supplierTxns.filter(t => t.type === 'Order').reduce((sum, t) => sum + (t.amount || 0), 0);
+                const totalPaid = supplierTxns.filter(t => t.type === 'Payment').reduce((sum, t) => sum + (t.amount || 0), 0);
+                pendingSupplierBalance = totalPayable - totalPaid;
+            }
+
+            setStats({ totalOrders, pendingDeliveries, pendingPayments, totalWeight, totalRevenue, pendingSupplierBalance });
         }
     };
 
