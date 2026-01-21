@@ -12,6 +12,8 @@ import { LogOut, LayoutDashboard, FilePlus, List, Sprout, Truck, AlertTriangle }
 import { Toaster as Sonner, toast } from "sonner";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { CardContent } from "@/components/ui/card";
+import ExpenseManager from '@/components/admin/ExpenseManager';
+import { Receipt } from 'lucide-react';
 
 const HiddenDashboard = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -136,6 +138,9 @@ const HiddenDashboard = () => {
                         <TabsTrigger value="orders-list" className="flex gap-2">
                             <List className="h-4 w-4" /> Master List
                         </TabsTrigger>
+                        <TabsTrigger value="expenses" className="flex gap-2">
+                            <Receipt className="h-4 w-4" /> Expenses
+                        </TabsTrigger>
                     </TabsList>
 
                     <TabsContent value="new-order" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -179,6 +184,10 @@ const HiddenDashboard = () => {
                         <CardContent className="bg-white p-6 rounded-lg border shadow-sm">
                             <OrderList refreshTrigger={refreshTrigger} />
                         </CardContent>
+                    </TabsContent>
+
+                    <TabsContent value="expenses" className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                        <ExpenseManager />
                     </TabsContent>
                 </Tabs>
             </main>

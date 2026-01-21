@@ -4,6 +4,10 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
 import { Loader2, Truck, MapPin, CheckCircle, Navigation, Phone, Share2, ClipboardList, Globe } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -77,6 +81,7 @@ const DeliveryManager = () => {
     const [orders, setOrders] = useState<DeliveryOrder[]>([]);
     const [loading, setLoading] = useState(true);
     const [lang, setLang] = useState<Language>('en');
+    const [deliveryData, setDeliveryData] = useState<Record<number, { bikeUsed: boolean, travelCharge: string, comments: string }>>({});
 
     const t = translations[lang];
 
@@ -119,9 +124,17 @@ const DeliveryManager = () => {
     };
 
     const markDelivered = async (orderId: number) => {
+        const data = deliveryData[orderId] || { bikeUsed: false, travelCharge: '0', comments: '' };
+
         const { error } = await supabase
             .from('orders')
-            .update({ status: 'Delivered', payment_status: 'Paid' })
+            .update({
+                status: 'Delivered',
+                payment_status: 'Paid',
+                bike_used: data.bikeUsed,
+                travel_charge: parseFloat(data.travelCharge || '0'),
+                delivery_notes: data.comments
+            })
             .eq('id', orderId);
 
         if (error) {
@@ -129,7 +142,23 @@ const DeliveryManager = () => {
         } else {
             toast.success(t.deliveryUpdated);
             fetchDeliveries();
+            // Clear data for this order
+            setDeliveryData(prev => {
+                const newState = { ...prev };
+                delete newState[orderId];
+                return newState;
+            });
         }
+    };
+
+    const updateDeliveryData = (id: number, field: string, value: any) => {
+        setDeliveryData(prev => ({
+            ...prev,
+            [id]: {
+                ...(prev[id] || { bikeUsed: false, travelCharge: '', comments: '' }),
+                [field]: value
+            }
+        }));
     };
 
     const openNav = (address: string) => {
@@ -283,24 +312,57 @@ const DeliveryManager = () => {
                                     {order.customer_address}
                                 </p>
                             </CardHeader>
-                            <CardContent className="flex justify-between items-center pt-4">
-                                <div className="flex flex-col">
-                                    <span className="text-xs text-gray-500 uppercase font-bold tracking-wider">{t.amountDue}</span>
-                                    <span className="text-xl font-bold text-gray-900">
-                                        {order.payment_status === 'Paid' ? (
-                                            <span className="text-green-600 flex items-center gap-1"><CheckCircle className="h-4 w-4" /> {t.paid}</span>
-                                        ) : (
-                                            <span className="text-red-600">₹{order.total_amount || 0}</span>
-                                        )}
-                                    </span>
+                            <CardContent className="pt-4 space-y-4">
+                                {/* Delivery Inputs */}
+                                <div className="space-y-3 bg-gray-50 p-3 rounded-md border border-gray-100">
+                                    <div className="flex items-center gap-2">
+                                        <Checkbox
+                                            id={`bike-${order.id}`}
+                                            checked={deliveryData[order.id]?.bikeUsed || false}
+                                            onCheckedChange={(checked) => updateDeliveryData(order.id, 'bikeUsed', checked)}
+                                        />
+                                        <Label htmlFor={`bike-${order.id}`} className="cursor-pointer text-sm font-medium text-gray-700">Bike Used?</Label>
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <div className="w-1/3">
+                                            <Input
+                                                type="number"
+                                                placeholder="Travel Charge"
+                                                className="h-8 text-xs bg-white"
+                                                value={deliveryData[order.id]?.travelCharge || ''}
+                                                onChange={(e) => updateDeliveryData(order.id, 'travelCharge', e.target.value)}
+                                            />
+                                        </div>
+                                        <div className="w-2/3">
+                                            <Input
+                                                placeholder="Comments / Notes"
+                                                className="h-8 text-xs bg-white"
+                                                value={deliveryData[order.id]?.comments || ''}
+                                                onChange={(e) => updateDeliveryData(order.id, 'comments', e.target.value)}
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
-                                <Button
-                                    className="bg-green-600 hover:bg-green-700 shadow-sm shadow-green-200"
-                                    onClick={() => markDelivered(order.id)}
-                                >
-                                    <CheckCircle className="mr-2 h-4 w-4" />
-                                    {t.markDelivered}
-                                </Button>
+
+                                <div className="flex justify-between items-center pt-2 border-t">
+                                    <div className="flex flex-col">
+                                        <span className="text-xs text-gray-500 uppercase font-bold tracking-wider">{t.amountDue}</span>
+                                        <span className="text-xl font-bold text-gray-900">
+                                            {order.payment_status === 'Paid' ? (
+                                                <span className="text-green-600 flex items-center gap-1"><CheckCircle className="h-4 w-4" /> {t.paid}</span>
+                                            ) : (
+                                                <span className="text-red-600">₹{order.total_amount || 0}</span>
+                                            )}
+                                        </span>
+                                    </div>
+                                    <Button
+                                        className="bg-green-600 hover:bg-green-700 shadow-sm shadow-green-200"
+                                        onClick={() => markDelivered(order.id)}
+                                    >
+                                        <CheckCircle className="mr-2 h-4 w-4" />
+                                        {t.markDelivered}
+                                    </Button>
+                                </div>
                             </CardContent>
                         </Card>
                     ))}
