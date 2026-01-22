@@ -143,19 +143,19 @@ const HiddenDashboard = () => {
 
                 <StatsOverview {...stats} />
 
-                <Tabs defaultValue="new-order" className="w-full space-y-6">
-                    <TabsList className="bg-white border w-full h-auto grid grid-cols-2 md:flex md:w-auto p-1 gap-1">
+                <Tabs defaultValue="farmer" className="w-full space-y-6">
+                    <TabsList className="bg-white border w-full h-auto flex flex-wrap md:w-auto p-1 gap-1">
+                        <TabsTrigger value="farmer" className="flex gap-2">
+                            <LayoutDashboard className="h-4 w-4" /> Planning & Sales
+                        </TabsTrigger>
                         <TabsTrigger value="new-order" className="flex gap-2">
                             <FilePlus className="h-4 w-4" /> New Order
                         </TabsTrigger>
-                        <TabsTrigger value="delivery" className="flex gap-2">
-                            <Truck className="h-4 w-4" /> Delivery
-                        </TabsTrigger>
-                        <TabsTrigger value="farmer" className="flex gap-2">
-                            <Sprout className="h-4 w-4" /> FarmerReq
-                        </TabsTrigger>
                         <TabsTrigger value="orders-list" className="flex gap-2">
                             <List className="h-4 w-4" /> Master List
+                        </TabsTrigger>
+                        <TabsTrigger value="delivery" className="flex gap-2">
+                            <Truck className="h-4 w-4" /> Delivery
                         </TabsTrigger>
                         <TabsTrigger value="supplier" className="flex gap-2">
                             <Store className="h-4 w-4" /> Supplier/Gade
