@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Fragment } from 'react';
 import { supabase } from '@/lib/supabase';
 import {
     Table,
@@ -43,6 +43,7 @@ interface Order {
     delivery_notes: string;
     total_amount: number;
     payment_received_by?: string;
+    delivery_time?: string;
     order_items?: {
         product_type: string;
         quantity: number;
@@ -70,6 +71,7 @@ const OrderList = ({ refreshTrigger }: { refreshTrigger: number }) => {
                     weight_kg
                 )
             `)
+            .order('delivery_date', { ascending: false })
             .order('created_at', { ascending: false });
 
         if (error) {
@@ -103,12 +105,23 @@ const OrderList = ({ refreshTrigger }: { refreshTrigger: number }) => {
         const dateStr = format(new Date(), 'dd/MM/yyyy');
         let message = `*📊 NATIVE BERRY - MASTER LIST (${dateStr})*\n\n`;
 
+        let lastDate = "";
         ordersToShare.forEach((order, index) => {
+            const currentDate = order.delivery_date
+                ? format(new Date(order.delivery_date), 'dd/MM/yyyy')
+                : 'Unscheduled';
+
+            if (currentDate !== lastDate) {
+                message += `\n*📅 DATE: ${currentDate}*\n${'-'.repeat(20)}\n`;
+                lastDate = currentDate;
+            }
+
             const items = order.order_items?.map(i => `${i.quantity}x ${i.product_type}`).join(', ') || 'No items';
             message += `${index + 1}. *#${order.id} - ${order.customer_name}*\n`;
             message += `   📦 ${items}\n`;
             message += `   💰 ₹${order.total_amount} | ${order.payment_status}\n`;
             if (order.payment_received_by) message += `   👤 Paid to: ${order.payment_received_by}\n`;
+            if (order.delivery_time) message += `   ⏰ Time: ${order.delivery_time}\n`;
             message += `   📍 ${order.customer_address.slice(0, 50)}...\n\n`;
         });
 
@@ -125,6 +138,7 @@ const OrderList = ({ refreshTrigger }: { refreshTrigger: number }) => {
         message += `*Status:* ${order.status} (${order.payment_status})\n`;
         message += `*Address:* ${order.customer_address}\n`;
         if (order.payment_received_by) message += `*Paid to:* ${order.payment_received_by}\n`;
+        if (order.delivery_time) message += `*Delivery Time:* ${order.delivery_time}\n`;
 
         const encodedMsg = encodeURIComponent(message);
         window.open(`https://wa.me/?text=${encodedMsg}`, '_blank');
@@ -201,6 +215,7 @@ const OrderList = ({ refreshTrigger }: { refreshTrigger: number }) => {
                                 <TableHead>Status</TableHead>
                                 <TableHead>Payment</TableHead>
                                 <TableHead>Paid To</TableHead>
+                                <TableHead>Time</TableHead>
                                 <TableHead className="text-right">Actions</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -212,95 +227,121 @@ const OrderList = ({ refreshTrigger }: { refreshTrigger: number }) => {
                                     </TableCell>
                                 </TableRow>
                             ) : (
-                                orders.map((order) => (
-                                    <TableRow key={order.id}>
-                                        <TableCell className="font-medium text-gray-900">#{order.id}</TableCell>
-                                        <TableCell>
-                                            {order.delivery_date ? (
-                                                <div className="flex items-center gap-1 text-sm text-gray-600">
-                                                    <Calendar className="h-3 w-3" />
-                                                    {format(new Date(order.delivery_date), 'MMM d')}
-                                                </div>
-                                            ) : (
-                                                <span className="text-xs text-gray-400">Unscheduled</span>
-                                            )}
-                                        </TableCell>
-                                        <TableCell>
-                                            <div className="flex flex-col">
-                                                <span className="font-semibold text-gray-900">{order.customer_name}</span>
-                                                <span className="text-xs text-gray-500 truncate max-w-[200px]" title={order.customer_address}>
-                                                    {order.customer_address}
-                                                </span>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell className="text-gray-900">{order.salesperson}</TableCell>
-                                        <TableCell className="font-semibold text-gray-900">
-                                            {order.total_amount ? `₹${order.total_amount.toLocaleString()}` : '-'}
-                                        </TableCell>
-                                        <TableCell>{getStatusBadge(order.status)}</TableCell>
-                                        <TableCell>
-                                            <Badge className={order.payment_status === 'Paid'
-                                                ? 'bg-green-100 text-green-800 border-green-200 hover:bg-green-100'
-                                                : 'bg-red-100 text-red-800 border-red-200 hover:bg-red-100'
-                                            }>
-                                                {order.payment_status}
-                                            </Badge>
-                                        </TableCell>
-                                        <TableCell>
-                                            {order.payment_status === 'Paid' ? (
-                                                <Select
-                                                    value={order.payment_received_by || ''}
-                                                    onValueChange={(val) => updateReceivedBy(order.id, val)}
-                                                >
-                                                    <SelectTrigger className="h-8 w-32 text-xs bg-slate-50 border-slate-200">
-                                                        <SelectValue placeholder="Paid To..." />
-                                                    </SelectTrigger>
-                                                    <SelectContent className="bg-white">
-                                                        <SelectItem value="Sushant">Sushant</SelectItem>
-                                                        <SelectItem value="Suraj">Suraj</SelectItem>
-                                                        <SelectItem value="Darshan">Darshan</SelectItem>
-                                                        <SelectItem value="Deepak">Deepak</SelectItem>
-                                                        <SelectItem value="Online">Online Transfer</SelectItem>
-                                                    </SelectContent>
-                                                </Select>
-                                            ) : '-'}
-                                        </TableCell>
-                                        <TableCell className="text-right">
-                                            <DropdownMenu>
-                                                <DropdownMenuTrigger asChild>
-                                                    <Button variant="ghost" className="h-8 w-8 p-0">
-                                                        <span className="sr-only">Open menu</span>
-                                                        <MoreHorizontal className="h-4 w-4" />
-                                                    </Button>
-                                                </DropdownMenuTrigger>
-                                                <DropdownMenuContent align="end" className="bg-white text-gray-900">
-                                                    <DropdownMenuLabel>Update Order</DropdownMenuLabel>
-                                                    <DropdownMenuItem onClick={() => updateStatus(order.id, 'Out for Delivery')}>
-                                                        <Truck className="mr-2 h-4 w-4" /> Mark Out for Delivery
-                                                    </DropdownMenuItem>
-                                                    <DropdownMenuItem onClick={() => updateStatus(order.id, 'Delivered')}>
-                                                        <CheckCircle className="mr-2 h-4 w-4" /> Mark Delivered
-                                                    </DropdownMenuItem>
-                                                    <DropdownMenuItem onClick={() => updateStatus(order.id, 'Cancelled')}>
-                                                        <XCircle className="mr-2 h-4 w-4" /> Cancel Order
-                                                    </DropdownMenuItem>
-                                                    <DropdownMenuSeparator />
-                                                    <DropdownMenuLabel>Payment</DropdownMenuLabel>
-                                                    <DropdownMenuItem onClick={() => updatePayment(order.id, 'Paid')}>
-                                                        Mark as Paid
-                                                    </DropdownMenuItem>
-                                                    <DropdownMenuItem onClick={() => updatePayment(order.id, 'Pending')}>
-                                                        Mark as Pending
-                                                    </DropdownMenuItem>
-                                                    <DropdownMenuSeparator />
-                                                    <DropdownMenuItem onClick={() => shareOrderToWhatsApp(order)} className="text-green-600">
-                                                        <MessageCircle className="mr-2 h-4 w-4" /> Share to WhatsApp
-                                                    </DropdownMenuItem>
-                                                </DropdownMenuContent>
-                                            </DropdownMenu>
-                                        </TableCell>
-                                    </TableRow>
-                                ))
+                                (() => {
+                                    let lastDate = "";
+                                    return orders.map((order) => {
+                                        const currentDate = order.delivery_date
+                                            ? format(new Date(order.delivery_date), 'MMMM do, yyyy')
+                                            : 'Unscheduled';
+                                        const showHeader = currentDate !== lastDate;
+                                        lastDate = currentDate;
+
+                                        return (
+                                            <Fragment key={order.id}>
+                                                {showHeader && (
+                                                    <TableRow className="bg-slate-50 border-y-2 border-slate-200">
+                                                        <TableCell colSpan={9} className="py-3 px-6 font-bold text-slate-900 bg-slate-100/50">
+                                                            <div className="flex items-center gap-2">
+                                                                <Calendar className="h-4 w-4 text-slate-500" />
+                                                                {currentDate}
+                                                            </div>
+                                                        </TableCell>
+                                                    </TableRow>
+                                                )}
+                                                <TableRow className="hover:bg-slate-50/50 transition-colors">
+                                                    <TableCell className="font-medium text-gray-900">#{order.id}</TableCell>
+                                                    <TableCell>
+                                                        {order.delivery_date ? (
+                                                            <div className="flex items-center gap-1 text-sm text-gray-600">
+                                                                <Calendar className="h-3 w-3" />
+                                                                {format(new Date(order.delivery_date), 'MMM d')}
+                                                            </div>
+                                                        ) : (
+                                                            <span className="text-xs text-gray-400">Unscheduled</span>
+                                                        )}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <div className="flex flex-col">
+                                                            <span className="font-semibold text-gray-900">{order.customer_name}</span>
+                                                            <span className="text-xs text-gray-500 truncate max-w-[200px]" title={order.customer_address}>
+                                                                {order.customer_address}
+                                                            </span>
+                                                        </div>
+                                                    </TableCell>
+                                                    <TableCell className="text-gray-900">{order.salesperson}</TableCell>
+                                                    <TableCell className="font-semibold text-gray-900">
+                                                        {order.total_amount ? `₹${order.total_amount.toLocaleString()}` : '-'}
+                                                    </TableCell>
+                                                    <TableCell>{getStatusBadge(order.status)}</TableCell>
+                                                    <TableCell>
+                                                        <Badge className={order.payment_status === 'Paid'
+                                                            ? 'bg-green-100 text-green-800 border-green-200 hover:bg-green-100'
+                                                            : 'bg-red-100 text-red-800 border-red-200 hover:bg-red-100'
+                                                        }>
+                                                            {order.payment_status}
+                                                        </Badge>
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {order.payment_status === 'Paid' ? (
+                                                            <Select
+                                                                value={order.payment_received_by || ''}
+                                                                onValueChange={(val) => updateReceivedBy(order.id, val)}
+                                                            >
+                                                                <SelectTrigger className="h-8 w-32 text-xs bg-slate-50 border-slate-200">
+                                                                    <SelectValue placeholder="Paid To..." />
+                                                                </SelectTrigger>
+                                                                <SelectContent className="bg-white">
+                                                                    <SelectItem value="Sushant">Sushant</SelectItem>
+                                                                    <SelectItem value="Suraj">Suraj</SelectItem>
+                                                                    <SelectItem value="Darshan">Darshan</SelectItem>
+                                                                    <SelectItem value="Deepak">Deepak</SelectItem>
+                                                                    <SelectItem value="Online">Online Transfer</SelectItem>
+                                                                </SelectContent>
+                                                            </Select>
+                                                        ) : '-'}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {order.delivery_time || '-'}
+                                                    </TableCell>
+                                                    <TableCell className="text-right">
+                                                        <DropdownMenu>
+                                                            <DropdownMenuTrigger asChild>
+                                                                <Button variant="ghost" className="h-8 w-8 p-0">
+                                                                    <span className="sr-only">Open menu</span>
+                                                                    <MoreHorizontal className="h-4 w-4" />
+                                                                </Button>
+                                                            </DropdownMenuTrigger>
+                                                            <DropdownMenuContent align="end" className="bg-white text-gray-900">
+                                                                <DropdownMenuLabel>Update Order</DropdownMenuLabel>
+                                                                <DropdownMenuItem onClick={() => updateStatus(order.id, 'Out for Delivery')}>
+                                                                    <Truck className="mr-2 h-4 w-4" /> Mark Out for Delivery
+                                                                </DropdownMenuItem>
+                                                                <DropdownMenuItem onClick={() => updateStatus(order.id, 'Delivered')}>
+                                                                    <CheckCircle className="mr-2 h-4 w-4" /> Mark Delivered
+                                                                </DropdownMenuItem>
+                                                                <DropdownMenuItem onClick={() => updateStatus(order.id, 'Cancelled')}>
+                                                                    <XCircle className="mr-2 h-4 w-4" /> Cancel Order
+                                                                </DropdownMenuItem>
+                                                                <DropdownMenuSeparator />
+                                                                <DropdownMenuLabel>Payment</DropdownMenuLabel>
+                                                                <DropdownMenuItem onClick={() => updatePayment(order.id, 'Paid')}>
+                                                                    Mark as Paid
+                                                                </DropdownMenuItem>
+                                                                <DropdownMenuItem onClick={() => updatePayment(order.id, 'Pending')}>
+                                                                    Mark as Pending
+                                                                </DropdownMenuItem>
+                                                                <DropdownMenuSeparator />
+                                                                <DropdownMenuItem onClick={() => shareOrderToWhatsApp(order)} className="text-green-600">
+                                                                    <MessageCircle className="mr-2 h-4 w-4" /> Share to WhatsApp
+                                                                </DropdownMenuItem>
+                                                            </DropdownMenuContent>
+                                                        </DropdownMenu>
+                                                    </TableCell>
+                                                </TableRow>
+                                            </Fragment>
+                                        );
+                                    });
+                                })()
                             )}
                         </TableBody>
                     </Table>

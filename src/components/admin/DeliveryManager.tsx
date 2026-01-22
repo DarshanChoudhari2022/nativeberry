@@ -22,6 +22,8 @@ interface DeliveryOrder {
     delivery_date: string;
     payment_status: string;
     total_amount: number;
+    payment_received_by?: string;
+    delivery_time?: string;
     order_items?: {
         weight_kg: number;
         quantity: number;
@@ -86,7 +88,7 @@ const DeliveryManager = () => {
     const [orders, setOrders] = useState<DeliveryOrder[]>([]);
     const [loading, setLoading] = useState(true);
     const [lang, setLang] = useState<Language>('en');
-    const [deliveryData, setDeliveryData] = useState<Record<number, { bikeUsed: boolean, travelCharge: string, comments: string, receivedBy?: string }>>({});
+    const [deliveryData, setDeliveryData] = useState<Record<number, { bikeUsed: boolean, travelCharge: string, comments: string, receivedBy?: string, deliveryTime?: string }>>({});
 
     const t = translations[lang];
 
@@ -145,7 +147,8 @@ const DeliveryManager = () => {
             payment_status: paymentCollected ? 'Paid' : 'Pending',
             bike_used: data.bikeUsed,
             travel_charge: parseFloat(data.travelCharge || '0'),
-            delivery_notes: data.comments
+            delivery_notes: data.comments,
+            delivery_time: data.deliveryTime || new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })
         };
 
         if (paymentCollected) {
@@ -184,7 +187,7 @@ const DeliveryManager = () => {
         setDeliveryData(prev => ({
             ...prev,
             [id]: {
-                ...(prev[id] || { bikeUsed: false, travelCharge: '', comments: '', receivedBy: '' }),
+                ...(prev[id] || { bikeUsed: false, travelCharge: '', comments: '', receivedBy: '', deliveryTime: '' }),
                 [field]: value
             }
         }));
@@ -386,12 +389,25 @@ const DeliveryManager = () => {
                                             </Select>
                                         </div>
                                     </div>
-                                    <Input
-                                        placeholder="Comments / Notes"
-                                        className="h-8 text-xs bg-white"
-                                        value={deliveryData[order.id]?.comments || ''}
-                                        onChange={(e) => updateDeliveryData(order.id, 'comments', e.target.value)}
-                                    />
+                                    <div className="flex gap-2">
+                                        <div className="w-2/3">
+                                            <Input
+                                                placeholder="Comments / Notes"
+                                                className="h-8 text-xs bg-white"
+                                                value={deliveryData[order.id]?.comments || ''}
+                                                onChange={(e) => updateDeliveryData(order.id, 'comments', e.target.value)}
+                                            />
+                                        </div>
+                                        <div className="w-1/3">
+                                            <Input
+                                                type="time"
+                                                placeholder="Time"
+                                                className="h-8 text-xs bg-white"
+                                                value={deliveryData[order.id]?.deliveryTime || ''}
+                                                onChange={(e) => updateDeliveryData(order.id, 'deliveryTime', e.target.value)}
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div className="flex justify-between items-center pt-2 border-t">
@@ -449,6 +465,7 @@ const DeliveryManager = () => {
                                     <th className="h-10 px-4 text-left font-medium text-gray-500">Customer</th>
                                     <th className="h-10 px-4 text-left font-medium text-gray-500">Driver</th>
                                     <th className="h-10 px-4 text-left font-medium text-gray-500">Collected By</th>
+                                    <th className="h-10 px-4 text-left font-medium text-gray-500">Time</th>
                                     <th className="h-10 px-4 text-right font-medium text-gray-500">Amount</th>
                                     <th className="h-10 px-4 text-right font-medium text-gray-500">Status</th>
                                 </tr>
@@ -468,6 +485,9 @@ const DeliveryManager = () => {
                                                 <Badge variant="outline" className="text-xs bg-slate-50">
                                                     {(order as any).payment_received_by || '-'}
                                                 </Badge>
+                                            </td>
+                                            <td className="p-3 text-gray-600 text-xs">
+                                                {(order as any).delivery_time || '-'}
                                             </td>
                                             <td className="p-3 text-right">₹{order.total_amount}</td>
                                             <td className="p-3 text-right">
