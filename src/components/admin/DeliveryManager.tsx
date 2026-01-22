@@ -86,7 +86,7 @@ const DeliveryManager = () => {
     const [orders, setOrders] = useState<DeliveryOrder[]>([]);
     const [loading, setLoading] = useState(true);
     const [lang, setLang] = useState<Language>('en');
-    const [deliveryData, setDeliveryData] = useState<Record<number, { bikeUsed: boolean, travelCharge: string, comments: string }>>({});
+    const [deliveryData, setDeliveryData] = useState<Record<number, { bikeUsed: boolean, travelCharge: string, comments: string, receivedBy?: string }>>({});
 
     const t = translations[lang];
 
@@ -137,15 +137,21 @@ const DeliveryManager = () => {
     };
 
     const markDelivered = async (orderId: number, paymentCollected: boolean) => {
-        const data = deliveryData[orderId] || { bikeUsed: false, travelCharge: '0', comments: '' };
+        const order = orders.find(o => o.id === orderId);
+        const data = deliveryData[orderId] || { bikeUsed: false, travelCharge: '0', comments: '', receivedBy: '' };
 
-        const updateData = {
+        const updateData: any = {
             status: 'Delivered',
-            payment_status: paymentCollected ? 'Paid' : 'Pending', // Key Fix
+            payment_status: paymentCollected ? 'Paid' : 'Pending',
             bike_used: data.bikeUsed,
             travel_charge: parseFloat(data.travelCharge || '0'),
             delivery_notes: data.comments
         };
+
+        if (paymentCollected) {
+            // Default to delivery boy if not specified
+            updateData.payment_received_by = data.receivedBy || order?.delivery_boy || 'Darshan';
+        }
 
         const { error } = await supabase
             .from('orders')
@@ -178,7 +184,7 @@ const DeliveryManager = () => {
         setDeliveryData(prev => ({
             ...prev,
             [id]: {
-                ...(prev[id] || { bikeUsed: false, travelCharge: '', comments: '' }),
+                ...(prev[id] || { bikeUsed: false, travelCharge: '', comments: '', receivedBy: '' }),
                 [field]: value
             }
         }));
@@ -363,14 +369,29 @@ const DeliveryManager = () => {
                                             />
                                         </div>
                                         <div className="w-2/3">
-                                            <Input
-                                                placeholder="Comments / Notes"
-                                                className="h-8 text-xs bg-white"
-                                                value={deliveryData[order.id]?.comments || ''}
-                                                onChange={(e) => updateDeliveryData(order.id, 'comments', e.target.value)}
-                                            />
+                                            <Select
+                                                value={deliveryData[order.id]?.receivedBy || order.delivery_boy || ''}
+                                                onValueChange={(val) => updateDeliveryData(order.id, 'receivedBy', val)}
+                                            >
+                                                <SelectTrigger className="h-8 text-xs bg-white border-green-200">
+                                                    <SelectValue placeholder="Paid to..." />
+                                                </SelectTrigger>
+                                                <SelectContent className="bg-white">
+                                                    <SelectItem value="Sushant">Paid to Sushant</SelectItem>
+                                                    <SelectItem value="Suraj">Paid to Suraj</SelectItem>
+                                                    <SelectItem value="Darshan">Paid to Darshan</SelectItem>
+                                                    <SelectItem value="Deepak">Paid to Deepak</SelectItem>
+                                                    <SelectItem value="Online">Online Transfer</SelectItem>
+                                                </SelectContent>
+                                            </Select>
                                         </div>
                                     </div>
+                                    <Input
+                                        placeholder="Comments / Notes"
+                                        className="h-8 text-xs bg-white"
+                                        value={deliveryData[order.id]?.comments || ''}
+                                        onChange={(e) => updateDeliveryData(order.id, 'comments', e.target.value)}
+                                    />
                                 </div>
 
                                 <div className="flex justify-between items-center pt-2 border-t">
@@ -427,6 +448,7 @@ const DeliveryManager = () => {
                                     <th className="h-10 px-4 text-left font-medium text-gray-500">Order ID</th>
                                     <th className="h-10 px-4 text-left font-medium text-gray-500">Customer</th>
                                     <th className="h-10 px-4 text-left font-medium text-gray-500">Driver</th>
+                                    <th className="h-10 px-4 text-left font-medium text-gray-500">Collected By</th>
                                     <th className="h-10 px-4 text-right font-medium text-gray-500">Amount</th>
                                     <th className="h-10 px-4 text-right font-medium text-gray-500">Status</th>
                                 </tr>
@@ -442,6 +464,11 @@ const DeliveryManager = () => {
                                             <td className="p-3 font-mono text-xs">#{order.id}</td>
                                             <td className="p-3 font-medium">{order.customer_name}</td>
                                             <td className="p-3 text-gray-600">{order.delivery_boy || '-'}</td>
+                                            <td className="p-3">
+                                                <Badge variant="outline" className="text-xs bg-slate-50">
+                                                    {(order as any).payment_received_by || '-'}
+                                                </Badge>
+                                            </td>
                                             <td className="p-3 text-right">₹{order.total_amount}</td>
                                             <td className="p-3 text-right">
                                                 <Badge className="bg-green-100 text-green-800 border-green-200">Delivered</Badge>

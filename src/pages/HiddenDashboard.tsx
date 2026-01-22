@@ -77,8 +77,9 @@ const HiddenDashboard = () => {
             const { data: supplierTxns } = await supabase.from('supplier_transactions').select('*');
             let pendingSupplierBalance = 0;
             if (supplierTxns) {
-                const totalPayable = supplierTxns.filter(t => t.type === 'Order').reduce((sum, t) => sum + (t.amount || 0), 0);
-                const totalPaid = supplierTxns.filter(t => t.type === 'Payment').reduce((sum, t) => sum + (t.amount || 0), 0);
+                const nonSampleTxns = supplierTxns.filter(t => !t.is_sample);
+                const totalPayable = nonSampleTxns.filter(t => t.type === 'Order').reduce((sum, t) => sum + (t.amount || 0), 0);
+                const totalPaid = nonSampleTxns.filter(t => t.type === 'Payment').reduce((sum, t) => sum + (t.amount || 0), 0);
                 pendingSupplierBalance = totalPayable - totalPaid;
             }
 

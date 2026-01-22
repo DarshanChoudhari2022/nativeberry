@@ -20,7 +20,8 @@ create table if not exists orders (
   delivery_notes text,
   total_amount numeric default 0,      -- Financial: Total Bill
   total_cost numeric default 0,        -- Financial: Cost of goods (Optional)
-  estimated_profit numeric default 0   -- Financial: Profit (Optional)
+  estimated_profit numeric default 0,   -- Financial: Profit (Optional)
+  payment_received_by text            -- To track who collected the cash (Sushant, Suraj, Darshan, etc.)
 );
 
 -- 2. Create Order Items Table

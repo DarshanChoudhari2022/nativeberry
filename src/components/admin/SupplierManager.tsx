@@ -30,7 +30,9 @@ interface SupplierTransaction {
     type: 'Order' | 'Payment';
     description: string;
     quantity_kg: number;
+    delivered_qty: number;
     amount: number;
+    is_sample: boolean;
     notes?: string;
 }
 
@@ -39,6 +41,8 @@ export default function SupplierManager() {
     const [date, setDate] = useState<Date | undefined>(new Date());
     const [type, setType] = useState<'Order' | 'Payment'>('Order');
     const [quantity, setQuantity] = useState('');
+    const [deliveredQty, setDeliveredQty] = useState('');
+    const [isSample, setIsSample] = useState(false);
     const [amount, setAmount] = useState('');
     const [description, setDescription] = useState('');
     const [loading, setLoading] = useState(false);
@@ -56,7 +60,6 @@ export default function SupplierManager() {
 
         if (error) {
             console.error('Error fetching transactions:', error);
-            // Don't show toast on initial load error if table doesn't exist yet
         } else if (data) {
             setTransactions(data);
         }
@@ -85,7 +88,9 @@ export default function SupplierManager() {
             type,
             description: description || (type === 'Order' ? `Order: ${quantity}kg` : 'Payment to Gade'),
             quantity_kg: type === 'Order' ? parseFloat(quantity || '0') : 0,
-            amount: parseFloat(amount || '0'), // Amount is cost for Order, or paid amount for Payment
+            delivered_qty: type === 'Order' ? parseFloat(deliveredQty || '0') : 0,
+            amount: parseFloat(amount || '0'),
+            is_sample: isSample,
         };
 
         let result;
@@ -118,6 +123,8 @@ export default function SupplierManager() {
         setDate(new Date());
         setType('Order');
         setQuantity('');
+        setDeliveredQty('');
+        setIsSample(false);
         setAmount('');
         setDescription('');
     };
@@ -127,6 +134,8 @@ export default function SupplierManager() {
         setDate(new Date(txn.date));
         setType(txn.type);
         setQuantity(txn.quantity_kg > 0 ? txn.quantity_kg.toString() : '');
+        setDeliveredQty(txn.delivered_qty > 0 ? txn.delivered_qty.toString() : '');
+        setIsSample(txn.is_sample || false);
         setAmount(txn.amount.toString());
         setDescription(txn.description);
     };
@@ -144,9 +153,10 @@ export default function SupplierManager() {
     };
 
     // Stats Calculation
-    const totalOrderedKg = transactions.filter(t => t.type === 'Order').reduce((sum, t) => sum + (t.quantity_kg || 0), 0);
-    const totalPayable = transactions.filter(t => t.type === 'Order').reduce((sum, t) => sum + (t.amount || 0), 0);
-    const totalPaid = transactions.filter(t => t.type === 'Payment').reduce((sum, t) => sum + (t.amount || 0), 0);
+    const nonSampleTransactions = transactions.filter(t => !t.is_sample);
+    const totalOrderedKg = nonSampleTransactions.filter(t => t.type === 'Order').reduce((sum, t) => sum + (t.quantity_kg || 0), 0);
+    const totalPayable = nonSampleTransactions.filter(t => t.type === 'Order').reduce((sum, t) => sum + (t.amount || 0), 0);
+    const totalPaid = nonSampleTransactions.filter(t => t.type === 'Payment').reduce((sum, t) => sum + (t.amount || 0), 0);
     const pendingBalance = totalPayable - totalPaid;
 
     return (
@@ -244,15 +254,27 @@ export default function SupplierManager() {
                     </div>
 
                     {type === 'Order' && (
-                        <div className="space-y-2 w-full md:w-32">
-                            <Label>Quantity (Kg)</Label>
-                            <Input
-                                type="number"
-                                value={quantity}
-                                onChange={e => setQuantity(e.target.value)}
-                                placeholder="0"
-                                className="bg-white"
-                            />
+                        <div className="flex gap-4 items-end">
+                            <div className="space-y-2 w-full md:w-32">
+                                <Label>Quantity (Kg)</Label>
+                                <Input
+                                    type="number"
+                                    value={quantity}
+                                    onChange={e => setQuantity(e.target.value)}
+                                    placeholder="0"
+                                    className="bg-white"
+                                />
+                            </div>
+                            <div className="space-y-2 w-full md:w-32">
+                                <Label>Delivered (Kg)</Label>
+                                <Input
+                                    type="number"
+                                    value={deliveredQty}
+                                    onChange={e => setDeliveredQty(e.target.value)}
+                                    placeholder="0"
+                                    className="bg-white border-green-200"
+                                />
+                            </div>
                         </div>
                     )}
 
@@ -269,12 +291,24 @@ export default function SupplierManager() {
 
                     <div className="space-y-2 flex-1 w-full">
                         <Label>Description/Notes</Label>
-                        <Input
-                            value={description}
-                            onChange={e => setDescription(e.target.value)}
-                            placeholder={type === 'Order' ? "e.g. Morning Batch" : "e.g. UPI/Cash to Gade"}
-                            className="bg-white"
-                        />
+                        <div className="flex gap-2 items-center">
+                            <Input
+                                value={description}
+                                onChange={e => setDescription(e.target.value)}
+                                placeholder={type === 'Order' ? "e.g. Morning Batch" : "e.g. UPI/Cash to Gade"}
+                                className="bg-white"
+                            />
+                            <div className="flex items-center gap-2 px-2 py-1 bg-white border rounded-md min-w-[110px]">
+                                <input
+                                    type="checkbox"
+                                    id="isSample"
+                                    checked={isSample}
+                                    onChange={(e) => setIsSample(e.target.checked)}
+                                    className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-600"
+                                />
+                                <Label htmlFor="isSample" className="text-xs cursor-pointer">Is Sample</Label>
+                            </div>
+                        </div>
                     </div>
 
                     <Button onClick={handleSaveTransaction} disabled={loading} className="bg-purple-600 hover:bg-purple-700 w-full md:w-auto min-w-[120px]">
@@ -300,6 +334,7 @@ export default function SupplierManager() {
                                     <TableHead>Type</TableHead>
                                     <TableHead>Description</TableHead>
                                     <TableHead className="text-right">Qty (Kg)</TableHead>
+                                    <TableHead className="text-right">Yield Info</TableHead>
                                     <TableHead className="text-right">Amount (₹)</TableHead>
                                     <TableHead className="w-[100px]">Action</TableHead>
                                 </TableRow>
@@ -316,19 +351,39 @@ export default function SupplierManager() {
                                         <TableRow key={txn.id}>
                                             <TableCell>{new Date(txn.date).toLocaleDateString('en-IN')}</TableCell>
                                             <TableCell>
-                                                <span className={cn(
-                                                    "px-2 py-1 rounded text-xs font-medium",
-                                                    txn.type === 'Order' ? "bg-orange-100 text-orange-800" : "bg-green-100 text-green-800"
-                                                )}>
-                                                    {txn.type === 'Order' ? 'Stock In' : 'Payment Out'}
-                                                </span>
+                                                <div className="flex flex-col gap-1">
+                                                    <span className={cn(
+                                                        "px-2 py-0.5 rounded text-[10px] font-bold uppercase w-fit",
+                                                        txn.type === 'Order' ? "bg-orange-100 text-orange-800" : "bg-green-100 text-green-800"
+                                                    )}>
+                                                        {txn.type === 'Order' ? 'Stock In' : 'Payment Out'}
+                                                    </span>
+                                                    {txn.is_sample && (
+                                                        <span className="bg-purple-100 text-purple-800 px-2 py-0.5 rounded text-[10px] font-bold uppercase w-fit">
+                                                            SAMPLE
+                                                        </span>
+                                                    )}
+                                                </div>
                                             </TableCell>
                                             <TableCell>{txn.description}</TableCell>
                                             <TableCell className="text-right">
                                                 {txn.type === 'Order' ? txn.quantity_kg : '-'}
                                             </TableCell>
+                                            <TableCell className="text-right">
+                                                {txn.type === 'Order' ? (
+                                                    <div className="text-xs space-y-1">
+                                                        <div className="font-medium text-green-700">Delivered: {txn.delivered_qty || 0} kg</div>
+                                                        <div className="text-red-600">
+                                                            Loss: {(txn.quantity_kg - (txn.delivered_qty || 0)).toFixed(1)} kg
+                                                            ({(((txn.quantity_kg - (txn.delivered_qty || 0)) / txn.quantity_kg) * 100 || 0).toFixed(1)}%)
+                                                        </div>
+                                                    </div>
+                                                ) : '-'}
+                                            </TableCell>
                                             <TableCell className="text-right font-semibold">
-                                                ₹{txn.amount.toLocaleString()}
+                                                <span className={txn.is_sample ? "line-through text-gray-400" : ""}>
+                                                    ₹{txn.amount.toLocaleString()}
+                                                </span>
                                             </TableCell>
                                             <TableCell>
                                                 <div className="flex gap-1">

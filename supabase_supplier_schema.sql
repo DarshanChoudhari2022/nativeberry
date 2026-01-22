@@ -6,8 +6,10 @@ CREATE TABLE IF NOT EXISTS supplier_transactions (
     date TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
     type TEXT NOT NULL CHECK (type IN ('Order', 'Payment')), -- 'Order' means we took stock, 'Payment' means we paid him
     description TEXT,
-    quantity_kg NUMERIC DEFAULT 0, -- For orders
+    quantity_kg NUMERIC DEFAULT 0, -- For orders (Purchased amount)
+    delivered_qty NUMERIC DEFAULT 0, -- For orders (How much was actually delivered to customers)
     amount NUMERIC DEFAULT 0, -- For both orders (cost) and payments
+    is_sample BOOLEAN DEFAULT false, -- If true, ignore this in financial 'DUE' calculations
     notes TEXT
 );
 
