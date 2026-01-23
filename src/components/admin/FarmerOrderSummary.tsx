@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { format, startOfWeek, endOfWeek, isWithinInterval } from 'date-fns';
-import { Loader2, Sprout, Share2, Copy, Trophy, Target, TrendingUp, ShoppingBag } from 'lucide-react';
+import { Loader2, Sprout, Share2, Copy, Trophy, Target, TrendingUp, ShoppingBag, RefreshCcw } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface OrderItem {
@@ -41,10 +41,12 @@ const FarmerOrderSummary = () => {
     const [loading, setLoading] = useState(true);
     const [stats, setStats] = useState<SalesStat[]>([]);
     const [procurement, setProcurement] = useState<ProcurementReq[]>([]);
+    const [weekOffset, setWeekOffset] = useState(0);
+    const [showAllActive, setShowAllActive] = useState(false);
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [weekOffset, showAllActive]);
 
     const fetchData = async () => {
         setLoading(true);
@@ -64,16 +66,22 @@ const FarmerOrderSummary = () => {
             console.error('Error fetching data:', error);
         } else if (data) {
             setOrders(data);
-            calculateStats(data);
+            calculateStats(data, weekOffset, showAllActive);
             calculateProcurement(data);
         }
         setLoading(false);
     };
 
-    const calculateStats = (allOrders: Order[]) => {
+    const calculateStats = (allOrders: Order[], offset: number, showAll: boolean) => {
         const now = new Date();
-        const weekStart = startOfWeek(now, { weekStartsOn: 1 }); // Monday
-        const weekEnd = endOfWeek(now, { weekStartsOn: 1 });
+        const targetDate = new Date(now);
+        targetDate.setDate(now.getDate() + (offset * 7));
+
+        const weekStart = startOfWeek(targetDate, { weekStartsOn: 1 }); // Monday
+        const weekEnd = endOfWeek(targetDate, { weekStartsOn: 1 });
+
+        // Base reset date (only show data from Jan 23 onwards)
+        const BASE_RESET_DATE = new Date('2026-01-23T00:00:00+05:30');
 
         const salesMap: Record<string, SalesStat> = {
             'Darshan': { name: 'Darshan', totalKg: 0, totalAmount: 0, orderCount: 0 },
@@ -83,8 +91,18 @@ const FarmerOrderSummary = () => {
 
         allOrders.forEach(order => {
             const orderDate = new Date(order.created_at);
-            // We count orders created this week for the leaderboard
-            if (isWithinInterval(orderDate, { start: weekStart, end: weekEnd })) {
+
+            let shouldInclude = false;
+
+            if (showAll && offset === 0) {
+                // Batch View: Include all orders since BASE_RESET_DATE that aren't cancelled
+                shouldInclude = orderDate >= BASE_RESET_DATE;
+            } else {
+                // Weekly View: Include orders within the target week interval
+                shouldInclude = isWithinInterval(orderDate, { start: weekStart, end: weekEnd }) && orderDate >= BASE_RESET_DATE;
+            }
+
+            if (shouldInclude) {
                 const seller = order.salesperson || 'Other';
                 if (!salesMap[seller]) {
                     salesMap[seller] = { name: seller, totalKg: 0, totalAmount: 0, orderCount: 0 };
@@ -152,8 +170,37 @@ const FarmerOrderSummary = () => {
                         </h2>
                         <p className="text-red-50 opacity-90">Manage sales performance and procurement requirements.</p>
                     </div>
-                    <div className="bg-white/20 px-4 py-2 rounded-lg backdrop-blur-sm text-sm border border-white/30">
-                        Week: {format(startOfWeek(new Date(), { weekStartsOn: 1 }), 'MMM d')} - {format(endOfWeek(new Date(), { weekStartsOn: 1 }), 'MMM d')}
+                    <div className="flex flex-col items-end gap-2">
+                        <div className="flex items-center gap-2 bg-white/20 px-3 py-1 rounded-lg border border-white/30 backdrop-blur-sm">
+                            <Button variant="ghost" size="sm" className="h-6 w-6 p-0 text-white hover:bg-white/20" onClick={() => { setWeekOffset(prev => prev - 1); setShowAllActive(false); }}>&larr;</Button>
+                            <span className="text-xs font-bold text-white min-w-[140px] text-center">
+                                {showAllActive ? "Active Batch View" : `${format(startOfWeek(new Date(new Date().getTime() + (weekOffset * 7 * 24 * 60 * 60 * 1000)), { weekStartsOn: 1 }), 'MMM d')} - ${format(endOfWeek(new Date(new Date().getTime() + (weekOffset * 7 * 24 * 60 * 60 * 1000)), { weekStartsOn: 1 }), 'MMM d')}`}
+                            </span>
+                            <Button variant="ghost" size="sm" className="h-6 w-6 p-0 text-white hover:bg-white/20" onClick={() => { setWeekOffset(prev => prev + 1); setShowAllActive(false); }}>&rarr;</Button>
+                        </div>
+                        <div className="flex gap-2">
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => {
+                                    if (window.confirm("Warning: Do you want to refresh all sales and procurement data?")) {
+                                        fetchData();
+                                    }
+                                }}
+                                className="bg-yellow-500 hover:bg-yellow-600 border-none text-white gap-2 transition-all shadow-md"
+                            >
+                                <RefreshCcw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
+                                Sync
+                            </Button>
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => { setShowAllActive(!showAllActive); setWeekOffset(0); }}
+                                className={`${showAllActive ? 'bg-green-600 border-none text-white' : 'bg-white/20 text-white border-white/30'} gap-2 transition-all shadow-md`}
+                            >
+                                {showAllActive ? 'Weekly View' : 'Extend/Batch View'}
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </div>

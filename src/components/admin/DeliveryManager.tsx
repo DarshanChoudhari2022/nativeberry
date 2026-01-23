@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
-import { Loader2, Truck, MapPin, CheckCircle, Navigation, Phone, Share2, ClipboardList, Globe } from 'lucide-react';
+import { Loader2, Truck, MapPin, CheckCircle, Navigation, Phone, Share2, ClipboardList, Globe, RefreshCcw } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface DeliveryOrder {
@@ -56,7 +56,8 @@ const translations = {
         waPendingHeader: "Native Berry - Pending Assignments",
         waDue: "Due",
         waPaid: "PAID",
-        distance: "away"
+        distance: "away",
+        refresh: "Refresh"
     },
     mr: {
         pendingAssignments: "बाकी ऑर्डर्स (Pending)",
@@ -80,7 +81,8 @@ const translations = {
         waPendingHeader: "नेटिव्ह बेरी - बाकी ऑर्डर्स",
         waDue: "बाकी",
         waPaid: "जमा (Paid)",
-        distance: "लांब"
+        distance: "लांब",
+        refresh: "रिफ्रेश"
     }
 };
 
@@ -247,10 +249,25 @@ const DeliveryManager = () => {
     return (
         <div className="space-y-8 pb-12">
 
-            {/* Header with Language Toggle */}
-            <div className="flex justify-end sticky top-0 bg-slate-50 z-10 py-2">
+            {/* Header with Language Toggle & Refresh */}
+            <div className="flex justify-end sticky top-0 bg-slate-50 z-10 py-2 gap-3">
                 <Button
                     variant="outline"
+                    size="sm"
+                    onClick={() => {
+                        if (window.confirm("Warning: Refresh delivery list? Any unsaved notes might be lost.")) {
+                            fetchDeliveries();
+                        }
+                    }}
+                    disabled={loading}
+                    className="gap-2 border-2 border-gray-200"
+                >
+                    <RefreshCcw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
+                    {t.refresh}
+                </Button>
+                <Button
+                    variant="outline"
+                    size="sm"
                     onClick={() => setLang(l => l === 'en' ? 'mr' : 'en')}
                     className={`gap-2 border-2 ${lang === 'mr' ? 'border-orange-500 bg-orange-50 text-orange-700' : 'border-gray-200'}`}
                 >
@@ -447,59 +464,155 @@ const DeliveryManager = () => {
                 </div>
             </div>
 
-            {/* SECTION 3: Delivered History */}
+            {/* SECTION 3: Delivered History - Date-wise Categorization */}
             <div>
                 <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 pt-4 border-t gap-4">
                     <h3 className="text-xl font-bold flex items-center gap-2 text-gray-800">
                         <div className="bg-green-100 p-2 rounded-full"><CheckCircle className="text-green-600 h-5 w-5" /></div>
-                        Delivered Today ({deliveredOrders.length})
+                        Delivery History ({deliveredOrders.length})
                     </h3>
                 </div>
 
-                <div className="rounded-md border bg-white">
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-sm">
-                            <thead className="bg-gray-50 border-b">
-                                <tr>
-                                    <th className="h-10 px-4 text-left font-medium text-gray-500">Order ID</th>
-                                    <th className="h-10 px-4 text-left font-medium text-gray-500">Customer</th>
-                                    <th className="h-10 px-4 text-left font-medium text-gray-500">Driver</th>
-                                    <th className="h-10 px-4 text-left font-medium text-gray-500">Collected By</th>
-                                    <th className="h-10 px-4 text-left font-medium text-gray-500">Time</th>
-                                    <th className="h-10 px-4 text-right font-medium text-gray-500">Amount</th>
-                                    <th className="h-10 px-4 text-right font-medium text-gray-500">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {deliveredOrders.length === 0 ? (
-                                    <tr>
-                                        <td colSpan={5} className="p-4 text-center text-gray-500">No deliveries completed yet today.</td>
-                                    </tr>
-                                ) : (
-                                    deliveredOrders.map((order) => (
-                                        <tr key={order.id} className="border-b last:border-0 hover:bg-gray-50">
-                                            <td className="p-3 font-mono text-xs">#{order.id}</td>
-                                            <td className="p-3 font-medium">{order.customer_name}</td>
-                                            <td className="p-3 text-gray-600">{order.delivery_boy || '-'}</td>
-                                            <td className="p-3">
-                                                <Badge variant="outline" className="text-xs bg-slate-50">
-                                                    {(order as any).payment_received_by || '-'}
+                {/* Date-wise grouping */}
+                {(() => {
+                    // Group orders by delivery_date
+                    const groupedByDate = deliveredOrders.reduce((acc, order) => {
+                        const dateKey = order.delivery_date || 'Unknown';
+                        if (!acc[dateKey]) {
+                            acc[dateKey] = [];
+                        }
+                        acc[dateKey].push(order);
+                        return acc;
+                    }, {} as Record<string, DeliveryOrder[]>);
+
+                    // Sort dates in descending order (most recent first)
+                    const sortedDates = Object.keys(groupedByDate).sort((a, b) => {
+                        if (a === 'Unknown') return 1;
+                        if (b === 'Unknown') return -1;
+                        return new Date(b).getTime() - new Date(a).getTime();
+                    });
+
+                    // Helper function to format date label
+                    const getDateLabel = (dateStr: string) => {
+                        if (dateStr === 'Unknown') return 'Unknown Date';
+
+                        const date = new Date(dateStr);
+                        const today = new Date();
+                        const yesterday = new Date(today);
+                        yesterday.setDate(yesterday.getDate() - 1);
+
+                        // Reset time for comparison
+                        today.setHours(0, 0, 0, 0);
+                        yesterday.setHours(0, 0, 0, 0);
+                        date.setHours(0, 0, 0, 0);
+
+                        if (date.getTime() === today.getTime()) {
+                            return 'Today';
+                        } else if (date.getTime() === yesterday.getTime()) {
+                            return 'Yesterday';
+                        } else {
+                            return date.toLocaleDateString('en-IN', {
+                                weekday: 'short',
+                                day: 'numeric',
+                                month: 'short',
+                                year: date.getFullYear() !== today.getFullYear() ? 'numeric' : undefined
+                            });
+                        }
+                    };
+
+                    // Calculate total amount for a date group
+                    const getTotalAmount = (orders: DeliveryOrder[]) => {
+                        return orders.reduce((sum, order) => sum + (order.total_amount || 0), 0);
+                    };
+
+                    if (sortedDates.length === 0) {
+                        return (
+                            <div className="rounded-md border bg-white p-8 text-center text-gray-500">
+                                No deliveries completed yet.
+                            </div>
+                        );
+                    }
+
+                    return (
+                        <div className="space-y-6">
+                            {sortedDates.map((dateKey) => {
+                                const dateOrders = groupedByDate[dateKey];
+                                const dateLabel = getDateLabel(dateKey);
+                                const totalAmount = getTotalAmount(dateOrders);
+                                const paidCount = dateOrders.filter(o => o.payment_status === 'Paid').length;
+
+                                return (
+                                    <div key={dateKey} className="rounded-lg border bg-white overflow-hidden shadow-sm">
+                                        {/* Date Header */}
+                                        <div className="bg-gradient-to-r from-green-50 to-emerald-50 px-4 py-3 border-b flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                            <div className="flex items-center gap-3">
+                                                <div className={`w-3 h-3 rounded-full ${dateLabel === 'Today' ? 'bg-green-500 animate-pulse' : 'bg-green-300'}`}></div>
+                                                <span className="font-bold text-gray-800 text-lg">{dateLabel}</span>
+                                                <Badge variant="secondary" className="bg-green-100 text-green-700 font-medium">
+                                                    {dateOrders.length} {dateOrders.length === 1 ? 'delivery' : 'deliveries'}
                                                 </Badge>
-                                            </td>
-                                            <td className="p-3 text-gray-600 text-xs">
-                                                {(order as any).delivery_time || '-'}
-                                            </td>
-                                            <td className="p-3 text-right">₹{order.total_amount}</td>
-                                            <td className="p-3 text-right">
-                                                <Badge className="bg-green-100 text-green-800 border-green-200">Delivered</Badge>
-                                            </td>
-                                        </tr>
-                                    ))
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                                            </div>
+                                            <div className="flex items-center gap-4 text-sm">
+                                                <span className="text-gray-600">
+                                                    <span className="font-medium text-green-600">{paidCount}</span> paid
+                                                    {dateOrders.length - paidCount > 0 && (
+                                                        <span className="text-orange-600 ml-2">• {dateOrders.length - paidCount} pending</span>
+                                                    )}
+                                                </span>
+                                                <Badge className="bg-green-600 text-white font-bold">
+                                                    ₹{totalAmount.toLocaleString('en-IN')}
+                                                </Badge>
+                                            </div>
+                                        </div>
+
+                                        {/* Orders Table */}
+                                        <div className="overflow-x-auto">
+                                            <table className="w-full text-sm">
+                                                <thead className="bg-gray-50 border-b">
+                                                    <tr>
+                                                        <th className="h-10 px-4 text-left font-medium text-gray-500">Order ID</th>
+                                                        <th className="h-10 px-4 text-left font-medium text-gray-500">Customer</th>
+                                                        <th className="h-10 px-4 text-left font-medium text-gray-500">Driver</th>
+                                                        <th className="h-10 px-4 text-left font-medium text-gray-500">Collected By</th>
+                                                        <th className="h-10 px-4 text-left font-medium text-gray-500">Time</th>
+                                                        <th className="h-10 px-4 text-right font-medium text-gray-500">Amount</th>
+                                                        <th className="h-10 px-4 text-right font-medium text-gray-500">Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {dateOrders.map((order) => (
+                                                        <tr key={order.id} className="border-b last:border-0 hover:bg-gray-50 transition-colors">
+                                                            <td className="p-3 font-mono text-xs text-gray-700">#{order.id}</td>
+                                                            <td className="p-3 font-medium text-gray-900">{order.customer_name}</td>
+                                                            <td className="p-3 text-gray-600">{order.delivery_boy || '-'}</td>
+                                                            <td className="p-3">
+                                                                <Badge variant="outline" className="text-xs bg-slate-50">
+                                                                    {(order as any).payment_received_by || '-'}
+                                                                </Badge>
+                                                            </td>
+                                                            <td className="p-3 text-gray-600 text-xs">
+                                                                {(order as any).delivery_time || '-'}
+                                                            </td>
+                                                            <td className="p-3 text-right font-medium">₹{order.total_amount}</td>
+                                                            <td className="p-3 text-right">
+                                                                <Badge className={`${order.payment_status === 'Paid'
+                                                                    ? 'bg-green-100 text-green-800 border-green-200'
+                                                                    : 'bg-orange-100 text-orange-800 border-orange-200'
+                                                                    }`}>
+                                                                    {order.payment_status === 'Paid' ? 'Delivered' : 'Credit'}
+                                                                </Badge>
+                                                            </td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    );
+                })()}
             </div>
 
         </div>
