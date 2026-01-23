@@ -33,7 +33,8 @@ const HiddenDashboard = () => {
         pendingPayments: 0,
         totalWeight: 0,
         totalRevenue: 0,
-        pendingSupplierBalance: 0
+        pendingSupplierBalance: 0,
+        netProfit: 0
     });
 
     useEffect(() => {
@@ -73,17 +74,26 @@ const HiddenDashboard = () => {
             const { data: items } = await supabase.from('order_items').select('weight_kg');
             const totalWeight = items ? items.reduce((acc, curr) => acc + (curr.weight_kg || 0), 0) : 0;
 
-            // Fetch supplier balance
+            // Fetch supplier balance and calculate total cost
             const { data: supplierTxns } = await supabase.from('supplier_transactions').select('*');
             let pendingSupplierBalance = 0;
+            let totalCost = 0;
+
             if (supplierTxns) {
                 const nonSampleTxns = supplierTxns.filter(t => !t.is_sample);
-                const totalPayable = nonSampleTxns.filter(t => t.type === 'Order').reduce((sum, t) => sum + (t.amount || 0), 0);
+
+                // Calculate Total Cost (all orders from suppliers)
+                totalCost = nonSampleTxns.filter(t => t.type === 'Order').reduce((sum, t) => sum + (t.amount || 0), 0);
+
+                // Calculate Peding Balance
+                const totalPayable = totalCost; // Same as cost since all orders are payable
                 const totalPaid = nonSampleTxns.filter(t => t.type === 'Payment').reduce((sum, t) => sum + (t.amount || 0), 0);
                 pendingSupplierBalance = totalPayable - totalPaid;
             }
 
-            setStats({ totalOrders, pendingDeliveries, pendingPayments, totalWeight, totalRevenue, pendingSupplierBalance });
+            const netProfit = totalRevenue - totalCost;
+
+            setStats({ totalOrders, pendingDeliveries, pendingPayments, totalWeight, totalRevenue, pendingSupplierBalance, netProfit });
         }
     };
 

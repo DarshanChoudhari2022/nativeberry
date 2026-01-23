@@ -10,9 +10,20 @@ interface StatsProps {
     pendingSupplierBalance: number; // New Prop for Supplier Balance
 }
 
-const StatsOverview = ({ totalOrders, pendingDeliveries, pendingPayments, totalWeight, totalRevenue, pendingSupplierBalance }: StatsProps) => {
+const StatsOverview = ({ totalOrders, pendingDeliveries, pendingPayments, totalWeight, totalRevenue, pendingSupplierBalance, netProfit }: StatsProps & { netProfit: number }) => {
     return (
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+            <Card className="shadow-sm hover:shadow-md transition-shadow bg-gradient-to-br from-indigo-50 to-white border-indigo-100 col-span-2 lg:col-span-1">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium text-indigo-900">Net Profit</CardTitle>
+                    <TrendingUp className="h-4 w-4 text-indigo-600" />
+                </CardHeader>
+                <CardContent>
+                    <div className="text-2xl font-bold text-indigo-700">₹{netProfit.toLocaleString()}</div>
+                    <p className="text-xs text-indigo-600">Total Profit (Sales - Cost)</p>
+                </CardContent>
+            </Card>
+
             <Card className="shadow-sm hover:shadow-md transition-shadow bg-gradient-to-br from-green-50 to-white border-green-100">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-green-900">Total Revenue</CardTitle>

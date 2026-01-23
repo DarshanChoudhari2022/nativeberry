@@ -278,12 +278,12 @@ const DeliveryManager = () => {
 
             {/* SECTION 1: Unassigned Orders */}
             <div>
-                <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-4">
+                <div className="flex flex-wrap items-center justify-between mb-4 gap-4">
                     <h3 className="text-xl font-bold flex items-center gap-2 text-gray-800">
                         <div className="bg-yellow-100 p-2 rounded-full"><Truck className="text-yellow-600 h-5 w-5" /></div>
                         {t.pendingAssignments} ({unassigned.length})
                     </h3>
-                    <Button variant="outline" size="sm" onClick={() => generateWhatsAppShare('pending', unassigned)} className="bg-white border-green-500 text-green-600 hover:bg-green-50">
+                    <Button variant="outline" size="sm" onClick={() => generateWhatsAppShare('pending', unassigned)} className="bg-white border-green-500 text-green-600 hover:bg-green-50 shadow-sm shrink-0">
                         <Share2 className="w-4 h-4 mr-2" /> {t.shareWhatsApp}
                     </Button>
                 </div>
@@ -573,8 +573,8 @@ const DeliveryManager = () => {
                                                         <th className="h-10 px-4 text-left font-medium text-gray-500">Order ID</th>
                                                         <th className="h-10 px-4 text-left font-medium text-gray-500">Customer</th>
                                                         <th className="h-10 px-4 text-left font-medium text-gray-500">Driver</th>
-                                                        <th className="h-10 px-4 text-left font-medium text-gray-500">Collected By</th>
-                                                        <th className="h-10 px-4 text-left font-medium text-gray-500">Time</th>
+                                                        <th className="h-10 px-4 text-right font-medium text-gray-500">Distance</th>
+                                                        <th className="h-10 px-4 text-right font-medium text-gray-500">Time</th>
                                                         <th className="h-10 px-4 text-right font-medium text-gray-500">Amount</th>
                                                         <th className="h-10 px-4 text-right font-medium text-gray-500">Status</th>
                                                     </tr>
@@ -585,12 +585,8 @@ const DeliveryManager = () => {
                                                             <td className="p-3 font-mono text-xs text-gray-700">#{order.id}</td>
                                                             <td className="p-3 font-medium text-gray-900">{order.customer_name}</td>
                                                             <td className="p-3 text-gray-600">{order.delivery_boy || '-'}</td>
-                                                            <td className="p-3">
-                                                                <Badge variant="outline" className="text-xs bg-slate-50">
-                                                                    {(order as any).payment_received_by || '-'}
-                                                                </Badge>
-                                                            </td>
-                                                            <td className="p-3 text-gray-600 text-xs">
+                                                            <td className="p-3 text-right text-gray-600 font-mono text-xs">{order.distance_km ? `${order.distance_km} km` : '-'}</td>
+                                                            <td className="p-3 text-right text-gray-600 text-xs font-medium">
                                                                 {(order as any).delivery_time || '-'}
                                                             </td>
                                                             <td className="p-3 text-right font-medium">₹{order.total_amount}</td>
