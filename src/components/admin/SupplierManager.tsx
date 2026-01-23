@@ -94,7 +94,7 @@ export default function SupplierManager() {
             description: description || (type === 'Order' ? `Order: ${quantity}kg` : 'Payment to Gade'),
             quantity_kg: type === 'Order' ? parseFloat(quantity || '0') : 0,
             delivered_qty: type === 'Order' ? parseFloat(deliveredQty || '0') : 0,
-            amount: isWaived ? 0 : parseFloat(amount || '0'),
+            amount: parseFloat(amount || '0'),
             is_sample: isSample,
             is_waived: isWaived,
             spender: spender
@@ -172,7 +172,7 @@ export default function SupplierManager() {
 
     // Investment Return Logic
     const personWiseInvestment = transactions
-        .filter(t => t.type === 'Payment' && !t.is_waived)
+        .filter(t => t.type === 'Payment' && !t.is_waived && !t.is_sample)
         .reduce((acc, t) => {
             const key = t.spender || 'Darshan';
             acc[key] = (acc[key] || 0) + (t.amount || 0);
@@ -354,7 +354,6 @@ export default function SupplierManager() {
                                                 checked={isWaived}
                                                 onChange={(e) => {
                                                     setIsWaived(e.target.checked);
-                                                    if (e.target.checked) setAmount('0');
                                                 }}
                                                 className="h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-600"
                                             />
@@ -474,9 +473,15 @@ export default function SupplierManager() {
                                                 ) : '-'}
                                             </TableCell>
                                             <TableCell className="text-right font-semibold">
-                                                <span className={txn.is_sample ? "line-through text-gray-400" : ""}>
-                                                    ₹{txn.amount.toLocaleString()}
-                                                </span>
+                                                <div className="flex flex-col items-end">
+                                                    <span className={cn(
+                                                        (txn.is_sample || txn.is_waived) && "line-through text-gray-400"
+                                                    )}>
+                                                        ₹{txn.amount.toLocaleString()}
+                                                    </span>
+                                                    {txn.is_waived && <span className="text-[9px] text-red-500 font-bold uppercase">Waived</span>}
+                                                    {txn.is_sample && !txn.is_waived && <span className="text-[9px] text-purple-500 font-bold uppercase">Sample</span>}
+                                                </div>
                                             </TableCell>
                                             <TableCell>
                                                 <div className="flex gap-1">

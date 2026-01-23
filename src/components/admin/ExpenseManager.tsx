@@ -62,7 +62,7 @@ export default function ExpenseManager() {
 
         const expenseData = {
             description: newExpense.description,
-            amount: newExpense.is_waived ? 0 : parseFloat(newExpense.amount),
+            amount: parseFloat(newExpense.amount || '0'),
             category: newExpense.category,
             spender: newExpense.spender,
             is_waived: newExpense.is_waived,
@@ -218,7 +218,6 @@ export default function ExpenseManager() {
                                     checked={newExpense.is_waived}
                                     onChange={(e) => {
                                         setNewExpense({ ...newExpense, is_waived: e.target.checked });
-                                        if (e.target.checked) setNewExpense(prev => ({ ...prev, amount: '0', is_waived: true }));
                                     }}
                                     className="h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-600"
                                 />
@@ -288,9 +287,12 @@ export default function ExpenseManager() {
                                                 </div>
                                             </TableCell>
                                             <TableCell className="font-medium">
-                                                <span className={cn(expense.is_waived && "line-through text-gray-400")}>
-                                                    ₹{expense.amount}
-                                                </span>
+                                                <div className="flex flex-col">
+                                                    <span className={cn(expense.is_waived && "line-through text-gray-400")}>
+                                                        ₹{expense.amount.toLocaleString()}
+                                                    </span>
+                                                    {expense.is_waived && <span className="text-[10px] text-red-500 font-bold">NOT COUNTED</span>}
+                                                </div>
                                             </TableCell>
                                             <TableCell>
                                                 <div className="flex gap-1">
