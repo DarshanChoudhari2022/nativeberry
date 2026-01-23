@@ -172,7 +172,7 @@ export default function SupplierManager() {
                 </Card>
                 <Card className="bg-blue-50 border-blue-200">
                     <CardHeader className="pb-2">
-                        <CardTitle className="text-blue-900 text-sm font-medium">Total Bill Amount</CardTitle>
+                        <CardTitle className="text-blue-900 text-sm font-medium">Total Investment</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold text-blue-700">₹{totalPayable.toLocaleString()}</div>
@@ -189,7 +189,7 @@ export default function SupplierManager() {
                 <Card className={cn("border-2", pendingBalance > 0 ? "bg-red-50 border-red-200" : "bg-gray-50 border-gray-200")}>
                     <CardHeader className="pb-2">
                         <CardTitle className={cn("text-sm font-medium", pendingBalance > 0 ? "text-red-900" : "text-gray-900")}>
-                            Pending Balance
+                            Pending to Gade
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -247,8 +247,8 @@ export default function SupplierManager() {
                                 <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="Order">Receive Stock (Order)</SelectItem>
-                                <SelectItem value="Payment">Make Payment</SelectItem>
+                                <SelectItem value="Order">Buy Stock (Investment)</SelectItem>
+                                <SelectItem value="Payment">Pay Gade</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
@@ -279,7 +279,7 @@ export default function SupplierManager() {
                     )}
 
                     <div className="space-y-2 w-full md:w-32">
-                        <Label>{type === 'Order' ? 'Total Cost (₹)' : 'Paid Amount (₹)'}</Label>
+                        <Label>{type === 'Order' ? 'Investment (₹)' : 'Paid Amount (₹)'}</Label>
                         <Input
                             type="number"
                             value={amount}
@@ -323,7 +323,7 @@ export default function SupplierManager() {
 
             <Card>
                 <CardHeader>
-                    <CardTitle>Transaction History</CardTitle>
+                    <CardTitle>Gade Investment History</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="rounded-md border">
@@ -356,7 +356,7 @@ export default function SupplierManager() {
                                                         "px-2 py-0.5 rounded text-[10px] font-bold uppercase w-fit",
                                                         txn.type === 'Order' ? "bg-orange-100 text-orange-800" : "bg-green-100 text-green-800"
                                                     )}>
-                                                        {txn.type === 'Order' ? 'Stock In' : 'Payment Out'}
+                                                        {txn.type === 'Order' ? 'Investment' : 'Payment Out'}
                                                     </span>
                                                     {txn.is_sample && (
                                                         <span className="bg-purple-100 text-purple-800 px-2 py-0.5 rounded text-[10px] font-bold uppercase w-fit">

@@ -81,7 +81,7 @@ const StatsOverview = ({ totalOrders, pendingDeliveries, pendingPayments, totalW
 
             <Card className="shadow-sm hover:shadow-md transition-shadow bg-gradient-to-br from-red-50 to-white border-red-100">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-red-900">Supplier DUE</CardTitle>
+                    <CardTitle className="text-sm font-medium text-red-900">Gade Due (Investment)</CardTitle>
                     <DollarSign className="h-4 w-4 text-red-600" />
                 </CardHeader>
                 <CardContent>

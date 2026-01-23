@@ -3,8 +3,9 @@ import { supabase } from '@/lib/supabase';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
 import { format, startOfWeek, endOfWeek, isWithinInterval } from 'date-fns';
-import { Loader2, Sprout, Share2, Copy, Trophy, Target, TrendingUp, ShoppingBag, RefreshCcw } from 'lucide-react';
+import { Loader2, Sprout, Share2, Copy, Trophy, Target, TrendingUp, ShoppingBag, RefreshCcw, IndianRupee } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface OrderItem {
@@ -43,6 +44,7 @@ const FarmerOrderSummary = () => {
     const [procurement, setProcurement] = useState<ProcurementReq[]>([]);
     const [weekOffset, setWeekOffset] = useState(0);
     const [showAllActive, setShowAllActive] = useState(false);
+    const [buyRate, setBuyRate] = useState<string>('300'); // Default buying rate
 
     useEffect(() => {
         fetchData();
@@ -137,25 +139,8 @@ const FarmerOrderSummary = () => {
         setProcurement(Object.values(procMap));
     };
 
-    const generateWhatsAppProcurement = () => {
-        const dateStr = format(new Date(), 'dd MMM');
-        let message = `*🍓 NATIVE BERRY - PROCUREMENT REQ (${dateStr})*\n`;
-        message += `*TO: Rushi Gade*\n`;
-        message += `--------------------------\n`;
-
-        let totalKg = 0;
-        procurement.forEach(p => {
-            message += `📦 *${p.product}*: ${p.totalQty} units (${p.totalWeight.toFixed(1)} kg)\n`;
-            totalKg += p.totalWeight;
-        });
-
-        message += `--------------------------\n`;
-        message += `🚀 *TOTAL WEIGHT: ${totalKg.toFixed(1)} KG*\n\n`;
-        message += `Please arrange the supply. Thank you!`;
-
-        const encodedMsg = encodeURIComponent(message);
-        window.open(`https://wa.me/?text=${encodedMsg}`, '_blank');
-    };
+    // WhatsApp function removed as per request to remove "Share with Gade"
+    // and treat this as internal procurement investment tracking.
 
     if (loading) return <div className="flex justify-center p-12"><Loader2 className="animate-spin text-red-500 h-8 w-8" /></div>;
 
@@ -271,13 +256,33 @@ const FarmerOrderSummary = () => {
 
             {/* 2. Procurement Requirement */}
             <div className="space-y-4">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <h3 className="text-lg font-bold flex items-center gap-2 text-slate-800 px-1">
-                        <Sprout className="h-5 w-5 text-green-600" /> Gade Procurement Requirements
+                        <IndianRupee className="h-5 w-5 text-green-600" />
+                        Procurement Investment & Needs
                     </h3>
-                    <Button onClick={generateWhatsAppProcurement} className="bg-green-600 hover:bg-green-700 text-white shadow-md">
-                        <Share2 className="h-4 w-4 mr-2" /> Share with Gade
-                    </Button>
+
+                    {/* Investment Calculator */}
+                    {procurement.length > 0 && (
+                        <div className="flex items-center gap-3 bg-green-50 px-3 py-2 rounded-lg border border-green-100">
+                            <div className="flex items-center gap-2">
+                                <span className="text-sm font-medium text-green-800">Buy Rate:</span>
+                                <div className="relative">
+                                    <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-gray-500">₹</span>
+                                    <Input
+                                        type="number"
+                                        value={buyRate}
+                                        onChange={(e) => setBuyRate(e.target.value)}
+                                        className="h-8 w-20 pl-5 bg-white text-xs"
+                                    />
+                                </div>
+                            </div>
+                            <div className="h-8 w-[1px] bg-green-200"></div>
+                            <div className="text-sm font-bold text-green-700">
+                                Est. Investment: <span className="text-lg">₹{Math.round(procurement.reduce((acc, curr) => acc + curr.totalWeight, 0) * (parseFloat(buyRate) || 0)).toLocaleString()}</span>
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -311,8 +316,8 @@ const FarmerOrderSummary = () => {
                     <p className="font-bold">Follow this business logic:</p>
                     <ul className="list-disc ml-5 space-y-1 opacity-90">
                         <li><strong>Mon-Fri:</strong> Sales team (Darshan, Suraj, Sushant) adds orders continuously.</li>
-                        <li><strong>Friday Evening:</strong> Admin checks the Leaderboard above to confirm total demand.</li>
-                        <li><strong>Procurement:</strong> Click "Share with Gade" to send the requirements to the farm.</li>
+                        <li><strong>Friday Evening:</strong> Check the "Procurement Investment" section to see total weight & cost.</li>
+                        <li><strong>Investment:</strong> Arrange the funds and confirm the purchase with the farm.</li>
                         <li><strong>Dispatch:</strong> Once stock arrives, switch to the "Delivery" tab to assign boys.</li>
                     </ul>
                 </div>

@@ -168,7 +168,7 @@ const HiddenDashboard = () => {
                             <Truck className="h-4 w-4" /> Delivery
                         </TabsTrigger>
                         <TabsTrigger value="supplier" className="flex gap-2">
-                            <Store className="h-4 w-4" /> Supplier/Gade
+                            <Store className="h-4 w-4" /> Gade Investment
                         </TabsTrigger>
                         <TabsTrigger value="expenses" className="flex gap-2">
                             <Receipt className="h-4 w-4" /> Expenses
