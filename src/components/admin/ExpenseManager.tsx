@@ -25,11 +25,12 @@ interface Expense {
     date: string;
     category?: string;
     spender?: string;
+    is_waived?: boolean;
 }
 
 export default function ExpenseManager() {
     const [expenses, setExpenses] = useState<Expense[]>([]);
-    const [newExpense, setNewExpense] = useState({ description: '', amount: '', category: 'General', spender: 'Darshan' });
+    const [newExpense, setNewExpense] = useState({ description: '', amount: '', category: 'General', spender: 'Darshan', is_waived: false });
     const [date, setDate] = useState<Date | undefined>(new Date());
     const [editingId, setEditingId] = useState<number | null>(null);
     const [loading, setLoading] = useState(false);
@@ -61,9 +62,10 @@ export default function ExpenseManager() {
 
         const expenseData = {
             description: newExpense.description,
-            amount: parseFloat(newExpense.amount),
+            amount: newExpense.is_waived ? 0 : parseFloat(newExpense.amount),
             category: newExpense.category,
             spender: newExpense.spender,
+            is_waived: newExpense.is_waived,
             date: date ? date.toISOString() : new Date().toISOString()
         };
 
@@ -87,7 +89,7 @@ export default function ExpenseManager() {
             toast.error(editingId ? 'Failed to update expense' : 'Failed to add expense');
         } else {
             toast.success(editingId ? 'Expense updated' : 'Expense added');
-            setNewExpense({ description: '', amount: '', category: 'General', spender: 'Darshan' });
+            setNewExpense({ description: '', amount: '', category: 'General', spender: 'Darshan', is_waived: false });
             setDate(new Date());
             setEditingId(null);
             fetchExpenses();
@@ -100,14 +102,15 @@ export default function ExpenseManager() {
             description: expense.description,
             amount: expense.amount.toString(),
             category: expense.category || 'General',
-            spender: expense.spender || 'Darshan'
+            spender: expense.spender || 'Darshan',
+            is_waived: expense.is_waived || false
         });
         setDate(new Date(expense.date));
         setEditingId(expense.id);
     };
 
     const cancelEditing = () => {
-        setNewExpense({ description: '', amount: '', category: 'General', spender: 'Darshan' });
+        setNewExpense({ description: '', amount: '', category: 'General', spender: 'Darshan', is_waived: false });
         setDate(new Date());
         setEditingId(null);
     };
@@ -122,7 +125,9 @@ export default function ExpenseManager() {
         }
     };
 
-    const totalExpenses = expenses.reduce((sum, item) => sum + (item.amount || 0), 0);
+    const totalExpenses = expenses
+        .filter(item => !item.is_waived)
+        .reduce((sum, item) => sum + (item.amount || 0), 0);
 
     return (
         <div className="space-y-6">
@@ -201,8 +206,24 @@ export default function ExpenseManager() {
                                 value={newExpense.amount}
                                 onChange={e => setNewExpense({ ...newExpense, amount: e.target.value })}
                                 placeholder="0.00"
-                                className="bg-white font-bold"
+                                disabled={newExpense.is_waived}
+                                className={cn("bg-white font-bold", newExpense.is_waived && "opacity-50 line-through")}
                             />
+                        </div>
+                        <div className="space-y-2 pb-1">
+                            <div className="flex items-center gap-2 px-3 py-2 bg-white border rounded-md h-10 shadow-sm">
+                                <input
+                                    type="checkbox"
+                                    id="isWaivedExpense"
+                                    checked={newExpense.is_waived}
+                                    onChange={(e) => {
+                                        setNewExpense({ ...newExpense, is_waived: e.target.checked });
+                                        if (e.target.checked) setNewExpense(prev => ({ ...prev, amount: '0', is_waived: true }));
+                                    }}
+                                    className="h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-600"
+                                />
+                                <Label htmlFor="isWaivedExpense" className="text-xs cursor-pointer text-red-600 font-bold whitespace-nowrap">Waived Off</Label>
+                            </div>
                         </div>
                         <Button onClick={handleSaveExpense} disabled={loading} className="bg-purple-600 hover:bg-purple-700 w-full md:w-auto min-w-[140px]">
                             {editingId ? (
@@ -256,8 +277,21 @@ export default function ExpenseManager() {
                                                     {expense.spender || 'Darshan'}
                                                 </span>
                                             </TableCell>
-                                            <TableCell>{expense.description}</TableCell>
-                                            <TableCell className="font-medium">₹{expense.amount}</TableCell>
+                                            <TableCell>
+                                                <div className="flex flex-col gap-1">
+                                                    <span>{expense.description}</span>
+                                                    {expense.is_waived && (
+                                                        <span className="bg-red-100 text-red-700 px-2 py-0.5 rounded text-[10px] font-bold w-fit">
+                                                            WAIVED
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            </TableCell>
+                                            <TableCell className="font-medium">
+                                                <span className={cn(expense.is_waived && "line-through text-gray-400")}>
+                                                    ₹{expense.amount}
+                                                </span>
+                                            </TableCell>
                                             <TableCell>
                                                 <div className="flex gap-1">
                                                     <Button variant="ghost" size="sm" onClick={() => startEditing(expense)} className="text-blue-500 hover:text-blue-700 hover:bg-blue-50">
