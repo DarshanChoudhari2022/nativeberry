@@ -9,7 +9,7 @@ interface StatsProps {
     totalRevenue: number;
     pendingSupplierBalance: number;
     totalExpenses: number;
-    onExpenseClick?: () => void;
+    onTabClick?: (tab: string) => void;
 }
 
 const StatsOverview = ({
@@ -21,11 +21,15 @@ const StatsOverview = ({
     pendingSupplierBalance,
     totalExpenses,
     netProfit,
-    onExpenseClick
+    onTabClick
 }: StatsProps & { netProfit: number }) => {
     return (
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-            <Card className="shadow-sm hover:shadow-md transition-shadow bg-gradient-to-br from-indigo-50 to-white border-indigo-100 col-span-2 lg:col-span-1">
+            {/* 1. Net Profit -> Planning & Sales (farmer) */}
+            <Card
+                className="shadow-sm hover:shadow-md transition-all bg-gradient-to-br from-indigo-50 to-white border-indigo-100 col-span-2 lg:col-span-1 cursor-pointer active:scale-95"
+                onClick={() => onTabClick?.('farmer')}
+            >
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-indigo-900">Net Profit</CardTitle>
                     <TrendingUp className="h-4 w-4 text-indigo-600" />
@@ -36,7 +40,11 @@ const StatsOverview = ({
                 </CardContent>
             </Card>
 
-            <Card className="shadow-sm hover:shadow-md transition-shadow bg-gradient-to-br from-green-50 to-white border-green-100">
+            {/* 2. Total Revenue -> Master List (orders-list) */}
+            <Card
+                className="shadow-sm hover:shadow-md transition-all bg-gradient-to-br from-green-50 to-white border-green-100 cursor-pointer active:scale-95"
+                onClick={() => onTabClick?.('orders-list')}
+            >
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-green-900">Total Revenue</CardTitle>
                     <TrendingUp className="h-4 w-4 text-green-600" />
@@ -47,7 +55,11 @@ const StatsOverview = ({
                 </CardContent>
             </Card>
 
-            <Card className="shadow-sm hover:shadow-md transition-shadow bg-white text-gray-900">
+            {/* 3. Total Orders -> Master List (orders-list) */}
+            <Card
+                className="shadow-sm hover:shadow-md transition-all bg-white text-gray-900 cursor-pointer active:scale-95"
+                onClick={() => onTabClick?.('orders-list')}
+            >
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-gray-700">Total Orders</CardTitle>
                     <Package className="h-4 w-4 text-gray-400" />
@@ -58,7 +70,11 @@ const StatsOverview = ({
                 </CardContent>
             </Card>
 
-            <Card className="shadow-sm hover:shadow-md transition-shadow bg-white text-gray-900">
+            {/* 4. Pending Delivery -> Delivery (delivery) */}
+            <Card
+                className="shadow-sm hover:shadow-md transition-all bg-white text-gray-900 cursor-pointer active:scale-95"
+                onClick={() => onTabClick?.('delivery')}
+            >
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-gray-700">Pending Delivery</CardTitle>
                     <Truck className="h-4 w-4 text-orange-500" />
@@ -69,7 +85,11 @@ const StatsOverview = ({
                 </CardContent>
             </Card>
 
-            <Card className="shadow-sm hover:shadow-md transition-shadow bg-white text-gray-900">
+            {/* 5. Pending Payments -> Recovery (recovery) */}
+            <Card
+                className="shadow-sm hover:shadow-md transition-all bg-white text-gray-900 cursor-pointer active:scale-95"
+                onClick={() => onTabClick?.('recovery')}
+            >
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-gray-700">Pending Payments</CardTitle>
                     <DollarSign className="h-4 w-4 text-red-500" />
@@ -80,7 +100,11 @@ const StatsOverview = ({
                 </CardContent>
             </Card>
 
-            <Card className="shadow-sm hover:shadow-md transition-shadow bg-white text-gray-900">
+            {/* 6. Total Weight -> Planning & Sales (farmer) */}
+            <Card
+                className="shadow-sm hover:shadow-md transition-all bg-white text-gray-900 cursor-pointer active:scale-95"
+                onClick={() => onTabClick?.('farmer')}
+            >
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-gray-700">Total Weight</CardTitle>
                     <Scale className="h-4 w-4 text-blue-500" />
@@ -91,7 +115,11 @@ const StatsOverview = ({
                 </CardContent>
             </Card>
 
-            <Card className="shadow-sm hover:shadow-md transition-shadow bg-gradient-to-br from-red-50 to-white border-red-100">
+            {/* 7. Gade Due (Investment) -> Gade Investment (supplier) */}
+            <Card
+                className="shadow-sm hover:shadow-md transition-all bg-gradient-to-br from-red-50 to-white border-red-100 cursor-pointer active:scale-95"
+                onClick={() => onTabClick?.('supplier')}
+            >
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-red-900">Gade Due (Investment)</CardTitle>
                     <DollarSign className="h-4 w-4 text-red-600" />
@@ -102,9 +130,10 @@ const StatsOverview = ({
                 </CardContent>
             </Card>
 
+            {/* 8. Total Expenses -> Expenses (expenses) */}
             <Card
                 className="shadow-sm hover:shadow-md transition-all bg-gradient-to-br from-purple-50 to-white border-purple-100 cursor-pointer active:scale-95"
-                onClick={onExpenseClick}
+                onClick={() => onTabClick?.('expenses')}
             >
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-purple-900">Total Expenses</CardTitle>

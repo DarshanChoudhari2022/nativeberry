@@ -159,7 +159,7 @@ const HiddenDashboard = () => {
 
                 <StatsOverview
                     {...stats}
-                    onExpenseClick={() => setActiveTab('expenses')}
+                    onTabClick={(tab) => setActiveTab(tab)}
                 />
 
                 <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full space-y-6">
