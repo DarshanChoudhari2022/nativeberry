@@ -275,18 +275,16 @@ export default function SupplierManager() {
                                 </Select>
                             </div>
 
-                            {type === 'Payment' && (
-                                <div className="space-y-2 flex-1 w-full md:max-w-[200px]">
-                                    <Label className="flex items-center gap-2"><User className="h-3 w-3" /> Who invested?</Label>
-                                    <Tabs value={spender} onValueChange={setSpender} className="w-full">
-                                        <TabsList className="grid grid-cols-3 w-full bg-white border h-9">
-                                            <TabsTrigger value="Darshan" className="text-xs data-[state=active]:bg-red-500 data-[state=active]:text-white">D</TabsTrigger>
-                                            <TabsTrigger value="Suraj" className="text-xs data-[state=active]:bg-blue-500 data-[state=active]:text-white">S</TabsTrigger>
-                                            <TabsTrigger value="Sushant" className="text-xs data-[state=active]:bg-green-500 data-[state=active]:text-white">S2</TabsTrigger>
-                                        </TabsList>
-                                    </Tabs>
-                                </div>
-                            )}
+                            <div className="space-y-2 flex-1 w-full md:max-w-[280px]">
+                                <Label className="flex items-center gap-2 font-bold"><User className="h-3 w-3" /> {type === 'Order' ? 'Investment by?' : 'Paid by?'}</Label>
+                                <Tabs value={spender} onValueChange={setSpender} className="w-full">
+                                    <TabsList className="grid grid-cols-3 w-full bg-white border h-10">
+                                        <TabsTrigger value="Darshan" className="text-xs data-[state=active]:bg-red-500 data-[state=active]:text-white uppercase font-bold">Darshan</TabsTrigger>
+                                        <TabsTrigger value="Suraj" className="text-xs data-[state=active]:bg-blue-500 data-[state=active]:text-white uppercase font-bold">Suraj</TabsTrigger>
+                                        <TabsTrigger value="Sushant" className="text-xs data-[state=active]:bg-green-500 data-[state=active]:text-white uppercase font-bold">Sushant</TabsTrigger>
+                                    </TabsList>
+                                </Tabs>
+                            </div>
                         </div>
 
                         <div className="flex flex-col md:flex-row gap-4 items-end">

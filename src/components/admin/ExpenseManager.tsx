@@ -154,10 +154,10 @@ export default function ExpenseManager() {
                                 onValueChange={(v) => setNewExpense({ ...newExpense, spender: v })}
                                 className="w-full"
                             >
-                                <TabsList className="grid grid-cols-3 w-full bg-white border">
-                                    <TabsTrigger value="Darshan" className="text-xs py-1.5 data-[state=active]:bg-red-500 data-[state=active]:text-white">D</TabsTrigger>
-                                    <TabsTrigger value="Suraj" className="text-xs py-1.5 data-[state=active]:bg-blue-500 data-[state=active]:text-white">S</TabsTrigger>
-                                    <TabsTrigger value="Sushant" className="text-xs py-1.5 data-[state=active]:bg-green-500 data-[state=active]:text-white">S2</TabsTrigger>
+                                <TabsList className="grid grid-cols-3 w-full bg-white border h-10">
+                                    <TabsTrigger value="Darshan" className="text-xs py-1.5 data-[state=active]:bg-red-500 data-[state=active]:text-white uppercase font-bold">Darshan</TabsTrigger>
+                                    <TabsTrigger value="Suraj" className="text-xs py-1.5 data-[state=active]:bg-blue-500 data-[state=active]:text-white uppercase font-bold">Suraj</TabsTrigger>
+                                    <TabsTrigger value="Sushant" className="text-xs py-1.5 data-[state=active]:bg-green-500 data-[state=active]:text-white uppercase font-bold">Sushant</TabsTrigger>
                                 </TabsList>
                             </Tabs>
                         </div>
