@@ -24,6 +24,7 @@ const HiddenDashboard = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [currentUser, setCurrentUser] = useState('');
     const [refreshTrigger, setRefreshTrigger] = useState(0);
+    const [activeTab, setActiveTab] = useState('farmer');
     const [dbConnectionError, setDbConnectionError] = useState(false);
 
     // Stats State
@@ -34,6 +35,7 @@ const HiddenDashboard = () => {
         totalWeight: 0,
         totalRevenue: 0,
         pendingSupplierBalance: 0,
+        totalExpenses: 0,
         netProfit: 0
     });
 
@@ -91,9 +93,13 @@ const HiddenDashboard = () => {
                 pendingSupplierBalance = totalPayable - totalPaid;
             }
 
-            const netProfit = totalRevenue - totalCost;
+            // Fetch expenses
+            const { data: expenses } = await supabase.from('expenses').select('amount');
+            const totalExpenses = expenses ? expenses.reduce((sum, e) => sum + (e.amount || 0), 0) : 0;
 
-            setStats({ totalOrders, pendingDeliveries, pendingPayments, totalWeight, totalRevenue, pendingSupplierBalance, netProfit });
+            const netProfit = totalRevenue - totalCost - totalExpenses;
+
+            setStats({ totalOrders, pendingDeliveries, pendingPayments, totalWeight, totalRevenue, pendingSupplierBalance, totalExpenses, netProfit });
         }
     };
 
@@ -151,9 +157,12 @@ const HiddenDashboard = () => {
                     </Alert>
                 )}
 
-                <StatsOverview {...stats} />
+                <StatsOverview
+                    {...stats}
+                    onExpenseClick={() => setActiveTab('expenses')}
+                />
 
-                <Tabs defaultValue="farmer" className="w-full space-y-6">
+                <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full space-y-6">
                     <TabsList className="bg-white border w-full h-auto flex flex-wrap md:w-auto p-1 gap-1">
                         <TabsTrigger value="farmer" className="flex gap-2">
                             <LayoutDashboard className="h-4 w-4" /> Planning & Sales

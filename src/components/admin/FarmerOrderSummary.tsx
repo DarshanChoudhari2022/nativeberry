@@ -139,8 +139,31 @@ const FarmerOrderSummary = () => {
         setProcurement(Object.values(procMap));
     };
 
-    // WhatsApp function removed as per request to remove "Share with Gade"
-    // and treat this as internal procurement investment tracking.
+    const generateWhatsAppProcurement = () => {
+        const dateStr = format(new Date(), 'dd MMM');
+        let message = `*🍓 NATIVE BERRY - FINAL PROCUREMENT (${dateStr})*\n`;
+        message += `*TO: Rushi Gade*\n`;
+        message += `--------------------------\n`;
+
+        let totalKg = 0;
+        procurement.forEach(p => {
+            message += `📦 *${p.product}*: ${p.totalQty} units (${p.totalWeight.toFixed(1)} kg)\n`;
+            totalKg += p.totalWeight;
+        });
+
+        message += `--------------------------\n`;
+        message += `🚀 *TOTAL WEIGHT: ${totalKg.toFixed(1)} KG*\n`;
+
+        if (buyRate) {
+            const totalInv = Math.round(totalKg * (parseFloat(buyRate) || 0));
+            message += `💰 *EST. INVESTMENT: ₹${totalInv.toLocaleString()}*\n`;
+        }
+
+        message += `\nPlease arrange the above supply. Thank you!`;
+
+        const encodedMsg = encodeURIComponent(message);
+        window.open(`https://wa.me/?text=${encodedMsg}`, '_blank');
+    };
 
     if (loading) return <div className="flex justify-center p-12"><Loader2 className="animate-spin text-red-500 h-8 w-8" /></div>;
 
@@ -281,6 +304,14 @@ const FarmerOrderSummary = () => {
                             <div className="text-sm font-bold text-green-700">
                                 Est. Investment: <span className="text-lg">₹{Math.round(procurement.reduce((acc, curr) => acc + curr.totalWeight, 0) * (parseFloat(buyRate) || 0)).toLocaleString()}</span>
                             </div>
+                            <div className="h-8 w-[1px] bg-green-200"></div>
+                            <Button
+                                onClick={generateWhatsAppProcurement}
+                                size="sm"
+                                className="bg-green-600 hover:bg-green-700 text-white gap-2 shadow-sm"
+                            >
+                                <Share2 className="h-3 w-3" /> Final Share to Gade
+                            </Button>
                         </div>
                     )}
                 </div>
@@ -317,6 +348,7 @@ const FarmerOrderSummary = () => {
                     <ul className="list-disc ml-5 space-y-1 opacity-90">
                         <li><strong>Mon-Fri:</strong> Sales team (Darshan, Suraj, Sushant) adds orders continuously.</li>
                         <li><strong>Friday Evening:</strong> Check the "Procurement Investment" section to see total weight & cost.</li>
+                        <li><strong>Final Step:</strong> Use the "Final Share to Gade" button to send requirements via WhatsApp.</li>
                         <li><strong>Investment:</strong> Arrange the funds and confirm the purchase with the farm.</li>
                         <li><strong>Dispatch:</strong> Once stock arrives, switch to the "Delivery" tab to assign boys.</li>
                     </ul>
