@@ -6,7 +6,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Trash2, Plus, Receipt, Calendar as CalendarIcon, Pencil, X } from 'lucide-react';
+import { Trash2, Plus, Receipt, Calendar as CalendarIcon, Pencil, X, User } from 'lucide-react';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
@@ -23,11 +24,12 @@ interface Expense {
     amount: number;
     date: string;
     category?: string;
+    spender?: string;
 }
 
 export default function ExpenseManager() {
     const [expenses, setExpenses] = useState<Expense[]>([]);
-    const [newExpense, setNewExpense] = useState({ description: '', amount: '', category: 'General' });
+    const [newExpense, setNewExpense] = useState({ description: '', amount: '', category: 'General', spender: 'Darshan' });
     const [date, setDate] = useState<Date | undefined>(new Date());
     const [editingId, setEditingId] = useState<number | null>(null);
     const [loading, setLoading] = useState(false);
@@ -61,6 +63,7 @@ export default function ExpenseManager() {
             description: newExpense.description,
             amount: parseFloat(newExpense.amount),
             category: newExpense.category,
+            spender: newExpense.spender,
             date: date ? date.toISOString() : new Date().toISOString()
         };
 
@@ -84,7 +87,7 @@ export default function ExpenseManager() {
             toast.error(editingId ? 'Failed to update expense' : 'Failed to add expense');
         } else {
             toast.success(editingId ? 'Expense updated' : 'Expense added');
-            setNewExpense({ description: '', amount: '', category: 'General' });
+            setNewExpense({ description: '', amount: '', category: 'General', spender: 'Darshan' });
             setDate(new Date());
             setEditingId(null);
             fetchExpenses();
@@ -96,14 +99,15 @@ export default function ExpenseManager() {
         setNewExpense({
             description: expense.description,
             amount: expense.amount.toString(),
-            category: expense.category || 'General'
+            category: expense.category || 'General',
+            spender: expense.spender || 'Darshan'
         });
         setDate(new Date(expense.date));
         setEditingId(expense.id);
     };
 
     const cancelEditing = () => {
-        setNewExpense({ description: '', amount: '', category: 'General' });
+        setNewExpense({ description: '', amount: '', category: 'General', spender: 'Darshan' });
         setDate(new Date());
         setEditingId(null);
     };
@@ -136,59 +140,78 @@ export default function ExpenseManager() {
                         </Button>
                     )}
                 </CardHeader>
-                <CardContent className="flex flex-col md:flex-row gap-4 items-end">
-                    <div className="space-y-2 flex-1 w-full">
-                        <Label>Date</Label>
-                        <Popover>
-                            <PopoverTrigger asChild>
-                                <Button
-                                    variant={"outline"}
-                                    className={cn(
-                                        "w-full justify-start text-left font-normal bg-white",
-                                        !date && "text-muted-foreground"
-                                    )}
-                                >
-                                    <CalendarIcon className="mr-2 h-4 w-4" />
-                                    {date ? format(date, "PPP") : <span>Pick a date</span>}
-                                </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0" align="start">
-                                <Calendar
-                                    mode="single"
-                                    selected={date}
-                                    onSelect={setDate}
-                                    initialFocus
-                                    className="bg-white"
-                                />
-                            </PopoverContent>
-                        </Popover>
+                <CardContent className="space-y-6">
+                    <div className="flex flex-col md:flex-row gap-4 items-end">
+                        <div className="space-y-2 flex-1 w-full md:max-w-[200px]">
+                            <Label className="flex items-center gap-2"><User className="h-3 w-3" /> Paid By</Label>
+                            <Tabs
+                                value={newExpense.spender}
+                                onValueChange={(v) => setNewExpense({ ...newExpense, spender: v })}
+                                className="w-full"
+                            >
+                                <TabsList className="grid grid-cols-3 w-full bg-white border">
+                                    <TabsTrigger value="Darshan" className="text-xs py-1.5 data-[state=active]:bg-red-500 data-[state=active]:text-white">D</TabsTrigger>
+                                    <TabsTrigger value="Suraj" className="text-xs py-1.5 data-[state=active]:bg-blue-500 data-[state=active]:text-white">S</TabsTrigger>
+                                    <TabsTrigger value="Sushant" className="text-xs py-1.5 data-[state=active]:bg-green-500 data-[state=active]:text-white">S2</TabsTrigger>
+                                </TabsList>
+                            </Tabs>
+                        </div>
+                        <div className="space-y-2 flex-1 w-full">
+                            <Label>Date</Label>
+                            <Popover>
+                                <PopoverTrigger asChild>
+                                    <Button
+                                        variant={"outline"}
+                                        className={cn(
+                                            "w-full justify-start text-left font-normal bg-white",
+                                            !date && "text-muted-foreground"
+                                        )}
+                                    >
+                                        <CalendarIcon className="mr-2 h-4 w-4" />
+                                        {date ? format(date, "PPP") : <span>Pick a date</span>}
+                                    </Button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-auto p-0" align="start">
+                                    <Calendar
+                                        mode="single"
+                                        selected={date}
+                                        onSelect={setDate}
+                                        initialFocus
+                                        className="bg-white"
+                                    />
+                                </PopoverContent>
+                            </Popover>
+                        </div>
                     </div>
-                    <div className="space-y-2 flex-[2] w-full">
-                        <Label>Description</Label>
-                        <Input
-                            value={newExpense.description}
-                            onChange={e => setNewExpense({ ...newExpense, description: e.target.value })}
-                            placeholder="e.g. Petrol, Packaging, Maintenance"
-                            className="bg-white"
-                        />
+
+                    <div className="flex flex-col md:flex-row gap-4 items-end">
+                        <div className="space-y-2 flex-[2] w-full">
+                            <Label>Description</Label>
+                            <Input
+                                value={newExpense.description}
+                                onChange={e => setNewExpense({ ...newExpense, description: e.target.value })}
+                                placeholder="e.g. Petrol, Packaging, Maintenance"
+                                className="bg-white"
+                            />
+                        </div>
+                        <div className="space-y-2 w-full md:w-32">
+                            <Label>Amount (₹)</Label>
+                            <Input
+                                type="number"
+                                value={newExpense.amount}
+                                onChange={e => setNewExpense({ ...newExpense, amount: e.target.value })}
+                                placeholder="0.00"
+                                className="bg-white font-bold"
+                            />
+                        </div>
+                        <Button onClick={handleSaveExpense} disabled={loading} className="bg-purple-600 hover:bg-purple-700 w-full md:w-auto min-w-[140px]">
+                            {editingId ? (
+                                <> <Pencil className="mr-2 h-4 w-4" /> Update </>
+                            ) : (
+                                <> <Plus className="mr-2 h-4 w-4" /> Add Expense </>
+                            )}
+                        </Button>
                     </div>
-                    <div className="space-y-2 w-full md:w-48">
-                        <Label>Amount (₹)</Label>
-                        <Input
-                            type="number"
-                            value={newExpense.amount}
-                            onChange={e => setNewExpense({ ...newExpense, amount: e.target.value })}
-                            placeholder="0.00"
-                            className="bg-white"
-                        />
-                    </div>
-                    <Button onClick={handleSaveExpense} disabled={loading} className="bg-purple-600 hover:bg-purple-700 w-full md:w-auto min-w-[140px]">
-                        {editingId ? (
-                            <> <Pencil className="mr-2 h-4 w-4" /> Update </>
-                        ) : (
-                            <> <Plus className="mr-2 h-4 w-4" /> Add Expense </>
-                        )}
-                    </Button>
                 </CardContent>
             </Card>
 
@@ -206,6 +229,7 @@ export default function ExpenseManager() {
                             <TableHeader>
                                 <TableRow>
                                     <TableHead>Date</TableHead>
+                                    <TableHead>Paid By</TableHead>
                                     <TableHead>Description</TableHead>
                                     <TableHead>Amount</TableHead>
                                     <TableHead className="w-[100px]">Action</TableHead>
@@ -222,6 +246,16 @@ export default function ExpenseManager() {
                                     expenses.map((expense) => (
                                         <TableRow key={expense.id}>
                                             <TableCell>{new Date(expense.date).toLocaleDateString('en-IN')}</TableCell>
+                                            <TableCell>
+                                                <span className={cn(
+                                                    "px-2 py-1 rounded text-[10px] font-bold uppercase",
+                                                    expense.spender === 'Darshan' ? "bg-red-100 text-red-700" :
+                                                        expense.spender === 'Suraj' ? "bg-blue-100 text-blue-700" :
+                                                            "bg-green-100 text-green-700"
+                                                )}>
+                                                    {expense.spender || 'Darshan'}
+                                                </span>
+                                            </TableCell>
                                             <TableCell>{expense.description}</TableCell>
                                             <TableCell className="font-medium">₹{expense.amount}</TableCell>
                                             <TableCell>
